@@ -1,13 +1,13 @@
 {
   "name": "metalamp-slider",
   "version": "1.0.0",
-  "source": "src/index.js",
-  "main": "dist/main.js",
-  "description": "",
+  "source": "src/index.html",
   "main": "index.js",
+  "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "parcel watch",
+    "watch": "parcel watch src/index.ts",
+    "dev": "parcel serve --open ",
     "build": "parcel build"
   },
   "author": "",
