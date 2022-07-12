@@ -2,6 +2,7 @@ import { ILineBlockOptions } from "../../../interfaces/interfaces";
 import Handle from "../handle/handle";
 import Label from "../label/label";
 import ProgressBar from "../progressBar/progressBar";
+import "./lineBlock.scss";
 
 class lineBlock {
   private container: HTMLElement;
@@ -20,10 +21,10 @@ class lineBlock {
     const lineBlock = document.createElement("div");
     const activeBlock = document.createElement("div");
 
-    lineBlock.id = "lineBlock";
-    activeBlock.id = "activeBlock";
+    lineBlock.classList.add("lineBlock");
+    activeBlock.classList.add("lineBlock__active");
 
-    this.firstHandler = new Handle().render(activeBlock);
+    this.firstHandler = new Handle().render(activeBlock, "lineBlock__handler");
     this.firstLabel = new Label().render(activeBlock);
     lineBlock.append(activeBlock);
 

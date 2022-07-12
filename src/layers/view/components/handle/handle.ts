@@ -1,8 +1,8 @@
 class Handle {
   constructor() {}
-  render = (container: HTMLElement) => {
+  render = (container: HTMLElement, className: string) => {
     const handle = document.createElement("div");
-    handle.id = "handle";
+    handle.classList.add(className);
     container.append(handle);
   };
 }
