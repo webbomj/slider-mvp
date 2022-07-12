@@ -11,4 +11,9 @@ interface IModelOptions {
   isProgressBar: boolean;
 }
 
-export { IModelOptions };
+interface IPresenterOptions {
+  container: HTMLElement;
+  options: IModelOptions;
+}
+
+export { IModelOptions, IPresenterOptions };
