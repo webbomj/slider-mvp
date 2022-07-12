@@ -1,5 +1,5 @@
 import { IModelOptions } from "./layers/interfaces/interfaces";
-import Model from "./layers/model/model";
+import Presenter from "./layers/presenter/presenter";
 
 const defaultOptions: IModelOptions = {
   min: 0,
@@ -13,5 +13,8 @@ const defaultOptions: IModelOptions = {
   isProgressBar: true,
 };
 
-const model = new Model(defaultOptions);
-console.log(model);
+const container = document.getElementById("app");
+if (container) {
+  const app = new Presenter({ container, options: defaultOptions });
+  console.log(app);
+}

@@ -16,4 +16,14 @@ interface IPresenterOptions {
   options: IModelOptions;
 }
 
-export { IModelOptions, IPresenterOptions };
+interface IViewOptions {
+  container: HTMLElement;
+  options: IModelOptions;
+}
+
+interface ILineBlockOptions {
+  container: HTMLElement;
+  options: IModelOptions;
+}
+
+export { IModelOptions, IPresenterOptions, IViewOptions, ILineBlockOptions };
