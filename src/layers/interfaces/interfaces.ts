@@ -53,7 +53,7 @@ interface IObserver {
 }
 
 interface ISubscriber {
-  eventName: "updateView";
+  eventName: "updateView" | "updateModel";
   function: (data: Partial<IModelOptions>) => void;
 }
 interface IEventObject {

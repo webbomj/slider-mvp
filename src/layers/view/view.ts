@@ -1,15 +1,21 @@
-import { IModelOptions, IViewOptions } from "../interfaces/interfaces";
+import {
+  IModelOptions,
+  IObserver,
+  IViewOptions,
+} from "../interfaces/interfaces";
+import Observer from "../observer/observer";
 import lineBlock from "./components/lineBlock/lineBlock";
 import Scale from "./components/scale/scale";
 
 class View {
   private container: HTMLElement;
   private options: IModelOptions;
-  private slide;
+  public observer: IObserver;
 
   constructor({ options, container }: IViewOptions) {
     this.container = container;
     this.options = options;
+    this.observer = new Observer();
     this.init();
   }
 
@@ -18,9 +24,10 @@ class View {
       container: this.container,
       options: this.options,
     });
-    this.slide = slide;
     const scale = new Scale().render(this.container);
   };
+
+  updateView = () => {};
 }
 
 export default View;

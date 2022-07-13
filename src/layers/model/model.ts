@@ -2,7 +2,9 @@ import {
   IModelOptions,
   ModelAction,
   IModelAction,
+  IObserver,
 } from "../interfaces/interfaces";
+import Observer from "../observer/observer";
 
 export default class Model {
   private minValue: number;
@@ -24,6 +26,8 @@ export default class Model {
   private isScale: boolean;
 
   private isProgressBar: boolean;
+
+  public observer: IObserver = new Observer();
 
   constructor(options: IModelOptions) {
     const {

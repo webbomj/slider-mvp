@@ -52,8 +52,7 @@ class lineBlock {
         let sliderSpanCoords = getCoords(sliderSpan);
         let shift = event.pageX - sliderSpanCoords.left;
 
-        //Начнем движение ползунка
-        document.addEventListener("mousemove", function (event) {
+        const moveSlider = (event) => {
           let left =
             ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
             100;
@@ -76,11 +75,39 @@ class lineBlock {
           let values = result + min;
           console.log(typeof result);
           $("p.result").html(values);
-        });
+        };
 
+        const moveSliderFn = (event) => moveSlider(event);
+
+        //Начнем движение ползунка
+        document.addEventListener("mousemove", moveSliderFn);
+        // {
+        // let left =
+        //   ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
+        //   100;
+        // if (left < 0) left = 0;
+        // if (left > 100) left = 100;
+
+        // Шаг слайдера
+        // let stepCount = (max - min) / stepSize;
+        // let stepPercent = 100 / stepCount;
+        // let stepLeft = Math.round(left / stepPercent) * stepPercent;
+        // if (stepLeft < 0) stepLeft = 0;
+        // if (stepLeft > 100) stepLeft = 100;
+        // if (sliderSpan) {
+        //   sliderSpan.style.left = stepLeft + "%";
+        // }
+
+        //Расчитаем значение равное шагу слайдера
+        // let result = ((stepLeft / stepPercent) * stepSize).toFixed();
+        // result = +result;
+        // let values = result + min;
+        // console.log(typeof result);
+        // $("p.result").html(values);
+        // });
         //Остановим движение ползунка
         document.addEventListener("mouseup", function () {
-          $(document).off("mousemove");
+          document.removeEventListener("mousemove", moveSliderFn);
         });
 
         return false;
