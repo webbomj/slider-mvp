@@ -1,4 +1,8 @@
-import { IModelOptions } from "../interfaces/interfaces";
+import {
+  IModelOptions,
+  ModelAction,
+  IModelAction,
+} from "../interfaces/interfaces";
 
 export default class Model {
   private minValue: number;
@@ -50,34 +54,47 @@ export default class Model {
     }
   }
 
-  private setMinValue = (value: number): void => {
-    this.minValue = value;
-  };
-  private setMaxValue = (value: number): void => {
-    this.maxValue = value;
-  };
-  private setFromValue = (value: number): void => {
-    this.fromValue = value;
-  };
-  private setToValue = (value: number): void => {
-    this.toValue = value;
-  };
-  private setStep = (value: number): void => {
-    this.step = value;
-  };
-  private setIsVertical = (value: boolean): void => {
-    this.isVertical = value;
-  };
-  private setIsInterval = (value: boolean): void => {
-    this.isInterval = value;
-  };
-  private setIsLabel = (value: boolean): void => {
-    this.isLabel = value;
-  };
-  private setIsProgressBar = (value: boolean): void => {
-    this.isProgressBar = value;
-  };
-  private setIsScale = (value: boolean): void => {
-    this.isScale = value;
+  updateState = ({ type, payload }: IModelAction): void => {
+    if (typeof payload.value === "number") {
+      switch (type) {
+        case ModelAction.setMinValue:
+          this.minValue = payload.value;
+          break;
+        case ModelAction.setMaxValue:
+          this.maxValue = payload.value;
+          break;
+        case ModelAction.setFromValue:
+          this.fromValue = payload.value;
+          break;
+        case ModelAction.setToValue:
+          this.toValue = payload.value;
+          break;
+        case ModelAction.setStep:
+          this.step = payload.value;
+          break;
+        default:
+          break;
+      }
+    } else if (typeof payload.value === "boolean") {
+      switch (type) {
+        case ModelAction.setIsVertical:
+          this.isVertical = payload.value;
+          break;
+        case ModelAction.setIsInterval:
+          this.isInterval = payload.value;
+          break;
+        case ModelAction.setIsLabel:
+          this.isLabel = payload.value;
+          break;
+        case ModelAction.setIsProgressBar:
+          this.isProgressBar = payload.value;
+          break;
+        case ModelAction.setIsScale:
+          this.isScale = payload.value;
+          break;
+        default:
+          break;
+      }
+    }
   };
 }

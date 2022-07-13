@@ -5,7 +5,7 @@ import Scale from "./components/scale/scale";
 class View {
   private container: HTMLElement;
   private options: IModelOptions;
-  private wrapper;
+  private slide;
 
   constructor({ options, container }: IViewOptions) {
     this.container = container;
@@ -14,11 +14,11 @@ class View {
   }
 
   init = () => {
-    const wrapper = new lineBlock({
+    const slide = new lineBlock({
       container: this.container,
       options: this.options,
     });
-    this.wrapper = wrapper;
+    this.slide = slide;
     const scale = new Scale().render(this.container);
   };
 }

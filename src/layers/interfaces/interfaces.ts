@@ -11,6 +11,26 @@ interface IModelOptions {
   isProgressBar: boolean;
 }
 
+enum ModelAction {
+  "setMinValue",
+  "setMaxValue",
+  "setFromValue",
+  "setToValue",
+  "setStep",
+  "setIsVertical",
+  "setIsInterval",
+  "setIsLabel",
+  "setIsProgressBar",
+  "setIsScale",
+}
+
+interface IModelAction {
+  type: ModelAction;
+  payload: {
+    value: boolean | number;
+  };
+}
+
 interface IPresenterOptions {
   container: HTMLElement;
   options: IModelOptions;
@@ -26,4 +46,11 @@ interface ILineBlockOptions {
   options: IModelOptions;
 }
 
-export { IModelOptions, IPresenterOptions, IViewOptions, ILineBlockOptions };
+export {
+  IModelOptions,
+  ModelAction,
+  IPresenterOptions,
+  IViewOptions,
+  ILineBlockOptions,
+  IModelAction,
+};
