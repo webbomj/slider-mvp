@@ -46,6 +46,21 @@ interface ILineBlockOptions {
   options: IModelOptions;
 }
 
+interface IObserver {
+  subscribe: (subscriber: ISubscriber) => void;
+  unsubscribe: (subscriber: ISubscriber) => void;
+  notify: (eventObject: IEventObject) => void;
+}
+
+interface ISubscriber {
+  eventName: "updateView";
+  function: (data: Partial<IModelOptions>) => void;
+}
+interface IEventObject {
+  eventName: "updateView";
+  eventPayload: Partial<IModelOptions>;
+}
+
 export {
   IModelOptions,
   ModelAction,
@@ -53,4 +68,7 @@ export {
   IViewOptions,
   ILineBlockOptions,
   IModelAction,
+  IObserver,
+  ISubscriber,
+  IEventObject,
 };
