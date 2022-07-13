@@ -4,8 +4,9 @@
   width: 400px;
 
   height: 6px;
-  background: #ffffff;
-  border: 1px solid rgba(31, 32, 65, 0.25);
+  background: #fff;
+  // border: 1px solid rgba(31, 32, 65, 0.25);
+  outline: 1px solid rgba(31, 32, 65, 0.25);
   border-radius: 3px;
   // &__active {
   //   position: relative;
@@ -17,7 +18,7 @@
     background: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
     border: 2px solid #ffffff;
     border-radius: 10px;
-    top: -6px;
-    left: -1%;
+    top: -5px;
+    left: -1px;
   }
 }

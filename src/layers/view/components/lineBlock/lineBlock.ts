@@ -52,59 +52,48 @@ class lineBlock {
         let sliderSpanCoords = getCoords(sliderSpan);
         let shift = event.pageX - sliderSpanCoords.left;
 
+        console.log(
+          "sliderCoords",
+          sliderCoords,
+          "sliderSpanCoords",
+          sliderSpanCoords,
+          "shift",
+          shift,
+          event.pageX,
+          sliderSpanCoords.left
+        );
+
+        //Начнем движение ползунка
         const moveSlider = (event) => {
           let left =
             ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
             100;
           if (left < 0) left = 0;
           if (left > 100) left = 100;
+          console.log("left", left);
 
           //Шаг слайдера
           let stepCount = (max - min) / stepSize;
           let stepPercent = 100 / stepCount;
-          let stepLeft = Math.round(left / stepPercent) * stepPercent;
+          let stepLeft = Math.floor(left / stepPercent) * stepPercent;
           if (stepLeft < 0) stepLeft = 0;
           if (stepLeft > 100) stepLeft = 100;
           if (sliderSpan) {
-            sliderSpan.style.left = stepLeft + "%";
+            sliderSpan.style.left = `${stepLeft - stepPercent}%`;
           }
 
           //Расчитаем значение равное шагу слайдера
-          let result = ((stepLeft / stepPercent) * stepSize).toFixed();
-          result = +result;
-          let values = result + min;
-          console.log(typeof result);
-          $("p.result").html(values);
+          // let result = ((stepLeft / stepPercent) * stepSize).toFixed();
+          // result = +result;
+          // let values = result + min;
+          // $("p.result").html(values);
         };
 
         const moveSliderFn = (event) => moveSlider(event);
 
         //Начнем движение ползунка
         document.addEventListener("mousemove", moveSliderFn);
-        // {
-        // let left =
-        //   ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
-        //   100;
-        // if (left < 0) left = 0;
-        // if (left > 100) left = 100;
 
-        // Шаг слайдера
-        // let stepCount = (max - min) / stepSize;
-        // let stepPercent = 100 / stepCount;
-        // let stepLeft = Math.round(left / stepPercent) * stepPercent;
-        // if (stepLeft < 0) stepLeft = 0;
-        // if (stepLeft > 100) stepLeft = 100;
-        // if (sliderSpan) {
-        //   sliderSpan.style.left = stepLeft + "%";
-        // }
-
-        //Расчитаем значение равное шагу слайдера
-        // let result = ((stepLeft / stepPercent) * stepSize).toFixed();
-        // result = +result;
-        // let values = result + min;
-        // console.log(typeof result);
-        // $("p.result").html(values);
-        // });
         //Остановим движение ползунка
         document.addEventListener("mouseup", function () {
           document.removeEventListener("mousemove", moveSliderFn);
@@ -118,7 +107,14 @@ class lineBlock {
       let boxLeft = elem.getBoundingClientRect().left;
 
       let boxRight = boxLeft + elem.offsetWidth;
-
+      console.log(
+        "getCoords",
+        `${elem}`,
+        boxLeft,
+        boxRight,
+        elem.offsetWidth,
+        pageXOffset
+      );
       return {
         left: boxLeft + pageXOffset,
         width: boxRight - boxLeft,
