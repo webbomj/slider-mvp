@@ -64,6 +64,7 @@ interface IEventObject {
 interface IScaleOptions {
   container: HTMLElement;
   arrayScale: number[];
+  shift: number;
 }
 
 export {

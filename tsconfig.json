@@ -11,7 +11,7 @@
     "test/**/*.ts",
     "src/layers/view/label"
   ],
-  "CommonJS": "ES5",
+  "CommonJS": "ES6",
   "compilerOptions": {
     "strict": true,
     "strictPropertyInitialization": false,

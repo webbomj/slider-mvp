@@ -29,10 +29,13 @@ class View {
     });
     const { min, max, step } = this.options;
     const arrScale = this.createArrScale(min, max, step);
+    const stepInPercent = 100 / (max - min);
     let scaleOptions: IScaleOptions = {
       container: this.container,
       arrayScale: arrScale,
+      shift: stepInPercent,
     };
+
     this.scale = new Scale(scaleOptions);
   };
 

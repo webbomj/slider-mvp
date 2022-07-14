@@ -34,12 +34,14 @@
     user-select: none;
   }
   &__scale {
+    position: relative;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
   }
   &__scaleItem {
-    transform: translateX(50%);
+    position: absolute;
+    transform: translateX(-50%);
     user-select: none;
   }
 }
