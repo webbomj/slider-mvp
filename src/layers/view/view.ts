@@ -11,6 +11,8 @@ class View {
   private container: HTMLElement;
   private options: IModelOptions;
   public observer: IObserver;
+  private slide;
+  private scale;
 
   constructor({ options, container }: IViewOptions) {
     this.container = container;
@@ -20,11 +22,11 @@ class View {
   }
 
   init = () => {
-    const slide = new lineBlock({
+    this.slide = new lineBlock({
       container: this.container,
       options: this.options,
     });
-    const scale = new Scale().render(this.container);
+    this.scale = new Scale().render(this.container);
   };
 
   updateView = () => {};

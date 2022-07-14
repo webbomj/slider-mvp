@@ -28,8 +28,8 @@ class lineBlock {
     lineBlock.classList.add("lineBlock");
     activeBlock.classList.add("lineBlock__active");
 
-    this.firstHandler = new Handle().render(activeBlock, "lineBlock__handler");
-    this.firstLabel = new Label().render(activeBlock);
+    new Handle().render(activeBlock);
+    new Label().render(activeBlock);
 
     lineBlock.append(activeBlock);
 
@@ -38,11 +38,14 @@ class lineBlock {
       this.container.append(lineBlock);
     }
   };
-  mode = () => {
+  mode() {
     let sliderSpan: HTMLDivElement | null = document.querySelector(
       ".lineBlock__handler"
     );
     let slider = document.querySelector(".lineBlock");
+    let label: HTMLDivElement | null =
+      this.container.querySelector(".lineBlock__label");
+
     const { min, max, step: stepSize } = this.options;
 
     // $("p.result").html(min);
@@ -51,17 +54,7 @@ class lineBlock {
         let sliderCoords = getCoords(slider);
         let sliderSpanCoords = getCoords(sliderSpan);
         let shift = event.pageX - sliderSpanCoords.left;
-
-        console.log(
-          "sliderCoords",
-          sliderCoords,
-          "sliderSpanCoords",
-          sliderSpanCoords,
-          "shift",
-          shift,
-          event.pageX,
-          sliderSpanCoords.left
-        );
+        console.log(event.pageX);
 
         //Начнем движение ползунка
         const moveSlider = (event) => {
@@ -75,11 +68,14 @@ class lineBlock {
           //Шаг слайдера
           let stepCount = (max - min) / stepSize;
           let stepPercent = 100 / stepCount;
-          let stepLeft = Math.floor(left / stepPercent) * stepPercent;
+          let stepLeft = Math.round(left / stepPercent) * stepPercent;
           if (stepLeft < 0) stepLeft = 0;
           if (stepLeft > 100) stepLeft = 100;
           if (sliderSpan) {
-            sliderSpan.style.left = `${stepLeft - stepPercent}%`;
+            sliderSpan.style.left = `${stepLeft}%`;
+          }
+          if (label) {
+            label.style.left = `${stepLeft}%`;
           }
 
           //Расчитаем значение равное шагу слайдера
@@ -120,7 +116,7 @@ class lineBlock {
         width: boxRight - boxLeft,
       };
     }
-  };
+  }
 }
 
 export default lineBlock;

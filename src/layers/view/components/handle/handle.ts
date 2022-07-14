@@ -1,8 +1,8 @@
 class Handle {
   constructor() {}
-  render = (container: HTMLElement, className: string) => {
+  render = (container: HTMLAreaElement) => {
     const handle = document.createElement("div");
-    handle.classList.add(className);
+    handle.classList.add("lineBlock__handler");
     container.append(handle);
   };
 }

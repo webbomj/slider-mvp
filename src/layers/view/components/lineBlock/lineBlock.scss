@@ -1,7 +1,7 @@
 .lineBlock {
   position: relative;
   box-sizing: border-box;
-  width: 400px;
+  width: 1000px;
 
   height: 6px;
   background: #fff;
@@ -19,6 +19,18 @@
     border: 2px solid #ffffff;
     border-radius: 10px;
     top: -5px;
-    left: -1px;
+    transform: translateX(-50%);
+  }
+  &__label {
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
+    position: absolute;
+    border-radius: 2px;
+    color: #fff;
+    padding: 3px 5px;
+    text-align: center;
+    left: 0%;
+    top: -35px;
+    transform: translateX(-50%);
   }
 }

@@ -1,9 +1,16 @@
 class Label {
-  constructor() {}
-  render = (container: HTMLElement) => {
+  private label: HTMLElement;
+  constructor() {
     const label = document.createElement("div");
-    label.id = "label";
-    container.append(label);
+    this.label = label;
+    this.update(5);
+  }
+  render = (container: HTMLElement) => {
+    this.label.classList.add("lineBlock__label");
+    container.append(this.label);
+  };
+  update = (value: number) => {
+    this.label.textContent = `${value}`;
   };
 }
 
