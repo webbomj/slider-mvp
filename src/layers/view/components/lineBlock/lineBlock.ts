@@ -1,29 +1,31 @@
-import { ILineBlockOptions } from "../../../interfaces/interfaces";
+import {
+  ILineBlockOptions,
+  IScaleOptions,
+} from "../../../interfaces/interfaces";
 import Handle from "../handle/handle";
 import Label from "../label/label";
 import ProgressBar from "../progressBar/progressBar";
+import Scale from "../scale/scale";
 import "./lineBlock.scss";
 
 class lineBlock {
   private container: HTMLElement;
-  private firstHandler;
-  private secondHandler;
-  private firstLabel;
-  private progressBar;
   private options;
+  private progressBar;
 
   constructor(lineOptions: ILineBlockOptions) {
     const { container, options } = lineOptions;
     this.container = container;
     this.options = options;
     this.init();
-    console.log($);
     this.mode();
   }
 
   init = () => {
     const lineBlock = document.createElement("div");
     const activeBlock = document.createElement("div");
+
+    const { min, max, step } = this.options;
 
     lineBlock.classList.add("lineBlock");
     activeBlock.classList.add("lineBlock__active");
@@ -74,15 +76,14 @@ class lineBlock {
           if (sliderSpan) {
             sliderSpan.style.left = `${stepLeft}%`;
           }
-          if (label) {
-            label.style.left = `${stepLeft}%`;
-          }
 
           //Расчитаем значение равное шагу слайдера
-          // let result = ((stepLeft / stepPercent) * stepSize).toFixed();
-          // result = +result;
-          // let values = result + min;
-          // $("p.result").html(values);
+          let result = Number(((stepLeft / stepPercent) * stepSize).toFixed());
+          let values = result + min;
+          if (label) {
+            label.style.left = `${stepLeft}%`;
+            label.textContent = `${values}`;
+          }
         };
 
         const moveSliderFn = (event) => moveSlider(event);

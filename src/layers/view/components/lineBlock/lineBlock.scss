@@ -1,7 +1,6 @@
 .lineBlock {
   position: relative;
   box-sizing: border-box;
-  width: 1000px;
 
   height: 6px;
   background: #fff;
@@ -32,5 +31,15 @@
     left: 0%;
     top: -35px;
     transform: translateX(-50%);
+    user-select: none;
+  }
+  &__scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  &__scaleItem {
+    transform: translateX(50%);
+    user-select: none;
   }
 }

@@ -1,6 +1,7 @@
 import {
   IModelOptions,
   IObserver,
+  IScaleOptions,
   IViewOptions,
 } from "../interfaces/interfaces";
 import Observer from "../observer/observer";
@@ -26,7 +27,21 @@ class View {
       container: this.container,
       options: this.options,
     });
-    this.scale = new Scale().render(this.container);
+    const { min, max, step } = this.options;
+    const arrScale = this.createArrScale(min, max, step);
+    let scaleOptions: IScaleOptions = {
+      container: this.container,
+      arrayScale: arrScale,
+    };
+    this.scale = new Scale(scaleOptions);
+  };
+
+  createArrScale = (min: number, max: number, step: number) => {
+    let arrayScale = [];
+    for (let index = min; index <= max; index += step) {
+      arrayScale.push(index);
+    }
+    return arrayScale;
   };
 
   updateView = () => {};

@@ -3,7 +3,7 @@ class Label {
   constructor() {
     const label = document.createElement("div");
     this.label = label;
-    this.update(5);
+    this.update(0);
   }
   render = (container: HTMLElement) => {
     this.label.classList.add("lineBlock__label");

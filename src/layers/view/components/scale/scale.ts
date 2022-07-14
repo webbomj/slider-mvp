@@ -1,11 +1,33 @@
-import { IViewOptions } from "../../../interfaces/interfaces";
+import { IScaleOptions, IViewOptions } from "../../../interfaces/interfaces";
 
 class Scale {
-  constructor() {}
-  render = (container: HTMLElement) => {
+  arrayScale: number[];
+  container: HTMLElement;
+  constructor({ arrayScale, container }: IScaleOptions) {
+    this.arrayScale = arrayScale;
+    this.container = container;
+    this.render();
+  }
+
+  render = () => {
     const scale = document.createElement("div");
-    scale.id = "scale";
-    container.append(scale);
+    scale.classList.add("lineBlock__scale");
+
+    this.arrayScale.forEach((el, idx) => {
+      let scaleNumber = this.createItem();
+
+      scaleNumber.textContent = `${el}`;
+
+      scale.appendChild(scaleNumber);
+    });
+
+    this.container.appendChild(scale);
+  };
+
+  createItem = () => {
+    const scale = document.createElement("div");
+    scale.classList.add("lineBlock__scaleItem");
+    return scale;
   };
 }
 

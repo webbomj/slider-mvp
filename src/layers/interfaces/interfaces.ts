@@ -61,6 +61,11 @@ interface IEventObject {
   eventPayload: Partial<IModelOptions>;
 }
 
+interface IScaleOptions {
+  container: HTMLElement;
+  arrayScale: number[];
+}
+
 export {
   IModelOptions,
   ModelAction,
@@ -71,4 +76,5 @@ export {
   IObserver,
   ISubscriber,
   IEventObject,
+  IScaleOptions,
 };
