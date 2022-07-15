@@ -2,7 +2,7 @@ interface IModelOptions {
   min: number;
   max: number;
   from: number;
-  to?: number | null;
+  to: number;
   step: number;
   isVertical: boolean;
   isInterval: boolean;
@@ -67,6 +67,45 @@ interface IScaleOptions {
   shift: number;
 }
 
+interface IProgressBarOptions {
+  container: HTMLElement;
+  shiftFrom: number;
+  width: number;
+}
+
+interface ICountShiftFromProps {
+  min: number;
+  from: number;
+  step: number;
+  max: number;
+  to: number;
+}
+
+interface ICountOneStepProps {
+  max: number;
+  min: number;
+  step: number;
+}
+
+interface ICountProgressWidthProps {
+  step: number;
+  max: number;
+  min: number;
+  to: number;
+  from: number;
+}
+
+interface IProgressBarUpdateProps {
+  shiftFrom: number;
+  width: number;
+}
+
+interface ICountStepPixelProps {
+  step: number;
+  max: number;
+  min: number;
+}
+
 export {
   IModelOptions,
   ModelAction,
@@ -78,4 +117,10 @@ export {
   ISubscriber,
   IEventObject,
   IScaleOptions,
+  IProgressBarOptions,
+  ICountShiftFromProps,
+  ICountOneStepProps,
+  ICountProgressWidthProps,
+  IProgressBarUpdateProps,
+  ICountStepPixelProps,
 };
