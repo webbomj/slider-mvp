@@ -78,13 +78,13 @@ interface ICountShiftFromProps {
   from: number;
   step: number;
   max: number;
-  to: number;
 }
 
-interface ICountOneStepProps {
-  max: number;
+interface ICountShiftToProps {
   min: number;
   step: number;
+  max: number;
+  to: number;
 }
 
 interface ICountProgressWidthProps {
@@ -106,6 +106,17 @@ interface ICountStepPixelProps {
   min: number;
 }
 
+interface IHandleProps {
+  container: HTMLElement;
+  shift: number;
+}
+
+interface ILabelProps {
+  container: HTMLElement;
+  shift: number;
+  text: number;
+}
+
 export {
   IModelOptions,
   ModelAction,
@@ -119,8 +130,10 @@ export {
   IScaleOptions,
   IProgressBarOptions,
   ICountShiftFromProps,
-  ICountOneStepProps,
+  ICountShiftToProps,
   ICountProgressWidthProps,
   IProgressBarUpdateProps,
   ICountStepPixelProps,
+  IHandleProps,
+  ILabelProps,
 };

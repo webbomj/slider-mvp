@@ -1,22 +1,22 @@
 import {
-  ICountOneStepProps,
   ICountProgressWidthProps,
   ICountShiftFromProps,
+  ICountShiftToProps,
   ICountStepPixelProps,
   ILineBlockOptions,
   IProgressBarOptions,
-  IScaleOptions,
 } from "../../../interfaces/interfaces";
 import Handle from "../handle/handle";
 import Label from "../label/label";
 import ProgressBar from "../progressBar/progressBar";
-import Scale from "../scale/scale";
 import "./lineBlock.scss";
 
 class lineBlock {
   private container: HTMLElement;
   private options;
-  private progressBar;
+  private progressBar: ProgressBar;
+  private labelTo: Label;
+  private handleTo: Handle;
 
   constructor(lineOptions: ILineBlockOptions) {
     const { container, options } = lineOptions;
@@ -35,12 +35,20 @@ class lineBlock {
     lineBlock.classList.add("lineBlock");
     activeBlock.classList.add("lineBlock__active");
 
-    new Handle().render(activeBlock);
-    new Label().render(activeBlock);
+    const shift = this.countShiftTo({ to, min, max, step });
+    this.handleTo = new Handle({
+      container: activeBlock,
+      shift: shift,
+    });
+    this.labelTo = new Label({
+      container: activeBlock,
+      shift: shift,
+      text: to,
+    });
 
     lineBlock.append(activeBlock);
 
-    const shiftFrom = this.countShiftFrom({ from, min, to, max, step });
+    const shiftFrom = this.countShiftFrom({ from, min, max, step });
     const progressBarWidth = this.countProgressWidth({
       from,
       max,
@@ -73,7 +81,6 @@ class lineBlock {
       from,
       min,
       max,
-      to,
       step: stepSize,
     });
     const widthProgressBar = this.countProgressWidth({
@@ -86,14 +93,14 @@ class lineBlock {
 
     // $("p.result").html(min);
     if (sliderSpan) {
-      sliderSpan.addEventListener("mousedown", function (event) {
+      sliderSpan.addEventListener("mousedown", function (event: MouseEvent) {
         let sliderCoords = getCoords(slider);
         let sliderSpanCoords = getCoords(sliderSpan);
         let shift = event.pageX - sliderSpanCoords.left;
         console.log(event.pageX);
 
         //Начнем движение ползунка
-        const moveSlider = (event) => {
+        const moveSlider = (event: MouseEvent) => {
           let left =
             ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
             100;
@@ -120,7 +127,7 @@ class lineBlock {
           }
         };
 
-        const moveSliderFn = (event) => moveSlider(event);
+        const moveSliderFn = (event: MouseEvent) => moveSlider(event);
 
         //Начнем движение ползунка
         document.addEventListener("mousemove", moveSliderFn);
@@ -136,7 +143,7 @@ class lineBlock {
       });
     }
     // Найдем координаты
-    function getCoords(elem) {
+    function getCoords(elem: HTMLElement) {
       let boxLeft = elem.getBoundingClientRect().left;
 
       let boxRight = boxLeft + elem.offsetWidth;
@@ -155,9 +162,13 @@ class lineBlock {
     }
   }
   //рассчитываем начальный отступ
-  countShiftFrom = ({ min, from, max, step, to }: ICountShiftFromProps) => {
+  countShiftFrom = ({ min, from, max, step }: ICountShiftFromProps) => {
     const stepPercent = this.countStepPercent({ step, max, min });
     return ((from - min) / step) * stepPercent;
+  };
+  countShiftTo = ({ min, max, step, to }: ICountShiftToProps) => {
+    const stepPercent = this.countStepPercent({ step, max, min });
+    return ((to - min) / step) * stepPercent;
   };
 
   //рассчитываем шаг в пикселях
@@ -174,12 +185,6 @@ class lineBlock {
     return this.container.getBoundingClientRect();
   };
 
-  countOneStep = ({ max, min, step }: ICountOneStepProps) => {
-    if (step === 1) {
-      return step;
-    }
-    return (max - min) / step;
-  };
   //расчитываем ширину прогрессбара
   countProgressWidth = ({
     step,
