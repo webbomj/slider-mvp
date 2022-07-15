@@ -44,6 +44,9 @@ class View {
     for (let index = min; index <= max; index += step) {
       arrayScale.push(index);
     }
+    if (max % step !== 0) {
+      arrayScale.push(max);
+    }
     return arrayScale;
   };
 
