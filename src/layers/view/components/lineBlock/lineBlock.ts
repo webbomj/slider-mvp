@@ -74,7 +74,6 @@ class lineBlock {
     let slider = document.querySelector(".lineBlock");
     let label: HTMLDivElement | null =
       this.container.querySelector(".lineBlock__label");
-    const progressBar = this.progressBar;
 
     const { min, max, step: stepSize, from, to } = this.options;
     const shiftFrom = this.countShiftFrom({
@@ -106,7 +105,7 @@ class lineBlock {
             100;
           if (left < 0) left = 0;
           if (left > 100) left = 100;
-          console.log("left", left);
+          console.log("left", event.pageX, shift, sliderCoords.left);
 
           //Шаг слайдера
           let stepCount = (max - min) / stepSize;
@@ -131,8 +130,6 @@ class lineBlock {
 
         //Начнем движение ползунка
         document.addEventListener("mousemove", moveSliderFn);
-
-        progressBar.update({ shiftFrom: shiftFrom, width: widthProgressBar });
 
         //Остановим движение ползунка
         document.addEventListener("mouseup", function () {
@@ -193,12 +190,13 @@ class lineBlock {
     to,
     from,
   }: ICountProgressWidthProps): number => {
-    const stepPixel = this.countStepPixel({ max, min, step });
+    // const stepPixel = this.countStepPixel({ max, min, step });
+    const stepPercent = this.countStepPercent({ max, min, step });
     console.log(
       `получаем ширину прогресс бара`,
-      ((to - from) / step) * stepPixel
+      ((to - from) / step) * stepPercent
     );
-    return ((to - from) / step) * stepPixel;
+    return ((to - from) / step) * stepPercent;
   };
 }
 

@@ -28,7 +28,7 @@ class ProgressBar {
       ".lineBlock__progressBar"
     );
     if (progressBarNode) {
-      progressBarNode.style.width = `${this.width}px`;
+      progressBarNode.style.width = `${this.width}%`;
       progressBarNode.style.left = `${this.shiftFrom}%`;
     }
   };
