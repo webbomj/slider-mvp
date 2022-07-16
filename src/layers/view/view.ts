@@ -11,7 +11,7 @@ import Scale from "./components/scale/scale";
 class View {
   private container: HTMLElement;
   private options: IModelOptions;
-  public observer: IObserver;
+  public observer: Observer;
   private slide;
   private scale;
 
@@ -26,6 +26,7 @@ class View {
     this.slide = new lineBlock({
       container: this.container,
       options: this.options,
+      observer: this.observer,
     });
     const { min, max, step } = this.options;
     const arrScale = this.createArrScale(min, max, step);
@@ -34,6 +35,7 @@ class View {
       container: this.container,
       arrayScale: arrScale,
       shift: stepInPercent,
+      observer: this.observer,
     };
 
     this.scale = new Scale(scaleOptions);

@@ -65,6 +65,7 @@ class lineBlock {
       container: lineBlock,
       shiftFrom: shiftFrom,
       width: progressBarWidth,
+      observer: this.observer,
     };
 
     this.progressBar = new ProgressBar(ProgressBarOptions);
