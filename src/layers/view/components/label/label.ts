@@ -1,12 +1,15 @@
 import { ILabelProps } from "../../../interfaces/interfaces";
+import Observer from "../../../observer/observer";
 
 class Label {
   private label: HTMLElement;
   private container: HTMLElement;
   private shift: number;
-  constructor({ container, shift, text }: ILabelProps) {
+  private observer: Observer;
+  constructor({ container, shift, text, observer }: ILabelProps) {
     this.container = container;
     this.shift = shift;
+    this.observer = observer;
     const label = document.createElement("div");
     this.label = label;
     this.render();

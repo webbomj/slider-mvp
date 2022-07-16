@@ -1,12 +1,15 @@
 import { IHandleProps } from "../../../interfaces/interfaces";
+import Observer from "../../../observer/observer";
 
 class Handle {
   private container: HTMLElement;
   private shift: number;
   private handle: HTMLElement;
-  constructor({ container, shift }: IHandleProps) {
+  private observer: Observer;
+  constructor({ container, shift, observer }: IHandleProps) {
     this.container = container;
     this.shift = shift;
+    this.observer = observer;
     this.render();
   }
   render = () => {

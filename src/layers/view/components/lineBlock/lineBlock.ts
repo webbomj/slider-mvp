@@ -6,6 +6,7 @@ import {
   ILineBlockOptions,
   IProgressBarOptions,
 } from "../../../interfaces/interfaces";
+import Observer from "../../../observer/observer";
 import Handle from "../handle/handle";
 import Label from "../label/label";
 import ProgressBar from "../progressBar/progressBar";
@@ -17,11 +18,13 @@ class lineBlock {
   private progressBar: ProgressBar;
   private labelTo: Label;
   private handleTo: Handle;
+  private observer: Observer;
 
   constructor(lineOptions: ILineBlockOptions) {
-    const { container, options } = lineOptions;
+    const { container, options, observer } = lineOptions;
     this.container = container;
     this.options = options;
+    this.observer = observer;
     this.init();
     this.mode();
   }
@@ -39,11 +42,13 @@ class lineBlock {
     this.handleTo = new Handle({
       container: activeBlock,
       shift: shift,
+      observer: this.observer,
     });
     this.labelTo = new Label({
       container: activeBlock,
       shift: shift,
       text: to,
+      observer: this.observer,
     });
 
     lineBlock.append(activeBlock);
@@ -190,12 +195,7 @@ class lineBlock {
     to,
     from,
   }: ICountProgressWidthProps): number => {
-    // const stepPixel = this.countStepPixel({ max, min, step });
     const stepPercent = this.countStepPercent({ max, min, step });
-    console.log(
-      `получаем ширину прогресс бара`,
-      ((to - from) / step) * stepPercent
-    );
     return ((to - from) / step) * stepPercent;
   };
 }

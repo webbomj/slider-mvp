@@ -2,15 +2,18 @@ import {
   IProgressBarOptions,
   IProgressBarUpdateProps,
 } from "../../../interfaces/interfaces";
+import Observer from "../../../observer/observer";
 
 class ProgressBar {
   private container: HTMLElement;
   private shiftFrom: number;
   private width: number;
-  constructor({ container, shiftFrom, width }: IProgressBarOptions) {
+  private observer: Observer;
+  constructor({ container, shiftFrom, width, observer }: IProgressBarOptions) {
     this.container = container;
     this.shiftFrom = shiftFrom;
     this.width = width;
+    this.observer = observer;
     this.render(this.container);
   }
   render = (container: HTMLElement): void => {

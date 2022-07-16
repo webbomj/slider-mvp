@@ -1,13 +1,17 @@
-import { IScaleOptions, IViewOptions } from "../../../interfaces/interfaces";
+import { IScaleOptions } from "../../../interfaces/interfaces";
+import Observer from "../../../observer/observer";
 
 class Scale {
   arrayScale: number[];
   container: HTMLElement;
   shift: number;
-  constructor({ arrayScale, container, shift }: IScaleOptions) {
+  private observer: Observer;
+  constructor({ arrayScale, container, shift, observer }: IScaleOptions) {
     this.arrayScale = arrayScale;
     this.container = container;
     this.shift = shift;
+    this.observer = observer;
+
     this.render();
   }
 

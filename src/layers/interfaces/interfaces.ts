@@ -1,3 +1,5 @@
+import Observer from "../observer/observer";
+
 interface IModelOptions {
   min: number;
   max: number;
@@ -44,6 +46,7 @@ interface IViewOptions {
 interface ILineBlockOptions {
   container: HTMLElement;
   options: IModelOptions;
+  observer: Observer;
 }
 
 interface IObserver {
@@ -65,12 +68,14 @@ interface IScaleOptions {
   container: HTMLElement;
   arrayScale: number[];
   shift: number;
+  observer: Observer;
 }
 
 interface IProgressBarOptions {
   container: HTMLElement;
   shiftFrom: number;
   width: number;
+  observer: Observer;
 }
 
 interface ICountShiftFromProps {
@@ -109,12 +114,14 @@ interface ICountStepPixelProps {
 interface IHandleProps {
   container: HTMLElement;
   shift: number;
+  observer: Observer;
 }
 
 interface ILabelProps {
   container: HTMLElement;
   shift: number;
   text: number;
+  observer: Observer;
 }
 
 export {
