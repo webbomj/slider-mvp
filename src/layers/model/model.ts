@@ -3,6 +3,7 @@ import {
   ModelAction,
   IModelAction,
   IObserver,
+  ISubscriber,
 } from "../interfaces/interfaces";
 import Observer from "../observer/observer";
 
@@ -100,5 +101,9 @@ export default class Model {
           break;
       }
     }
+  };
+
+  public subscribe = (subscriber: ISubscriber) => {
+    this.observer.subscribe(subscriber);
   };
 }

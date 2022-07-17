@@ -25,14 +25,14 @@ class Presenter {
     const joinOptions = { ...defaultOptions, ...options };
     this.model = new Model(joinOptions);
     this.view = new View({ options: joinOptions, container });
-    this.view.observer.subscribe({
-      eventName: "updateView",
-      function: this.updateView,
-    });
-    this.model.observer.subscribe({
-      eventName: "updateModel",
-      function: this.updateModel,
-    });
+    // this.view.subscribe({
+    //   eventName: "updateView",
+    //   function: this.updateView,
+    // });
+    // this.model.subscribe({
+    //   eventName: "updateModel",
+    //   function: this.updateModel,
+    // });
   }
   updateModel = (data: Partial<IModelOptions>) => {
     this.model.updateState({

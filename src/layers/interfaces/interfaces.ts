@@ -55,12 +55,14 @@ interface IObserver {
   notify: (eventObject: IEventObject) => void;
 }
 
+enum EventName {}
+
 interface ISubscriber {
-  eventName: "updateView" | "updateModel";
+  eventName: EventName;
   function: (data: Partial<IModelOptions>) => void;
 }
 interface IEventObject {
-  eventName: "updateView";
+  eventName: EventName;
   eventPayload: Partial<IModelOptions>;
 }
 
@@ -143,4 +145,5 @@ export {
   ICountStepPixelProps,
   IHandleProps,
   ILabelProps,
+  EventName,
 };

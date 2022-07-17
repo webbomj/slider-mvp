@@ -2,6 +2,7 @@ import {
   IModelOptions,
   IObserver,
   IScaleOptions,
+  ISubscriber,
   IViewOptions,
 } from "../interfaces/interfaces";
 import Observer from "../observer/observer";
@@ -53,6 +54,10 @@ class View {
   };
 
   updateView = () => {};
+
+  public subscribe = (subscriber: ISubscriber) => {
+    this.observer.subscribe(subscriber);
+  };
 }
 
 export default View;
