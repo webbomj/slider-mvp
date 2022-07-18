@@ -29,6 +29,7 @@ class Presenter {
     const joinOptions = { ...defaultOptions, ...options };
     this.model = new Model(joinOptions);
     this.getState();
+    console.log(this.state);
     const scaleOptions = this.createArrScale();
     this.view = new View({ options: joinOptions, container, scaleOptions });
     // this.view.subscribe({
@@ -47,23 +48,23 @@ class Presenter {
   };
 
   createArrScale = () => {
-    console.log(this.state);
     const { max, min, step } = this.state;
     const { scale, shift } = arrScaleCreator({ max, min, step });
     return { scale, shift };
   };
 
   clickedScaleItemHandler = (e: MouseEvent) => {
-    const newFromValue = +e.target?.textContent;
-    if (typeof newFromValue === "number") {
+    const newToValue = +e.target?.textContent;
+    if (typeof newToValue === "number") {
       this.model.updateState({
-        type: ModelAction.setFromValue,
-        payload: { value: newFromValue },
+        type: ModelAction.setToValue,
+        payload: { value: newToValue },
       });
     }
   };
 
   modelWasUpdate = (model: IModelOptions): void => {
+    console.log(model);
     const scaleProps: IScaleProps = this.createArrScale();
     this.view.updateView({ model, scaleProps });
   };

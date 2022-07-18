@@ -107,7 +107,7 @@ interface IProgressBarOptions {
 
 interface ICountShiftFromProps {
   min: number;
-  from: number;
+  to: number;
   step: number;
   max: number;
 }
@@ -128,7 +128,7 @@ interface ICountProgressWidthProps {
 }
 
 interface IProgressBarUpdateProps {
-  shiftFrom: number;
+  shiftFrom?: number;
   width: number;
 }
 

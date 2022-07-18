@@ -25,7 +25,10 @@ class ProgressBar {
 
   update = ({ shiftFrom, width }: IProgressBarUpdateProps): void => {
     console.log("обнова прогресс бара", shiftFrom, width);
-    this.shiftFrom = shiftFrom;
+
+    if (shiftFrom) {
+      this.shiftFrom = shiftFrom;
+    }
     this.width = width;
     const progressBarNode = this.container.querySelector(
       ".lineBlock__progressBar"

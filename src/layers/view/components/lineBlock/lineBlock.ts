@@ -75,11 +75,17 @@ class lineBlock {
     }
   };
   update = (model: IModelOptions) => {
-    const { from, max, min, step, to } = model;
-    // if (this.progressBar) {
-    //   this.progressBar.update()
-    // }
-    this.handleTo.update(this.countShiftFrom({ from, max, min, step }));
+    const { from, max, min, step, to, isInterval } = model;
+    const shiftFrom = this.countShiftFrom({ to, max, min, step });
+    this.handleTo.update(shiftFrom);
+    this.labelTo.update(to, shiftFrom);
+    if (!isInterval) {
+      this.progressBar.update({
+        shiftFrom: from,
+        width: this.countProgressWidth({ step, from, max, min, to }),
+      });
+    }
+
     // this.labelTo.update()
   };
 
@@ -175,9 +181,9 @@ class lineBlock {
   //   }
   // }
   //рассчитываем начальный отступ
-  countShiftFrom = ({ min, from, max, step }: ICountShiftFromProps) => {
+  countShiftFrom = ({ min, to, max, step }: ICountShiftFromProps) => {
     const stepPercent = this.countStepPercent({ step, max, min });
-    return ((from - min) / step) * stepPercent;
+    return ((to - min) / step) * stepPercent;
   };
   countShiftTo = ({ min, max, step, to }: ICountShiftToProps) => {
     const stepPercent = this.countStepPercent({ step, max, min });
