@@ -47,21 +47,21 @@ class Presenter {
     }
   };
 
+  modelWasUpdate = (model: IModelOptions): void => {
+    this.view.updateView(model);
+  };
+
   subscribe = () => {
     this.view.subscribe({
       eventName: EventName.clickedScaleItem,
       function: this.clickedScaleItemHandler,
     });
-  };
 
-  updateModel = (data: Partial<IModelOptions>) => {
-    this.model.updateState({
-      type: ModelAction.setMinValue,
-      payload: { value: 100 },
+    // model sub
+    this.model.subscribe({
+      eventName: EventName.modelWasUpdate,
+      function: this.modelWasUpdate,
     });
-  };
-  updateView = (data: Partial<IModelOptions>) => {
-    this.view.updateView();
   };
 }
 

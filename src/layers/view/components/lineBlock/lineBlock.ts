@@ -4,6 +4,7 @@ import {
   ICountShiftToProps,
   ICountStepPixelProps,
   ILineBlockOptions,
+  IModelOptions,
   IProgressBarOptions,
 } from "../../../interfaces/interfaces";
 import Observer from "../../../observer/observer";
@@ -26,7 +27,7 @@ class lineBlock {
     this.options = options;
     this.observer = observer;
     this.init();
-    this.mode();
+    // this.mode();
   }
 
   init = () => {
@@ -73,97 +74,106 @@ class lineBlock {
       this.container.append(lineBlock);
     }
   };
-  mode() {
-    let sliderSpan: HTMLDivElement | null = document.querySelector(
-      ".lineBlock__handler"
-    );
-    let slider = document.querySelector(".lineBlock");
-    let label: HTMLDivElement | null =
-      this.container.querySelector(".lineBlock__label");
+  update = (model: IModelOptions) => {
+    const { from, max, min, step, to } = model;
+    // if (this.progressBar) {
+    //   this.progressBar.update()
+    // }
+    this.handleTo.update(this.countShiftFrom({ from, max, min, step }));
+    // this.labelTo.update()
+  };
 
-    const { min, max, step: stepSize, from, to } = this.options;
-    const shiftFrom = this.countShiftFrom({
-      from,
-      min,
-      max,
-      step: stepSize,
-    });
-    const widthProgressBar = this.countProgressWidth({
-      from,
-      max,
-      step: stepSize,
-      min,
-      to,
-    });
+  // mode() {
+  //   let sliderSpan: HTMLDivElement | null = document.querySelector(
+  //     ".lineBlock__handler"
+  //   );
+  //   let slider = document.querySelector(".lineBlock");
+  //   let label: HTMLDivElement | null =
+  //     this.container.querySelector(".lineBlock__label");
 
-    // $("p.result").html(min);
-    if (sliderSpan) {
-      sliderSpan.addEventListener("mousedown", function (event: MouseEvent) {
-        let sliderCoords = getCoords(slider);
-        let sliderSpanCoords = getCoords(sliderSpan);
-        let shift = event.pageX - sliderSpanCoords.left;
-        console.log(event.pageX);
+  //   const { min, max, step: stepSize, from, to } = this.options;
+  //   const shiftFrom = this.countShiftFrom({
+  //     from,
+  //     min,
+  //     max,
+  //     step: stepSize,
+  //   });
+  //   const widthProgressBar = this.countProgressWidth({
+  //     from,
+  //     max,
+  //     step: stepSize,
+  //     min,
+  //     to,
+  //   });
 
-        //Начнем движение ползунка
-        const moveSlider = (event: MouseEvent) => {
-          let left =
-            ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
-            100;
-          if (left < 0) left = 0;
-          if (left > 100) left = 100;
-          console.log("left", event.pageX, shift, sliderCoords.left);
+  //   // $("p.result").html(min);
+  //   if (sliderSpan) {
+  //     sliderSpan.addEventListener("mousedown", function (event: MouseEvent) {
+  //       let sliderCoords = getCoords(slider);
+  //       let sliderSpanCoords = getCoords(sliderSpan);
+  //       let shift = event.pageX - sliderSpanCoords.left;
+  //       console.log(event.pageX);
 
-          //Шаг слайдера
-          let stepCount = (max - min) / stepSize;
-          let stepPercent = 100 / stepCount;
-          let stepLeft = Math.round(left / stepPercent) * stepPercent;
-          if (stepLeft < 0) stepLeft = 0;
-          if (stepLeft > 100) stepLeft = 100;
-          if (sliderSpan) {
-            sliderSpan.style.left = `${stepLeft}%`;
-          }
+  //       //Начнем движение ползунка
+  //       const moveSlider = (event: MouseEvent) => {
+  //         let left =
+  //           ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
+  //           100;
+  //         if (left < 0) left = 0;
+  //         if (left > 100) left = 100;
+  //         console.log("left", event.pageX, shift, sliderCoords.left);
 
-          //Расчитаем значение равное шагу слайдера
-          let result = Number(((stepLeft / stepPercent) * stepSize).toFixed());
-          let values = result + min;
-          if (label) {
-            label.style.left = `${stepLeft}%`;
-            label.textContent = `${values}`;
-          }
-        };
+  //         //Шаг слайдера
+  //         let stepCount = (max - min) / stepSize;
+  //         let stepPercent = 100 / stepCount;
+  //         let stepLeft = Math.round(left / stepPercent) * stepPercent;
+  //         if (stepLeft < 0) stepLeft = 0;
+  //         if (stepLeft > 100) stepLeft = 100;
+  //         if (sliderSpan) {
+  //           sliderSpan.style.left = `${stepLeft}%`;
+  //         }
 
-        const moveSliderFn = (event: MouseEvent) => moveSlider(event);
+  //         //Расчитаем значение равное шагу слайдера
+  //         let result = Number(((stepLeft / stepPercent) * stepSize).toFixed());
+  //         let values = result + min;
+  //         if (label) {
+  //           label.style.left = `${stepLeft}%`;
+  //           label.textContent = `${values}`;
+  //         }
+  //       };
 
-        //Начнем движение ползунка
-        document.addEventListener("mousemove", moveSliderFn);
+  //       const moveSliderFn = (event: MouseEvent) => moveSlider(event);
 
-        //Остановим движение ползунка
-        document.addEventListener("mouseup", function () {
-          document.removeEventListener("mousemove", moveSliderFn);
-        });
+  //       //Начнем движение ползунка
+  //       document.addEventListener("mousemove", moveSliderFn);
 
-        return false;
-      });
-    }
-    // Найдем координаты
-    function getCoords(elem: HTMLElement) {
-      let boxLeft = elem.getBoundingClientRect().left;
+  //       //Остановим движение ползунка
+  //       document.addEventListener("mouseup", function () {
+  //         document.removeEventListener("mousemove", moveSliderFn);
+  //       });
 
-      let boxRight = boxLeft + elem.offsetWidth;
-      console.log(
-        "getCoords",
-        `${elem}`,
-        boxLeft,
-        boxRight,
-        elem.offsetWidth,
-        pageXOffset
-      );
-      return {
-        left: boxLeft + pageXOffset,
-        width: boxRight - boxLeft,
-      };
-    }
-  }
+  //       return false;
+  //     });
+  //   }
+  //   // Найдем координаты
+  //   function getCoords(elem: HTMLElement) {
+  //     let boxLeft = elem.getBoundingClientRect().left;
+
+  //     let boxRight = boxLeft + elem.offsetWidth;
+  //     console.log(
+  //       "getCoords",
+  //       `${elem}`,
+  //       boxLeft,
+  //       boxRight,
+  //       elem.offsetWidth,
+  //       pageXOffset
+  //     );
+  //     return {
+  //       left: boxLeft + pageXOffset,
+  //       width: boxRight - boxLeft,
+  //     };
+  //   }
+  // }
   //рассчитываем начальный отступ
   countShiftFrom = ({ min, from, max, step }: ICountShiftFromProps) => {
     const stepPercent = this.countStepPercent({ step, max, min });

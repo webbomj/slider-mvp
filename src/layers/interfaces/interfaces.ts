@@ -57,15 +57,17 @@ interface IObserver {
 
 enum EventName {
   clickedScaleItem = "clickedScaleItem",
+  modelWasUpdate = "modelWasUpdate",
 }
 
 interface ISubscriber {
   eventName: EventName;
-  function: (e: Event) => void;
+  function: (e: Event | IModelOptions) => void;
 }
+
 interface IEventObject {
   eventName: EventName;
-  eventPayload: Event;
+  eventPayload: Event | IModelOptions;
 }
 
 interface IScaleOptions {

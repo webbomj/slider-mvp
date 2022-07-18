@@ -6,6 +6,7 @@ import {
   ISubscriber,
   IModelActionBoolean,
   IModelActionNumber,
+  EventName,
 } from "../interfaces/interfaces";
 import Observer from "../observer/observer";
 
@@ -49,16 +50,13 @@ export default class Model {
     this.minValue = min;
     this.maxValue = max;
     this.fromValue = from;
+    this.toValue = to;
     this.step = step;
     this.isVertical = isVertical;
     this.isInterval = isInterval;
     this.isLabel = isLabel;
     this.isScale = isScale;
     this.isProgressBar = isProgressBar;
-
-    if (to) {
-      this.toValue = to;
-    }
   }
 
   updateState = ({ type, payload }: IModelAction): void => {
@@ -82,6 +80,10 @@ export default class Model {
         default:
           break;
       }
+      this.observer.notify({
+        eventName: EventName.modelWasUpdate,
+        eventPayload: this.getState(),
+      });
     } else if (typeof payload.value === "boolean") {
       switch (type) {
         case ModelAction.setIsVertical:
@@ -102,10 +104,29 @@ export default class Model {
         default:
           break;
       }
+      this.observer.notify({
+        eventName: EventName.modelWasUpdate,
+        eventPayload: this.getState(),
+      });
     }
   };
 
   public subscribe = (subscriber: ISubscriber) => {
     this.observer.subscribe(subscriber);
+  };
+
+  private getState = (): IModelOptions => {
+    return {
+      from: this.fromValue,
+      isInterval: this.isInterval,
+      isLabel: this.isLabel,
+      isProgressBar: this.isProgressBar,
+      isScale: this.isScale,
+      isVertical: this.isVertical,
+      max: this.maxValue,
+      min: this.minValue,
+      step: this.step,
+      to: this.toValue,
+    };
   };
 }

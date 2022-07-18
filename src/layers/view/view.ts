@@ -52,7 +52,9 @@ class View {
     return arrayScale;
   };
 
-  updateView = () => {};
+  updateView = (model: IModelOptions) => {
+    this.slide.update(model);
+  };
 
   public subscribe = (subscriber: ISubscriber) => {
     this.observer.subscribe(subscriber);
