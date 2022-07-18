@@ -2,6 +2,8 @@ import {
   IModelOptions,
   IScaleOptions,
   ISubscriber,
+  IUpdateViewProps,
+  IViewInitProps,
   IViewOptions,
 } from "../interfaces/interfaces";
 import Observer from "../observer/observer";
@@ -15,45 +17,33 @@ class View {
   private slide: lineBlock;
   private scale: Scale;
 
-  constructor({ options, container }: IViewOptions) {
+  constructor({ options, container, scaleOptions }: IViewOptions) {
     this.container = container;
     this.options = options;
     this.observer = new Observer();
-    this.init();
+    this.init({ scaleOptions });
   }
 
-  init = () => {
+  init = ({ scaleOptions }: IViewInitProps) => {
     this.slide = new lineBlock({
       container: this.container,
       options: this.options,
       observer: this.observer,
     });
-    const { min, max, step } = this.options;
-    const arrScale = this.createArrScale(min, max, step);
-    const stepInPercent = (100 / (max - min)) * step;
-    let scaleOptions: IScaleOptions = {
+
+    let scaleProps: IScaleOptions = {
       container: this.container,
-      arrayScale: arrScale,
-      shift: stepInPercent,
+      arrayScale: scaleOptions.scale,
+      shift: scaleOptions.shift,
       observer: this.observer,
     };
 
-    this.scale = new Scale(scaleOptions);
+    this.scale = new Scale(scaleProps);
   };
 
-  createArrScale = (min: number, max: number, step: number) => {
-    let arrayScale = [];
-    for (let index = min; index <= max; index += step) {
-      arrayScale.push(index);
-    }
-    if (max % step !== 0) {
-      arrayScale.push(max);
-    }
-    return arrayScale;
-  };
-
-  updateView = (model: IModelOptions) => {
+  updateView = ({ model, scaleProps }: IUpdateViewProps) => {
     this.slide.update(model);
+    this.scale.update(scaleProps);
   };
 
   public subscribe = (subscriber: ISubscriber) => {

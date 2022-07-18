@@ -2,14 +2,17 @@ import {
   EventName,
   IModelOptions,
   IPresenterOptions,
+  IScaleProps,
   ModelAction,
 } from "../interfaces/interfaces";
 import Model from "../model/model";
 import View from "../view/view";
+import { arrScaleCreator } from "./utils/scale";
 
 class Presenter {
   private model;
   private view;
+  private state: IModelOptions;
   constructor({ options, container }: IPresenterOptions) {
     const defaultOptions: IModelOptions = {
       min: 0,
@@ -25,7 +28,9 @@ class Presenter {
     };
     const joinOptions = { ...defaultOptions, ...options };
     this.model = new Model(joinOptions);
-    this.view = new View({ options: joinOptions, container });
+    this.getState();
+    const scaleOptions = this.createArrScale();
+    this.view = new View({ options: joinOptions, container, scaleOptions });
     // this.view.subscribe({
     //   eventName: "updateView",
     //   function: this.updateView,
@@ -36,6 +41,17 @@ class Presenter {
     // });
     this.subscribe();
   }
+
+  getState = () => {
+    this.state = this.model.getState();
+  };
+
+  createArrScale = () => {
+    console.log(this.state);
+    const { max, min, step } = this.state;
+    const { scale, shift } = arrScaleCreator({ max, min, step });
+    return { scale, shift };
+  };
 
   clickedScaleItemHandler = (e: MouseEvent) => {
     const newFromValue = +e.target?.textContent;
@@ -48,7 +64,8 @@ class Presenter {
   };
 
   modelWasUpdate = (model: IModelOptions): void => {
-    this.view.updateView(model);
+    const scaleProps: IScaleProps = this.createArrScale();
+    this.view.updateView({ model, scaleProps });
   };
 
   subscribe = () => {

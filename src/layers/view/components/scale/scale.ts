@@ -1,4 +1,8 @@
-import { EventName, IScaleOptions } from "../../../interfaces/interfaces";
+import {
+  EventName,
+  IScaleOptions,
+  IScaleProps,
+} from "../../../interfaces/interfaces";
 import Observer from "../../../observer/observer";
 import "./scale.scss";
 
@@ -49,6 +53,16 @@ class Scale {
       }
       margin = 0;
     }
+  };
+
+  update = ({ scale, shift }: IScaleProps) => {
+    this.arrayScale = scale;
+    this.shift = shift;
+    const scaleContainer = this.container.querySelector(".scale");
+    if (scaleContainer) {
+      scaleContainer.remove();
+    }
+    this.render();
   };
 
   createItem = () => {

@@ -115,7 +115,7 @@ export default class Model {
     this.observer.subscribe(subscriber);
   };
 
-  private getState = (): IModelOptions => {
+  public getState = (): IModelOptions => {
     return {
       from: this.fromValue,
       isInterval: this.isInterval,

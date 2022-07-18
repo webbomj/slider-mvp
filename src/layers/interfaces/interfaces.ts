@@ -38,9 +38,15 @@ interface IPresenterOptions {
   options: IModelOptions;
 }
 
+interface IScaleProps {
+  scale: number[];
+  shift: number;
+}
+
 interface IViewOptions {
   container: HTMLElement;
   options: IModelOptions;
+  scaleOptions: IScaleProps;
 }
 
 interface ILineBlockOptions {
@@ -75,6 +81,21 @@ interface IScaleOptions {
   arrayScale: number[];
   shift: number;
   observer: Observer;
+}
+
+interface IViewInitProps {
+  scaleOptions: IScaleProps;
+}
+
+interface IUpdateViewProps {
+  model: IModelOptions;
+  scaleProps: IScaleProps;
+}
+
+interface ICreateArrScale {
+  max: number;
+  min: number;
+  step: number;
 }
 
 interface IProgressBarOptions {
@@ -141,6 +162,9 @@ export {
   ISubscriber,
   IEventObject,
   IScaleOptions,
+  IViewInitProps,
+  IUpdateViewProps,
+  ICreateArrScale,
   IProgressBarOptions,
   ICountShiftFromProps,
   ICountShiftToProps,
@@ -149,5 +173,6 @@ export {
   ICountStepPixelProps,
   IHandleProps,
   ILabelProps,
+  IScaleProps,
   EventName,
 };
