@@ -34,17 +34,6 @@
     transform: translateX(-50%);
     user-select: none;
   }
-  &__scale {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  &__scaleItem {
-    position: absolute;
-    transform: translateX(-50%);
-    user-select: none;
-  }
   &__progressBar {
     position: absolute;
     background: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);

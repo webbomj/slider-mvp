@@ -1,0 +1,12 @@
+.scale {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  cursor: pointer;
+  &__item {
+    position: absolute;
+    transform: translateX(-50%);
+    user-select: none;
+  }
+}

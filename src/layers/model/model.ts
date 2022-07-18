@@ -4,6 +4,8 @@ import {
   IModelAction,
   IObserver,
   ISubscriber,
+  IModelActionBoolean,
+  IModelActionNumber,
 } from "../interfaces/interfaces";
 import Observer from "../observer/observer";
 

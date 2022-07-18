@@ -1,4 +1,5 @@
 import {
+  EventName,
   IModelOptions,
   IPresenterOptions,
   ModelAction,
@@ -14,7 +15,7 @@ class Presenter {
       min: 0,
       max: 100,
       from: 20,
-      to: null,
+      to: 0,
       step: 1,
       isVertical: false,
       isInterval: false,
@@ -33,7 +34,26 @@ class Presenter {
     //   eventName: "updateModel",
     //   function: this.updateModel,
     // });
+    this.subscribe();
   }
+
+  clickedScaleItemHandler = (e: MouseEvent) => {
+    const newFromValue = +e.target?.textContent;
+    if (typeof newFromValue === "number") {
+      this.model.updateState({
+        type: ModelAction.setFromValue,
+        payload: { value: newFromValue },
+      });
+    }
+  };
+
+  subscribe = () => {
+    this.view.subscribe({
+      eventName: EventName.clickedScaleItem,
+      function: this.clickedScaleItemHandler,
+    });
+  };
+
   updateModel = (data: Partial<IModelOptions>) => {
     this.model.updateState({
       type: ModelAction.setMinValue,

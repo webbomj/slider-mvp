@@ -1,5 +1,6 @@
-import { IScaleOptions } from "../../../interfaces/interfaces";
+import { EventName, IScaleOptions } from "../../../interfaces/interfaces";
 import Observer from "../../../observer/observer";
+import "./scale.scss";
 
 class Scale {
   arrayScale: number[];
@@ -15,23 +16,28 @@ class Scale {
     this.render();
   }
 
+  notify = (e: MouseEvent) => {
+    this.observer.notify({
+      eventName: EventName.clickedScaleItem,
+      eventPayload: e,
+    });
+  };
+
   render = () => {
     const scale = document.createElement("div");
-    scale.classList.add("lineBlock__scale");
+    scale.classList.add("scale");
     this.arrayScale.forEach((el) => {
       let scaleNumber = this.createItem();
       scaleNumber.style.left = `${this.shift}`;
       scaleNumber.textContent = `${el}`;
-
+      scaleNumber.addEventListener("click", (e) => this.notify(e));
       scale.appendChild(scaleNumber);
     });
 
     this.container.appendChild(scale);
-    const scaleNode = this.container.querySelector(".lineBlock__scale");
+    const scaleNode = this.container.querySelector(".scale");
     if (scaleNode) {
-      const scaleItemsNode = scaleNode.querySelectorAll(
-        ".lineBlock__scaleItem"
-      );
+      const scaleItemsNode = scaleNode.querySelectorAll(".scale__item");
       let margin = 0;
       for (let index = 0; index < scaleItemsNode.length; index++) {
         if (margin > 100) {
@@ -47,7 +53,7 @@ class Scale {
 
   createItem = () => {
     const scale = document.createElement("div");
-    scale.classList.add("lineBlock__scaleItem");
+    scale.classList.add("scale__item");
     return scale;
   };
 }

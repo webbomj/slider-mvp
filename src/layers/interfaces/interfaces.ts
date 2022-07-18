@@ -29,7 +29,7 @@ enum ModelAction {
 interface IModelAction {
   type: ModelAction;
   payload: {
-    value: boolean | number;
+    value: number | boolean;
   };
 }
 
@@ -55,15 +55,17 @@ interface IObserver {
   notify: (eventObject: IEventObject) => void;
 }
 
-enum EventName {}
+enum EventName {
+  clickedScaleItem = "clickedScaleItem",
+}
 
 interface ISubscriber {
   eventName: EventName;
-  function: (data: Partial<IModelOptions>) => void;
+  function: (e: Event) => void;
 }
 interface IEventObject {
   eventName: EventName;
-  eventPayload: Partial<IModelOptions>;
+  eventPayload: Event;
 }
 
 interface IScaleOptions {

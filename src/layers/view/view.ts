@@ -1,6 +1,5 @@
 import {
   IModelOptions,
-  IObserver,
   IScaleOptions,
   ISubscriber,
   IViewOptions,
@@ -13,8 +12,8 @@ class View {
   private container: HTMLElement;
   private options: IModelOptions;
   public observer: Observer;
-  private slide;
-  private scale;
+  private slide: lineBlock;
+  private scale: Scale;
 
   constructor({ options, container }: IViewOptions) {
     this.container = container;

@@ -11,13 +11,13 @@ class Handle {
     this.shift = shift;
     this.observer = observer;
     this.render();
+    this.update(this.shift);
   }
   render = () => {
     const handle = document.createElement("div");
     handle.classList.add("lineBlock__handler");
     this.container.append(handle);
     this.handle = handle;
-    this.update(this.shift);
   };
 
   update = (value: number) => {
