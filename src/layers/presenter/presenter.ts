@@ -53,7 +53,7 @@ class Presenter {
   };
 
   createLineBlock = (): ILineBlockOptions => {
-    // this.getState();
+    this.getState();
     const { progressWidth, shiftFrom, shiftTo } = lineBlockCreator(this.state);
     return { progressBarWidth: progressWidth, shift: shiftTo, shiftFrom };
   };
@@ -65,11 +65,22 @@ class Presenter {
   };
 
   clickedScaleItemHandler = (e: PointerEvent): void => {
-    const newToValue = +e.target?.textContent;
-    if (typeof newToValue === "number") {
+    this.getState();
+    const newValue = +e.target?.textContent;
+    const { from, to } = this.state;
+
+    const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
+    const difToNewValue = Math.abs(Math.abs(to) - Math.abs(newValue));
+
+    if (difToNewValue <= difFromNewValue) {
       this.model.updateState({
         type: ModelAction.setToValue,
-        payload: { value: newToValue },
+        payload: { value: newValue },
+      });
+    } else if (difToNewValue > difFromNewValue) {
+      this.model.updateState({
+        type: ModelAction.setFromValue,
+        payload: { value: newValue },
       });
     }
   };
