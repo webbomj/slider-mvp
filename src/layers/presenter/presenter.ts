@@ -67,19 +67,25 @@ class Presenter {
   clickedScaleItemHandler = (e: PointerEvent): void => {
     this.getState();
     const newValue = +e.target?.textContent;
-    const { from, to } = this.state;
+    const { from, to, isInterval } = this.state;
+    if (isInterval) {
+      const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
+      const difToNewValue = Math.abs(Math.abs(to) - Math.abs(newValue));
 
-    const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
-    const difToNewValue = Math.abs(Math.abs(to) - Math.abs(newValue));
-
-    if (difToNewValue <= difFromNewValue) {
+      if (difToNewValue <= difFromNewValue) {
+        this.model.updateState({
+          type: ModelAction.setToValue,
+          payload: { value: newValue },
+        });
+      } else if (difToNewValue > difFromNewValue) {
+        this.model.updateState({
+          type: ModelAction.setFromValue,
+          payload: { value: newValue },
+        });
+      }
+    } else {
       this.model.updateState({
         type: ModelAction.setToValue,
-        payload: { value: newValue },
-      });
-    } else if (difToNewValue > difFromNewValue) {
-      this.model.updateState({
-        type: ModelAction.setFromValue,
         payload: { value: newValue },
       });
     }
@@ -90,7 +96,7 @@ class Presenter {
     let slider = this.container.querySelector(".lineBlock");
     let position = event.target?.dataset.handle;
 
-    const { max, min, step } = this.state;
+    const { max, min, step, isInterval } = this.state;
 
     let sliderCoords = getCoords(slider);
     let sliderSpanCoords = getCoords(sliderSpan);
@@ -117,20 +123,27 @@ class Presenter {
       let result = Number(((stepLeft / stepPercent) * step).toFixed());
       let value = result + min;
 
-      if (position === HandlePosition.to) {
-        if (value < this.state.from) {
-          value = this.state.from;
+      if (isInterval) {
+        if (position === HandlePosition.to) {
+          if (value < this.state.from) {
+            value = this.state.from;
+          }
+          this.model.updateState({
+            type: ModelAction.setToValue,
+            payload: { value },
+          });
+        } else if (position === HandlePosition.from) {
+          if (value > this.state.to) {
+            value = this.state.to;
+          }
+          this.model.updateState({
+            type: ModelAction.setFromValue,
+            payload: { value },
+          });
         }
+      } else {
         this.model.updateState({
           type: ModelAction.setToValue,
-          payload: { value },
-        });
-      } else if (position === HandlePosition.from) {
-        if (value > this.state.to) {
-          value = this.state.to;
-        }
-        this.model.updateState({
-          type: ModelAction.setFromValue,
           payload: { value },
         });
       }

@@ -101,14 +101,15 @@ class lineBlock {
     const { progressBarWidth, shift, shiftFrom } = options;
     this.handleTo.update(shift);
     this.labelTo.update(to, shift);
-    this.handleFrom.update(shiftFrom);
-    this.labelFrom.update(from, shiftFrom);
-    // if (!isInterval) {
+    if (isInterval) {
+      this.handleFrom.update(shiftFrom);
+      this.labelFrom.update(from, shiftFrom);
+    }
+
     this.progressBar.update({
       shiftFrom: shiftFrom,
       width: progressBarWidth,
     });
-    // }
   };
 }
 
