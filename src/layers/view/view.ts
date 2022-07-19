@@ -16,6 +16,7 @@ class View {
   public observer: Observer;
   private slide: lineBlock;
   private scale: Scale;
+  private isVertical: boolean;
 
   constructor({
     options,
@@ -23,10 +24,10 @@ class View {
     scaleOptions,
     lineBlockOptions,
   }: IViewOptions) {
-    console.log(lineBlockOptions);
     this.container = container;
     this.options = options;
     this.observer = new Observer();
+    this.isVertical = options.isVertical;
     this.init({ scaleOptions, lineBlockOptions });
   }
 
@@ -43,6 +44,7 @@ class View {
       arrayScale: scaleOptions.scale,
       shift: scaleOptions.shift,
       observer: this.observer,
+      isVertical: this.isVertical,
     };
 
     this.scale = new Scale(scaleProps);

@@ -7,15 +7,23 @@ import Observer from "../../../observer/observer";
 import "./scale.scss";
 
 class Scale {
-  arrayScale: number[];
-  container: HTMLElement;
-  shift: number;
+  private arrayScale: number[];
+  private container: HTMLElement;
+  private shift: number;
   private observer: Observer;
-  constructor({ arrayScale, container, shift, observer }: IScaleOptions) {
+  private isVertical: boolean;
+  constructor({
+    arrayScale,
+    container,
+    shift,
+    observer,
+    isVertical,
+  }: IScaleOptions) {
     this.arrayScale = arrayScale;
     this.container = container;
     this.shift = shift;
     this.observer = observer;
+    this.isVertical = isVertical;
 
     this.render();
   }
@@ -47,7 +55,9 @@ class Scale {
         if (margin > 100) {
           margin = 100;
         }
-        scaleItemsNode[index].style.left = `${margin}%`;
+        if (!this.isVertical) {
+          scaleItemsNode[index].style.left = `${margin}%`;
+        }
 
         margin += this.shift;
       }

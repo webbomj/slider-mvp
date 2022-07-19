@@ -39,7 +39,11 @@ const lineBlockCreator = (model: IModelOptions) => {
   const shiftFrom = countShiftFrom({ from, max, min, step });
   const shiftTo = countShiftTo({ to, max, min, step });
   const progressWidth = countProgressWidth({ from, max, min, step, to });
-
+  console.log({
+    shiftFrom,
+    shiftTo,
+    progressWidth,
+  });
   return {
     shiftFrom,
     shiftTo,

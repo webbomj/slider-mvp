@@ -1,5 +1,7 @@
 import {
   EventName,
+  HandlePosition,
+  ILineBlockOptions,
   IModelOptions,
   IPresenterOptions,
   IScaleProps,
@@ -33,7 +35,6 @@ class Presenter {
     const joinOptions = { ...defaultOptions, ...options };
     this.model = new Model(joinOptions);
     this.getState();
-    console.log(this.state);
     const scaleOptions = this.createArrScale();
 
     const lineBlockOptions = this.createLineBlock();
@@ -47,23 +48,23 @@ class Presenter {
     this.subscribe();
   }
 
-  getState = () => {
+  getState = (): void => {
     this.state = this.model.getState();
   };
 
-  createLineBlock = () => {
-    this.getState();
+  createLineBlock = (): ILineBlockOptions => {
+    // this.getState();
     const { progressWidth, shiftFrom, shiftTo } = lineBlockCreator(this.state);
     return { progressBarWidth: progressWidth, shift: shiftTo, shiftFrom };
   };
 
-  createArrScale = () => {
+  createArrScale = (): IScaleProps => {
     const { max, min, step } = this.state;
     const { scale, shift } = arrScaleCreator({ max, min, step });
     return { scale, shift };
   };
 
-  clickedScaleItemHandler = (e: MouseEvent) => {
+  clickedScaleItemHandler = (e: PointerEvent): void => {
     const newToValue = +e.target?.textContent;
     if (typeof newToValue === "number") {
       this.model.updateState({
@@ -73,9 +74,10 @@ class Presenter {
     }
   };
 
-  clickedHandleHandler = (event: PointerEvent) => {
+  clickedHandleHandler = (event: PointerEvent): void => {
     let sliderSpan = event.target;
     let slider = this.container.querySelector(".lineBlock");
+    let position = event.target?.dataset.handle;
 
     const { max, min, step } = this.state;
 
@@ -85,12 +87,9 @@ class Presenter {
 
     const mouseMoveHandler = (e: PointerEvent) => handleMove(e);
     document.addEventListener("mousemove", mouseMoveHandler);
-    document.addEventListener("mouseup", function () {
-      document.removeEventListener("mousemove", mouseMoveHandler);
-    });
 
     //Начнем движение ползунка
-    const handleMove = (evt: PointerEvent) => {
+    const handleMove = (evt: PointerEvent): void => {
       let left =
         ((evt.pageX - shift - sliderCoords.left) / sliderCoords.width) * 100;
       if (left < 0) left = 0;
@@ -106,24 +105,39 @@ class Presenter {
       //Расчитаем значение равное шагу слайдера
       let result = Number(((stepLeft / stepPercent) * step).toFixed());
       let value = result + min;
-      this.model.updateState({
-        type: ModelAction.setToValue,
-        payload: { value },
-      });
+
+      if (position === HandlePosition.to) {
+        if (value < this.state.from) {
+          value = this.state.from;
+        }
+        this.model.updateState({
+          type: ModelAction.setToValue,
+          payload: { value },
+        });
+      } else if (position === HandlePosition.from) {
+        if (value > this.state.to) {
+          value = this.state.to;
+        }
+        this.model.updateState({
+          type: ModelAction.setFromValue,
+          payload: { value },
+        });
+      }
     };
 
-    return false;
+    document.addEventListener("mouseup", function () {
+      document.removeEventListener("mousemove", mouseMoveHandler);
+    });
   };
 
   modelWasUpdate = (model: IModelOptions): void => {
     this.getState();
-    const scaleProps: IScaleProps = this.createArrScale();
+    const scaleProps = this.createArrScale();
     const lineBlockOptions = this.createLineBlock();
-    console.log(lineBlockOptions);
     this.view.updateView({ model, scaleProps, lineBlockOptions });
   };
 
-  subscribe = () => {
+  subscribe = (): void => {
     this.view.subscribe({
       eventName: EventName.clickedScaleItem,
       function: this.clickedScaleItemHandler,

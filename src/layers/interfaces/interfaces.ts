@@ -90,6 +90,7 @@ interface IScaleOptions {
   arrayScale: number[];
   shift: number;
   observer: Observer;
+  isVertical: boolean;
 }
 
 interface IViewInitProps {
@@ -139,7 +140,7 @@ interface ICountProgressWidthProps {
 }
 
 interface IProgressBarUpdateProps {
-  shiftFrom?: number;
+  shiftFrom: number;
   width: number;
 }
 
@@ -149,10 +150,16 @@ interface ICountStepPixelProps {
   min: number;
 }
 
+enum HandlePosition {
+  from = "from",
+  to = "to",
+}
+
 interface IHandleProps {
   container: HTMLElement;
   shift: number;
   observer: Observer;
+  handlePosition?: HandlePosition;
 }
 
 interface ILabelProps {
@@ -183,6 +190,7 @@ export {
   ICountProgressWidthProps,
   IProgressBarUpdateProps,
   ICountStepPixelProps,
+  HandlePosition,
   IHandleProps,
   ILabelProps,
   IScaleProps,

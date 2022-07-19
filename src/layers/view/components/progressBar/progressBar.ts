@@ -24,11 +24,10 @@ class ProgressBar {
   };
 
   update = ({ shiftFrom, width }: IProgressBarUpdateProps): void => {
-    if (shiftFrom) {
-      this.shiftFrom = shiftFrom;
-    }
+    this.shiftFrom = shiftFrom;
+
     this.width = width;
-    const progressBarNode = this.container.querySelector(
+    const progressBarNode: HTMLElement | null = this.container.querySelector(
       ".lineBlock__progressBar"
     );
     if (progressBarNode) {

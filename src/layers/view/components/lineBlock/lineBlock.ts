@@ -1,4 +1,5 @@
 import {
+  HandlePosition,
   ILineBlockOptions,
   ILineBlockProps,
   IModelOptions,
@@ -15,7 +16,9 @@ class lineBlock {
   private state;
   private progressBar: ProgressBar;
   private labelTo: Label;
+  private labelFrom: Label;
   private handleTo: Handle;
+  private handleFrom: Handle;
   private observer: Observer;
 
   constructor(lineOptions: ILineBlockProps) {
@@ -31,22 +34,52 @@ class lineBlock {
     const lineBlock = document.createElement("div");
     const activeBlock = document.createElement("div");
 
-    const { to } = this.state;
+    const { to, from } = this.state;
 
     lineBlock.classList.add("lineBlock");
     activeBlock.classList.add("lineBlock__active");
 
-    this.handleTo = new Handle({
-      container: activeBlock,
-      shift: shift,
-      observer: this.observer,
-    });
-    this.labelTo = new Label({
-      container: activeBlock,
-      shift: shift,
-      text: to,
-      observer: this.observer,
-    });
+    if (this.state.isInterval) {
+      this.handleTo = new Handle({
+        container: activeBlock,
+        shift: shift,
+        observer: this.observer,
+        handlePosition: HandlePosition.to,
+      });
+
+      this.labelTo = new Label({
+        container: activeBlock,
+        shift: shift,
+        text: to,
+        observer: this.observer,
+      });
+
+      this.handleFrom = new Handle({
+        container: activeBlock,
+        shift: shiftFrom,
+        observer: this.observer,
+        handlePosition: HandlePosition.from,
+      });
+
+      this.labelFrom = new Label({
+        container: activeBlock,
+        shift: shiftFrom,
+        text: from,
+        observer: this.observer,
+      });
+    } else {
+      this.handleTo = new Handle({
+        container: activeBlock,
+        shift: shift,
+        observer: this.observer,
+      });
+      this.labelTo = new Label({
+        container: activeBlock,
+        shift: shift,
+        text: to,
+        observer: this.observer,
+      });
+    }
 
     lineBlock.append(activeBlock);
 
@@ -65,15 +98,17 @@ class lineBlock {
 
   update = (model: IModelOptions, options: ILineBlockOptions) => {
     const { from, to, isInterval } = model;
-    const { progressBarWidth, shift } = options;
+    const { progressBarWidth, shift, shiftFrom } = options;
     this.handleTo.update(shift);
     this.labelTo.update(to, shift);
-    if (!isInterval) {
-      this.progressBar.update({
-        shiftFrom: from,
-        width: progressBarWidth,
-      });
-    }
+    this.handleFrom.update(shiftFrom);
+    this.labelFrom.update(from, shiftFrom);
+    // if (!isInterval) {
+    this.progressBar.update({
+      shiftFrom: shiftFrom,
+      width: progressBarWidth,
+    });
+    // }
   };
 }
 
