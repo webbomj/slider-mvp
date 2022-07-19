@@ -38,21 +38,23 @@ class View {
       observer: this.observer,
       options: lineBlockOptions,
     });
-
-    let scaleProps: IScaleOptions = {
-      container: this.container,
-      arrayScale: scaleOptions.scale,
-      shift: scaleOptions.shift,
-      observer: this.observer,
-      isVertical: this.isVertical,
-    };
-
-    this.scale = new Scale(scaleProps);
+    if (this.options.isScale) {
+      let scaleProps: IScaleOptions = {
+        container: this.container,
+        arrayScale: scaleOptions.scale,
+        shift: scaleOptions.shift,
+        observer: this.observer,
+        isVertical: this.isVertical,
+      };
+      this.scale = new Scale(scaleProps);
+    }
   };
 
   updateView = ({ model, scaleProps, lineBlockOptions }: IUpdateViewProps) => {
     this.slide.update(model, lineBlockOptions);
-    this.scale.update(scaleProps);
+    if (model.isScale) {
+      this.scale.update(scaleProps);
+    }
   };
 
   public subscribe = (subscriber: ISubscriber) => {
