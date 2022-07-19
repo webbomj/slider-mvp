@@ -24,8 +24,6 @@ class ProgressBar {
   };
 
   update = ({ shiftFrom, width }: IProgressBarUpdateProps): void => {
-    console.log("обнова прогресс бара", shiftFrom, width);
-
     if (shiftFrom) {
       this.shiftFrom = shiftFrom;
     }

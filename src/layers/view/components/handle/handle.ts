@@ -1,4 +1,4 @@
-import { IHandleProps } from "../../../interfaces/interfaces";
+import { EventName, IHandleProps } from "../../../interfaces/interfaces";
 import Observer from "../../../observer/observer";
 
 class Handle {
@@ -16,8 +16,18 @@ class Handle {
   render = () => {
     const handle = document.createElement("div");
     handle.classList.add("lineBlock__handler");
-    this.container.append(handle);
     this.handle = handle;
+    this.container.append(handle);
+    this.handle.addEventListener("mousedown", (e: PointerEvent) =>
+      this.clickHandler(e)
+    );
+  };
+
+  clickHandler = (event: PointerEvent) => {
+    this.observer.notify({
+      eventName: EventName.clickedHandle,
+      eventPayload: event,
+    });
   };
 
   update = (value: number) => {

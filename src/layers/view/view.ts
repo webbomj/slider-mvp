@@ -17,18 +17,25 @@ class View {
   private slide: lineBlock;
   private scale: Scale;
 
-  constructor({ options, container, scaleOptions }: IViewOptions) {
+  constructor({
+    options,
+    container,
+    scaleOptions,
+    lineBlockOptions,
+  }: IViewOptions) {
+    console.log(lineBlockOptions);
     this.container = container;
     this.options = options;
     this.observer = new Observer();
-    this.init({ scaleOptions });
+    this.init({ scaleOptions, lineBlockOptions });
   }
 
-  init = ({ scaleOptions }: IViewInitProps) => {
+  init = ({ scaleOptions, lineBlockOptions }: IViewInitProps) => {
     this.slide = new lineBlock({
       container: this.container,
-      options: this.options,
+      model: this.options,
       observer: this.observer,
+      options: lineBlockOptions,
     });
 
     let scaleProps: IScaleOptions = {
@@ -41,8 +48,8 @@ class View {
     this.scale = new Scale(scaleProps);
   };
 
-  updateView = ({ model, scaleProps }: IUpdateViewProps) => {
-    this.slide.update(model);
+  updateView = ({ model, scaleProps, lineBlockOptions }: IUpdateViewProps) => {
+    this.slide.update(model, lineBlockOptions);
     this.scale.update(scaleProps);
   };
 

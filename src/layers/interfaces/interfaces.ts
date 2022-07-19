@@ -47,12 +47,20 @@ interface IViewOptions {
   container: HTMLElement;
   options: IModelOptions;
   scaleOptions: IScaleProps;
+  lineBlockOptions: ILineBlockOptions;
 }
 
 interface ILineBlockOptions {
+  shift: number;
+  shiftFrom: number;
+  progressBarWidth: number;
+}
+
+interface ILineBlockProps {
   container: HTMLElement;
-  options: IModelOptions;
+  model: IModelOptions;
   observer: Observer;
+  options: ILineBlockOptions;
 }
 
 interface IObserver {
@@ -64,16 +72,17 @@ interface IObserver {
 enum EventName {
   clickedScaleItem = "clickedScaleItem",
   modelWasUpdate = "modelWasUpdate",
+  clickedHandle = "clickedHandle",
 }
 
 interface ISubscriber {
   eventName: EventName;
-  function: (e: Event | IModelOptions) => void;
+  function: (e: Event | IModelOptions | Event[]) => void;
 }
 
 interface IEventObject {
   eventName: EventName;
-  eventPayload: Event | IModelOptions;
+  eventPayload: Event | IModelOptions | Event[];
 }
 
 interface IScaleOptions {
@@ -85,11 +94,13 @@ interface IScaleOptions {
 
 interface IViewInitProps {
   scaleOptions: IScaleProps;
+  lineBlockOptions: ILineBlockOptions;
 }
 
 interface IUpdateViewProps {
   model: IModelOptions;
   scaleProps: IScaleProps;
+  lineBlockOptions: ILineBlockOptions;
 }
 
 interface ICreateArrScale {
@@ -107,7 +118,7 @@ interface IProgressBarOptions {
 
 interface ICountShiftFromProps {
   min: number;
-  to: number;
+  from: number;
   step: number;
   max: number;
 }
@@ -157,6 +168,7 @@ export {
   IPresenterOptions,
   IViewOptions,
   ILineBlockOptions,
+  ILineBlockProps,
   IModelAction,
   IObserver,
   ISubscriber,
