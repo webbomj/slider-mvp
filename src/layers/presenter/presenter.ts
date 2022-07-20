@@ -96,19 +96,25 @@ class Presenter {
     let slider = this.container.querySelector(".lineBlock");
     let position = event.target?.dataset.handle;
 
-    const { max, min, step, isInterval } = this.state;
+    const { max, min, step, isInterval, isVertical } = this.state;
 
     let sliderCoords = getCoords(slider);
     let sliderSpanCoords = getCoords(sliderSpan);
     let shift = event.pageX - sliderSpanCoords.left;
-
-    const mouseMoveHandler = (e: PointerEvent) => handleMove(e);
+    if (isVertical) {
+      shift = event.pageY - sliderSpanCoords.top;
+    }
+    const mouseMoveHandler = (evt: PointerEvent) => handleMove(evt);
     document.addEventListener("mousemove", mouseMoveHandler);
 
     //Начнем движение ползунка
     const handleMove = (evt: PointerEvent): void => {
       let left =
         ((evt.pageX - shift - sliderCoords.left) / sliderCoords.width) * 100;
+      if (isVertical) {
+        left =
+          ((evt.pageY - shift - sliderCoords.top) / sliderCoords.height) * 100;
+      }
       if (left < 0) left = 0;
       if (left > 100) left = 100;
 

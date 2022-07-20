@@ -1,4 +1,8 @@
 #app {
-  margin-top: 50vh;
+  display: flex;
+  justify-content: center;
   transform: translateY(-50%);
+  width: 200px;
+  height: 200px;
+  margin: 50vh auto 0;
 }

@@ -37,6 +37,7 @@ class lineBlock {
     const { to, from } = this.state;
 
     lineBlock.classList.add("lineBlock");
+    lineBlock.setAttribute("data-isvertical", "true");
     activeBlock.classList.add("lineBlock__active");
 
     if (this.state.isInterval) {
@@ -45,6 +46,7 @@ class lineBlock {
         shift: shift,
         observer: this.observer,
         handlePosition: HandlePosition.to,
+        isVertical: this.state.isVertical,
       });
       if (this.state.isLabel) {
         this.labelTo = new Label({
@@ -60,6 +62,7 @@ class lineBlock {
         shift: shiftFrom,
         observer: this.observer,
         handlePosition: HandlePosition.from,
+        isVertical: this.state.isVertical,
       });
 
       if (this.state.isLabel) {
@@ -75,6 +78,7 @@ class lineBlock {
         container: activeBlock,
         shift: shift,
         observer: this.observer,
+        isVertical: this.state.isVertical,
       });
       if (this.state.isLabel) {
         this.labelTo = new Label({
@@ -102,9 +106,9 @@ class lineBlock {
   };
 
   update = (model: IModelOptions, options: ILineBlockOptions) => {
-    const { from, to, isInterval, isLabel } = model;
+    const { from, to, isInterval, isLabel, isVertical } = model;
     const { progressBarWidth, shift, shiftFrom } = options;
-    this.handleTo.update(shift);
+
     if (isLabel) {
       this.labelTo.update(to, shift);
     }
@@ -114,11 +118,15 @@ class lineBlock {
         this.labelFrom.update(from, shiftFrom);
       }
     }
+    if (isVertical) {
+      this.handleTo.update(shift, isVertical);
+    } else {
+      this.handleTo.update(shift);
+    }
 
     this.progressBar.update({
       shiftFrom: shiftFrom,
       width: progressBarWidth,
-      isInterval,
     });
   };
 }

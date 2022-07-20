@@ -144,7 +144,6 @@ interface ICountProgressWidthProps {
 interface IProgressBarUpdateProps {
   shiftFrom: number;
   width: number;
-  isInterval: boolean;
 }
 
 interface ICountStepPixelProps {
@@ -163,6 +162,7 @@ interface IHandleProps {
   shift: number;
   observer: Observer;
   handlePosition?: HandlePosition;
+  isVertical: boolean;
 }
 
 interface ILabelProps {
