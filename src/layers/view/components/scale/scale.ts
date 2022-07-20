@@ -55,7 +55,8 @@ class Scale {
         if (margin > 100) {
           margin = 100;
         }
-        if (!this.isVertical) {
+        if (this.isVertical) {
+        } else {
           scaleItemsNode[index].style.left = `${margin}%`;
         }
 

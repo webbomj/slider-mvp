@@ -39,12 +39,22 @@
   &[data-isvertical="true"] {
     height: 100%;
     width: 6px;
+    margin-left: 5px;
     & .lineBlock__handler {
       top: 0%;
       transform: translate(-30%, -5px);
     }
     & .lineBlock__progressBar {
       width: 100%;
+    }
+    & ~ .scale {
+      flex-direction: column;
+      flex-wrap: wrap;
+      margin: 0 0 0 -20px;
+      & .scale__item {
+        position: relative;
+        transform: translateY(-50%);
+      }
     }
   }
 }
