@@ -118,6 +118,7 @@ class lineBlock {
     this.progressBar.update({
       shiftFrom: shiftFrom,
       width: progressBarWidth,
+      isInterval,
     });
   };
 }

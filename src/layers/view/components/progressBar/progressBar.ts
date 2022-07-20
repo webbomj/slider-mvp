@@ -23,7 +23,11 @@ class ProgressBar {
     this.update({ shiftFrom: this.shiftFrom, width: this.width });
   };
 
-  update = ({ shiftFrom, width }: IProgressBarUpdateProps): void => {
+  update = ({
+    shiftFrom,
+    width,
+    isInterval,
+  }: IProgressBarUpdateProps): void => {
     this.shiftFrom = shiftFrom;
 
     this.width = width;

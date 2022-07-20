@@ -8,7 +8,7 @@ const defaultOptions: IModelOptions = {
   to: 9,
   step: 3,
   isVertical: false,
-  isInterval: true,
+  isInterval: false,
   isLabel: false,
   isScale: false,
   isProgressBar: true,

@@ -122,6 +122,7 @@ interface ICountShiftFromProps {
   from: number;
   step: number;
   max: number;
+  isInterval: boolean;
 }
 
 interface ICountShiftToProps {
@@ -137,11 +138,13 @@ interface ICountProgressWidthProps {
   min: number;
   to: number;
   from: number;
+  isInterval: boolean;
 }
 
 interface IProgressBarUpdateProps {
   shiftFrom: number;
   width: number;
+  isInterval: boolean;
 }
 
 interface ICountStepPixelProps {
