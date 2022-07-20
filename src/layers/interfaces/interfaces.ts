@@ -115,6 +115,7 @@ interface IProgressBarOptions {
   shiftFrom: number;
   width: number;
   observer: Observer;
+  isVertical: boolean;
 }
 
 interface ICountShiftFromProps {
@@ -144,6 +145,7 @@ interface ICountProgressWidthProps {
 interface IProgressBarUpdateProps {
   shiftFrom: number;
   width: number;
+  isVertical: boolean;
 }
 
 interface ICountStepPixelProps {

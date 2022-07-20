@@ -43,5 +43,8 @@
       top: 0%;
       transform: translate(-30%, -5px);
     }
+    & .lineBlock__progressBar {
+      width: 100%;
+    }
   }
 }

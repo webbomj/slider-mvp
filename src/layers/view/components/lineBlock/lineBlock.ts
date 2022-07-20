@@ -37,7 +37,7 @@ class lineBlock {
     const { to, from } = this.state;
 
     lineBlock.classList.add("lineBlock");
-    lineBlock.setAttribute("data-isvertical", "true");
+    lineBlock.setAttribute("data-isvertical", String(this.state.isVertical));
     activeBlock.classList.add("lineBlock__active");
 
     if (this.state.isInterval) {
@@ -97,6 +97,7 @@ class lineBlock {
       shiftFrom: shiftFrom,
       width: progressBarWidth,
       observer: this.observer,
+      isVertical: this.state.isVertical,
     };
 
     this.progressBar = new ProgressBar(ProgressBarOptions);
@@ -127,6 +128,7 @@ class lineBlock {
     this.progressBar.update({
       shiftFrom: shiftFrom,
       width: progressBarWidth,
+      isVertical: this.state.isVertical,
     });
   };
 }

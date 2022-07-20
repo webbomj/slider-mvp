@@ -9,9 +9,17 @@ class ProgressBar {
   private shiftFrom: number;
   private width: number;
   private observer: Observer;
-  constructor({ container, shiftFrom, width, observer }: IProgressBarOptions) {
+  private isVertical: boolean;
+  constructor({
+    container,
+    shiftFrom,
+    width,
+    observer,
+    isVertical,
+  }: IProgressBarOptions) {
     this.container = container;
     this.shiftFrom = shiftFrom;
+    this.isVertical = isVertical;
     this.width = width;
     this.observer = observer;
     this.render(this.container);
@@ -20,10 +28,18 @@ class ProgressBar {
     const progressBar = document.createElement("div");
     progressBar.classList.add("lineBlock__progressBar");
     container.appendChild(progressBar);
-    this.update({ shiftFrom: this.shiftFrom, width: this.width });
+    this.update({
+      shiftFrom: this.shiftFrom,
+      width: this.width,
+      isVertical: this.isVertical,
+    });
   };
 
-  update = ({ shiftFrom, width }: IProgressBarUpdateProps): void => {
+  update = ({
+    shiftFrom,
+    width,
+    isVertical,
+  }: IProgressBarUpdateProps): void => {
     this.shiftFrom = shiftFrom;
 
     this.width = width;
@@ -31,8 +47,13 @@ class ProgressBar {
       ".lineBlock__progressBar"
     );
     if (progressBarNode) {
-      progressBarNode.style.width = `${this.width}%`;
-      progressBarNode.style.left = `${this.shiftFrom}%`;
+      if (isVertical) {
+        progressBarNode.style.top = `${this.shiftFrom}%`;
+        progressBarNode.style.height = `${this.width}%`;
+      } else {
+        progressBarNode.style.left = `${this.shiftFrom}%`;
+        progressBarNode.style.width = `${this.width}%`;
+      }
     }
   };
 }
