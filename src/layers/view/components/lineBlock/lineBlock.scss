@@ -50,9 +50,14 @@
     & ~ .scale {
       flex-direction: column;
       margin-top: 0;
+      margin-left: -35px;
       & .scale__item {
         transform: translateY(-50%);
       }
+    }
+    & .lineBlock__label {
+      margin-left: 30px;
+      transform: translateY(-50%);
     }
   }
 }

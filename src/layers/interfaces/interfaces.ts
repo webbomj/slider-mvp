@@ -172,6 +172,7 @@ interface ILabelProps {
   shift: number;
   text: number;
   observer: Observer;
+  isVertical: boolean;
 }
 
 export {

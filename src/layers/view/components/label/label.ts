@@ -6,9 +6,11 @@ class Label {
   private container: HTMLElement;
   private shift: number;
   private observer: Observer;
-  constructor({ container, shift, text, observer }: ILabelProps) {
+  private isVertical: boolean;
+  constructor({ container, shift, text, observer, isVertical }: ILabelProps) {
     this.container = container;
     this.shift = shift;
+    this.isVertical = isVertical;
     this.observer = observer;
     const label = document.createElement("div");
     this.label = label;
@@ -22,7 +24,11 @@ class Label {
   update = (value: number, shift: number) => {
     this.label.textContent = `${value}`;
     this.shift = shift;
-    this.label.style.left = `${this.shift}%`;
+    if (this.isVertical) {
+      this.label.style.top = `${this.shift}%`;
+    } else {
+      this.label.style.left = `${this.shift}%`;
+    }
   };
 }
 

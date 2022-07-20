@@ -40,7 +40,11 @@ class Scale {
     scale.classList.add("scale");
     this.arrayScale.forEach((el) => {
       let scaleNumber = this.createItem();
-      scaleNumber.style.left = `${this.shift}`;
+      if (this.isVertical) {
+        scaleNumber.style.top = `${this.shift}`;
+      } else {
+        scaleNumber.style.left = `${this.shift}`;
+      }
       scaleNumber.textContent = `${el}`;
       scaleNumber.addEventListener("click", (e) => this.notify(e));
       scale.appendChild(scaleNumber);

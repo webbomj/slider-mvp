@@ -54,6 +54,7 @@ class lineBlock {
           shift: shift,
           text: to,
           observer: this.observer,
+          isVertical: this.state.isVertical,
         });
       }
 
@@ -71,6 +72,7 @@ class lineBlock {
           shift: shiftFrom,
           text: from,
           observer: this.observer,
+          isVertical: this.state.isVertical,
         });
       }
     } else {
@@ -86,6 +88,7 @@ class lineBlock {
           shift: shift,
           text: to,
           observer: this.observer,
+          isVertical: this.state.isVertical,
         });
       }
     }
