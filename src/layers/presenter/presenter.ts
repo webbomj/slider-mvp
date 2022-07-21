@@ -103,6 +103,61 @@ class Presenter {
     }
   };
 
+  clickedLineHandler = (event: PointerEvent) => {
+    const { max, min, step, isInterval, isVertical, to, from } = this.state;
+    let slider = this.container.querySelector(".lineBlock");
+    let sliderCoords = getCoords(slider);
+    let left = ((event.pageY - sliderCoords.top) / sliderCoords.height) * 100;
+    if (!isVertical) {
+      left = ((event.pageX - sliderCoords.left) / sliderCoords.width) * 100;
+    }
+    if (left < 0) left = 0;
+    if (left > 100) left = 100;
+
+    let stepCount = (max - min) / step;
+    let stepPercent = 100 / stepCount;
+    let stepLeft = Math.round(left / stepPercent) * stepPercent;
+    if (stepLeft < 0) stepLeft = 0;
+    if (stepLeft > 100) stepLeft = 100;
+
+    let result = Number(((stepLeft / stepPercent) * step).toFixed());
+    let value = result + min;
+
+    if (isInterval) {
+      const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(value));
+      const difToNewValue = Math.abs(Math.abs(to) - Math.abs(value));
+
+      if (difToNewValue < difFromNewValue) {
+        this.model.updateState({
+          type: ModelAction.setToValue,
+          payload: { value: value },
+        });
+      } else if (difToNewValue > difFromNewValue) {
+        this.model.updateState({
+          type: ModelAction.setFromValue,
+          payload: { value: value },
+        });
+      } else if (difFromNewValue === difToNewValue) {
+        if (value < to) {
+          this.model.updateState({
+            type: ModelAction.setFromValue,
+            payload: { value: value },
+          });
+        } else {
+          this.model.updateState({
+            type: ModelAction.setToValue,
+            payload: { value: value },
+          });
+        }
+      }
+    } else {
+      this.model.updateState({
+        type: ModelAction.setToValue,
+        payload: { value: value },
+      });
+    }
+  };
+
   clickedHandleHandler = (event: PointerEvent): void => {
     const { max, min, step, isInterval, isVertical, to, from } = this.state;
 
@@ -193,6 +248,11 @@ class Presenter {
     this.view.subscribe({
       eventName: EventName.clickedHandle,
       function: this.clickedHandleHandler,
+    });
+
+    this.view.subscribe({
+      eventName: EventName.clickedLine,
+      function: this.clickedLineHandler,
     });
 
     // model sub

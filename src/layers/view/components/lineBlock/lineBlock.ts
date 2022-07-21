@@ -1,4 +1,5 @@
 import {
+  EventName,
   HandlePosition,
   ILineBlockOptions,
   ILineBlockProps,
@@ -39,6 +40,12 @@ class lineBlock {
     lineBlock.classList.add("lineBlock");
     lineBlock.setAttribute("data-isvertical", String(this.state.isVertical));
     activeBlock.classList.add("lineBlock__active");
+    lineBlock.addEventListener("click", (e) =>
+      this.observer.notify({
+        eventName: EventName.clickedLine,
+        eventPayload: e,
+      })
+    );
 
     if (this.state.isInterval) {
       this.handleTo = new Handle({

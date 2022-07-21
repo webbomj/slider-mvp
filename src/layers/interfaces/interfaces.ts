@@ -73,6 +73,7 @@ enum EventName {
   clickedScaleItem = "clickedScaleItem",
   modelWasUpdate = "modelWasUpdate",
   clickedHandle = "clickedHandle",
+  clickedLine = "clickedLine",
 }
 
 interface ISubscriber {
