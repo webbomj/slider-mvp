@@ -72,7 +72,7 @@ class Presenter {
       const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
       const difToNewValue = Math.abs(Math.abs(to) - Math.abs(newValue));
 
-      if (difToNewValue <= difFromNewValue) {
+      if (difToNewValue < difFromNewValue) {
         this.model.updateState({
           type: ModelAction.setToValue,
           payload: { value: newValue },
@@ -82,6 +82,18 @@ class Presenter {
           type: ModelAction.setFromValue,
           payload: { value: newValue },
         });
+      } else if (difFromNewValue === difToNewValue) {
+        if (newValue < to) {
+          this.model.updateState({
+            type: ModelAction.setFromValue,
+            payload: { value: newValue },
+          });
+        } else {
+          this.model.updateState({
+            type: ModelAction.setToValue,
+            payload: { value: newValue },
+          });
+        }
       }
     } else {
       this.model.updateState({
@@ -92,11 +104,16 @@ class Presenter {
   };
 
   clickedHandleHandler = (event: PointerEvent): void => {
+    const { max, min, step, isInterval, isVertical, to, from } = this.state;
+
     let sliderSpan = event.target;
     let slider = this.container.querySelector(".lineBlock");
-    let position = event.target?.dataset.handle;
 
-    const { max, min, step, isInterval, isVertical } = this.state;
+    if (to === min && from === min) {
+      sliderSpan = this.container.querySelector("[data-handle=to]");
+      console.log(sliderSpan);
+    }
+    let position = sliderSpan?.dataset.handle;
 
     let sliderCoords = getCoords(slider);
     let sliderSpanCoords = getCoords(sliderSpan);
