@@ -5,7 +5,7 @@ const createArrScale = (min: number, max: number, step: number) => {
   for (let index = min; index <= max; index += step) {
     arrayScale.push(index);
   }
-  if (max % step !== 0) {
+  if ((max - min) % step !== 0) {
     arrayScale.push(max);
   }
   return arrayScale;

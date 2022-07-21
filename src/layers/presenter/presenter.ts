@@ -116,7 +116,8 @@ class Presenter {
 
     let stepCount = (max - min) / step;
     let stepPercent = 100 / stepCount;
-    let stepLeft = Math.round(left / stepPercent) * stepPercent;
+    let stepLeft = (left / stepPercent) * stepPercent;
+
     if (stepLeft < 0) stepLeft = 0;
     if (stepLeft > 100) stepLeft = 100;
 
@@ -193,7 +194,7 @@ class Presenter {
       //Шаг слайдера
       let stepCount = (max - min) / step;
       let stepPercent = 100 / stepCount;
-      let stepLeft = Math.round(left / stepPercent) * stepPercent;
+      let stepLeft = (left / stepPercent) * stepPercent;
       if (stepLeft < 0) stepLeft = 0;
       if (stepLeft > 100) stepLeft = 100;
 

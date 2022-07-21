@@ -3,12 +3,12 @@ import Presenter from "./layers/presenter/presenter";
 
 const defaultOptions: IModelOptions = {
   min: 0,
-  max: 20,
+  max: 19,
   from: 3,
   to: 9,
   step: 3,
-  isVertical: true,
-  isInterval: false,
+  isVertical: false,
+  isInterval: true,
   isLabel: true,
   isScale: true,
   isProgressBar: true,
