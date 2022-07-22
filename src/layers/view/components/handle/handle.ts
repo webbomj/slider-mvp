@@ -33,7 +33,7 @@ class Handle {
     }
     this.handle = handle;
     this.container.append(handle);
-    this.handle.addEventListener("mousedown", (e: PointerEvent) =>
+    this.handle.addEventListener("pointerdown", (e: PointerEvent) =>
       this.clickHandler(e)
     );
   };

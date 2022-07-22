@@ -107,6 +107,7 @@ export default class Model {
         eventPayload: this.getState(),
       });
     }
+    console.log(type, payload.value);
   };
 
   public subscribe = (subscriber: ISubscriber) => {

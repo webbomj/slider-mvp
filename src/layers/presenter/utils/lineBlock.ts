@@ -59,11 +59,6 @@ const lineBlockCreator = (model: IModelOptions) => {
     to,
     isInterval,
   });
-  console.log({
-    shiftFrom,
-    shiftTo,
-    progressWidth,
-  });
   return {
     shiftFrom,
     shiftTo,
@@ -71,4 +66,4 @@ const lineBlockCreator = (model: IModelOptions) => {
   };
 };
 
-export { lineBlockCreator };
+export { lineBlockCreator, countStepPercent };

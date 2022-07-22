@@ -15,6 +15,7 @@
   "compilerOptions": {
     "strict": true,
     "strictPropertyInitialization": false,
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "esModuleInterop": true
   }
 }

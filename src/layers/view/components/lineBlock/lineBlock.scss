@@ -6,6 +6,7 @@
   outline: 1px solid rgba(31, 32, 65, 0.25);
   border-radius: 3px;
   width: 100%;
+  touch-action: none;
 
   &__handler {
     position: absolute;
@@ -41,6 +42,7 @@
     height: 100%;
     width: 6px;
     margin-left: 5px;
+    touch-action: none;
     & .lineBlock__handler {
       top: 0%;
       transform: translate(-30%, -5px);

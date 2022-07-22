@@ -106,6 +106,10 @@ class Presenter {
   clickedLineHandler = (event: PointerEvent) => {
     const { max, min, step, isInterval, isVertical, to, from } = this.state;
     let slider = this.container.querySelector(".lineBlock");
+    let progressbar = this.container.querySelector(".lineBlock__progressBar");
+    if (event.target !== progressbar && event.target !== slider) {
+      return false;
+    }
     let sliderCoords = getCoords(slider);
     let left = ((event.pageY - sliderCoords.top) / sliderCoords.height) * 100;
     if (!isVertical) {
@@ -178,7 +182,7 @@ class Presenter {
       shift = event.pageY - sliderSpanCoords.top;
     }
     const mouseMoveHandler = (evt: PointerEvent) => handleMove(evt);
-    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("pointermove", mouseMoveHandler);
 
     //Начнем движение ползунка
     const handleMove = (evt: PointerEvent): void => {
@@ -228,8 +232,8 @@ class Presenter {
       }
     };
 
-    document.addEventListener("mouseup", function () {
-      document.removeEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("pointerup", function () {
+      document.removeEventListener("pointermove", mouseMoveHandler);
     });
   };
 

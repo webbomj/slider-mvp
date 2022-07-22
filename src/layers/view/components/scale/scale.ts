@@ -28,7 +28,7 @@ class Scale {
     this.render();
   }
 
-  notify = (e: MouseEvent) => {
+  notify = (e: PointerEvent) => {
     this.observer.notify({
       eventName: EventName.clickedScaleItem,
       eventPayload: e,
@@ -46,7 +46,7 @@ class Scale {
         scaleNumber.style.left = `${this.shift}`;
       }
       scaleNumber.textContent = `${el}`;
-      scaleNumber.addEventListener("click", (e) => this.notify(e));
+      scaleNumber.addEventListener("pointerdown", (e) => this.notify(e));
       scale.appendChild(scaleNumber);
     });
 

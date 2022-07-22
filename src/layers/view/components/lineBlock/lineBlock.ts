@@ -40,7 +40,7 @@ class lineBlock {
     lineBlock.classList.add("lineBlock");
     lineBlock.setAttribute("data-isvertical", String(this.state.isVertical));
     activeBlock.classList.add("lineBlock__active");
-    lineBlock.addEventListener("click", (e) =>
+    lineBlock.addEventListener("pointerdown", (e) =>
       this.observer.notify({
         eventName: EventName.clickedLine,
         eventPayload: e,
