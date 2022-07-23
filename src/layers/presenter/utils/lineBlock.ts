@@ -20,6 +20,7 @@ const countShiftFrom = ({
   const stepPercent = countStepPercent({ step, max, min });
   return ((from - min) / step) * stepPercent;
 };
+
 const countShiftTo = ({ min, max, step, to }: ICountShiftToProps) => {
   const stepPercent = countStepPercent({ step, max, min });
   return ((to - min) / step) * stepPercent;
@@ -43,7 +44,7 @@ const countProgressWidth = ({
   if (!isInterval) {
     return ((to - min) / step) * stepPercent;
   }
-  return ((to - from) / step) * stepPercent;
+  return (Math.abs(to - from) / step) * stepPercent;
 };
 
 const lineBlockCreator = (model: IModelOptions) => {
@@ -66,4 +67,10 @@ const lineBlockCreator = (model: IModelOptions) => {
   };
 };
 
-export { lineBlockCreator, countStepPercent };
+export {
+  lineBlockCreator,
+  countStepPercent,
+  countShiftFrom,
+  countShiftTo,
+  countProgressWidth,
+};
