@@ -7,23 +7,19 @@ import {
 } from "../../interfaces/interfaces";
 
 //рассчитываем начальный отступ
-const countShiftFrom = ({
+const countShiftHandle = ({
   min,
-  from,
+  current,
   max,
   step,
   isInterval,
+  handle,
 }: ICountShiftFromProps) => {
-  if (!isInterval) {
+  if (!isInterval && handle === "from") {
     return 0;
   }
   const stepPercent = countStepPercent({ step, max, min });
-  return ((from - min) / step) * stepPercent;
-};
-
-const countShiftTo = ({ min, max, step, to }: ICountShiftToProps) => {
-  const stepPercent = countStepPercent({ step, max, min });
-  return ((to - min) / step) * stepPercent;
+  return ((current - min) / step) * stepPercent;
 };
 
 //рассчитываем шаг в процентах
@@ -50,8 +46,22 @@ const countProgressWidth = ({
 const lineBlockCreator = (model: IModelOptions) => {
   const { from, max, min, step, to, isInterval } = model;
 
-  const shiftFrom = countShiftFrom({ from, max, min, step, isInterval });
-  const shiftTo = countShiftTo({ to, max, min, step });
+  const shiftFrom = countShiftHandle({
+    current: from,
+    max,
+    min,
+    step,
+    isInterval,
+    handle: "from",
+  });
+  const shiftTo = countShiftHandle({
+    current: to,
+    max,
+    min,
+    step,
+    isInterval,
+    handle: "to",
+  });
   const progressWidth = countProgressWidth({
     from,
     max,
@@ -70,7 +80,6 @@ const lineBlockCreator = (model: IModelOptions) => {
 export {
   lineBlockCreator,
   countStepPercent,
-  countShiftFrom,
-  countShiftTo,
+  countShiftHandle,
   countProgressWidth,
 };

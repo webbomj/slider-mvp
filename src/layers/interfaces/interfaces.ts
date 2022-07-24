@@ -121,10 +121,11 @@ interface IProgressBarOptions {
 
 interface ICountShiftFromProps {
   min: number;
-  from: number;
+  current: number;
   step: number;
   max: number;
   isInterval: boolean;
+  handle: "from" | "to";
 }
 
 interface ICountShiftToProps {

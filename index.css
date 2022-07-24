@@ -1,0 +1,89 @@
+.lineBlock {
+  box-sizing: border-box;
+  height: 6px;
+  width: 100%;
+  touch-action: none;
+  background: #fff;
+  border-radius: 3px;
+  outline: 1px solid #1f204140;
+  position: relative;
+}
+
+.lineBlock__handler {
+  width: 12px;
+  height: 12px;
+  z-index: 3;
+  background: linear-gradient(#6fcf97 0%, #66d2ea 100%);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  position: absolute;
+  top: -5px;
+  transform: translateX(-50%);
+}
+
+.lineBlock__label {
+  box-sizing: border-box;
+  color: #fff;
+  text-align: center;
+  user-select: none;
+  background: linear-gradient(#6fcf97 0%, #66d2ea 100%);
+  border-radius: 2px;
+  padding: 3px 5px;
+  position: absolute;
+  top: -35px;
+  left: 0%;
+  transform: translateX(-50%);
+}
+
+.lineBlock__progressBar {
+  height: 6px;
+  z-index: 2;
+  background: linear-gradient(#6fcf97 0%, #66d2ea 100%);
+  position: absolute;
+}
+
+.lineBlock[data-isvertical="true"] {
+  height: 100%;
+  width: 6px;
+  touch-action: none;
+  margin-left: 5px;
+}
+
+.lineBlock[data-isvertical="true"] .lineBlock__handler {
+  top: 0%;
+  transform: translate(-30%, -5px);
+}
+
+.lineBlock[data-isvertical="true"] .lineBlock__progressBar {
+  width: 100%;
+}
+
+.lineBlock[data-isvertical="true"] ~ .scale {
+  flex-direction: column;
+  margin-top: 0;
+  margin-left: -35px;
+}
+
+.lineBlock[data-isvertical="true"] ~ .scale .scale__item {
+  transform: translateY(-50%);
+}
+
+.lineBlock[data-isvertical="true"] .lineBlock__label {
+  margin-left: 30px;
+  transform: translateY(-50%);
+}
+
+.scale {
+  cursor: pointer;
+  justify-content: space-between;
+  margin-top: 10px;
+  display: flex;
+}
+
+.scale__item {
+  user-select: none;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+/*# sourceMappingURL=index.css.map */

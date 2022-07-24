@@ -2,11 +2,11 @@ import { IModelOptions } from "./layers/interfaces/interfaces";
 import Presenter from "./layers/presenter/presenter";
 
 const defaultOptions: IModelOptions = {
-  min: 0,
-  max: 19,
-  from: 3,
-  to: 9,
-  step: 3,
+  min: -10,
+  max: -2,
+  from: -10,
+  to: -8,
+  step: 2,
   isVertical: false,
   isInterval: true,
   isLabel: true,

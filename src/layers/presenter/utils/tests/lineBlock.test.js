@@ -1,7 +1,6 @@
 const {
   countStepPercent,
-  countShiftFrom,
-  countShiftTo,
+  countShiftHandle,
   countProgressWidth,
   lineBlockCreator,
 } = require("../lineBlock");
@@ -20,66 +19,71 @@ describe("lineBlock: countStepPercent function", () => {
   });
 });
 
-describe("lineBlock: countShiftFrom", () => {
+describe("lineBlock: countShiftHandle", () => {
   test("should return 0, then isInterval true", () => {
     const options = {
       min: 0,
-      from: 0,
+      current: 0,
       max: 10,
       step: 1,
       isInterval: true,
     };
-    expect(countShiftFrom(options)).toBe(0);
+    expect(countShiftHandle(options)).toBe(0);
   });
   test("should return 0, then isInterval false", () => {
-    const options = { min: 0, from: 0, max: 10, step: 1, isInterval: false };
-    expect(countShiftFrom(options)).toBe(0);
+    const options = {
+      min: 0,
+      current: 0,
+      max: 10,
+      step: 1,
+      isInterval: false,
+      handle: "from",
+    };
+    expect(countShiftHandle(options)).toBe(0);
   });
   test("should return correct value", () => {
-    const options = { min: 0, from: 0, max: 10, step: 1, isInterval: true };
-    expect(countShiftFrom(options)).toBe(0);
+    const options = {
+      min: 0,
+      current: 0,
+      max: 10,
+      step: 1,
+      isInterval: true,
+      handle: "from",
+    };
+    expect(countShiftHandle(options)).toBe(0);
   });
   test("should return correct value", () => {
-    const options = { min: 2, from: 6, max: 10, step: 2, isInterval: true };
-    expect(countShiftFrom(options)).toBe(50);
+    const options = {
+      min: 2,
+      current: 6,
+      max: 10,
+      step: 2,
+      isInterval: true,
+      handle: "from",
+    };
+    expect(countShiftHandle(options)).toBe(50);
   });
   test("should return correct value with min negative value", () => {
-    const options = { min: -6, from: 6, max: 10, step: 2, isInterval: true };
-    expect(countShiftFrom(options)).toBe(75);
+    const options = {
+      min: -6,
+      current: 6,
+      max: 10,
+      step: 2,
+      isInterval: true,
+      handle: "from",
+    };
+    expect(countShiftHandle(options)).toBe(75);
   });
   test("should return correct value with min, max, from negative value", () => {
     const options = {
       min: -60,
-      from: -40,
+      current: -40,
       max: -20,
       step: 2,
       isInterval: true,
+      handle: "from",
     };
-    expect(countShiftFrom(options)).toBe(50);
-  });
-});
-
-describe("lineBlock: countShiftTo", () => {
-  test("should return correct value", () => {
-    const options = { min: 0, to: 5, max: 10, step: 1 };
-    expect(countShiftTo(options)).toBe(50);
-  });
-  test("should return correct value", () => {
-    const options = { min: 2, to: 6, max: 10, step: 2 };
-    expect(countShiftTo(options)).toBe(50);
-  });
-  test("should return correct value with min negative value", () => {
-    const options = { min: -6, to: 6, max: 10, step: 2 };
-    expect(countShiftTo(options)).toBe(75);
-  });
-  test("should return correct value with min, max, from negative value", () => {
-    const options = {
-      min: -60,
-      to: -40,
-      max: -20,
-      step: 2,
-    };
-    expect(countShiftTo(options)).toBe(50);
+    expect(countShiftHandle(options)).toBe(50);
   });
 });
 
