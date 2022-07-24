@@ -17,4 +17,4 @@ const arrScaleCreator = ({ min, max, step }: ICreateArrScale) => {
   return { scale, shift };
 };
 
-export { arrScaleCreator };
+export { arrScaleCreator, createArrScale };

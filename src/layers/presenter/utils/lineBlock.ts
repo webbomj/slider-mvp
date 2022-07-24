@@ -1,7 +1,6 @@
 import {
   ICountProgressWidthProps,
   ICountShiftFromProps,
-  ICountShiftToProps,
   ICountStepPixelProps,
   IModelOptions,
 } from "../../interfaces/interfaces";
