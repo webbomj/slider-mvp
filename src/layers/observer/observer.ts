@@ -1,7 +1,7 @@
 import { IEventObject, IObserver, ISubscriber } from "../interfaces/interfaces";
 
 class Observer implements IObserver {
-  private subscribers: ISubscriber[];
+  public subscribers: ISubscriber[];
   constructor() {
     this.subscribers = [];
   }

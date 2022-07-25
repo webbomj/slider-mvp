@@ -9,7 +9,8 @@
     "src/**/*.ts",
     "src/**/*.js",
     "test/**/*.ts",
-    "src/layers/view/label"
+    "src/layers/view/label",
+    "src/layers/presenter/utils/tests/handle.test.ks"
   ],
   "CommonJS": "ES6",
   "compilerOptions": {
