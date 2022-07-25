@@ -75,8 +75,6 @@ export default class Model {
         case ModelAction.setStep:
           this.step = payload.value;
           break;
-        default:
-          break;
       }
       this.observer.notify({
         eventName: EventName.modelWasUpdate,
@@ -98,8 +96,6 @@ export default class Model {
           break;
         case ModelAction.setIsScale:
           this.isScale = payload.value;
-          break;
-        default:
           break;
       }
       this.observer.notify({
