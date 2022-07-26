@@ -8,6 +8,7 @@ import Observer from "../../../observer/observer";
 class Handle {
   private container: HTMLElement;
   private shift: number;
+  private isVertical: boolean;
   private handle: HTMLElement;
   private observer: Observer;
   private handlePosition: HandlePosition | undefined;
@@ -22,10 +23,10 @@ class Handle {
     this.shift = shift;
     this.observer = observer;
     this.handlePosition = handlePosition;
+    this.isVertical = isVertical;
     this.render();
-    this.update(this.shift, isVertical);
   }
-  render = () => {
+  private render = () => {
     const handle = document.createElement("div");
     handle.classList.add("lineBlock__handler");
     if (this.handlePosition) {
@@ -36,18 +37,20 @@ class Handle {
     this.handle.addEventListener("pointerdown", (e: PointerEvent) =>
       this.clickHandler(e)
     );
+    this.update(this.shift, this.isVertical);
   };
 
-  clickHandler = (event: PointerEvent) => {
+  private clickHandler = (event: PointerEvent) => {
     this.observer.notify({
       eventName: EventName.clickedHandle,
       eventPayload: event,
     });
   };
 
-  update = (value: number, isVertical: boolean = false) => {
+  public update = (value: number, isVertical: boolean = false) => {
     this.shift = value;
-    if (isVertical) {
+    this.isVertical = isVertical;
+    if (this.isVertical) {
       this.handle.style.top = `${this.shift}%`;
     } else {
       this.handle.style.left = `${this.shift}%`;

@@ -16,6 +16,12 @@ describe("Model", () => {
   };
   const model = new Model(options);
   const state = () => model.getState();
+
+  const sub = {
+    eventName: EventName.modelWasUpdate,
+    function: (e: PointerEvent) => console.log(e),
+  };
+
   test("getState should return state", () => {
     expect(model.getState()).toEqual(options);
   });
@@ -79,20 +85,19 @@ describe("Model", () => {
     expect(state().isVertical).toBe(true);
   });
   test("should subscribe to observer", () => {
-    model.subscribe({
-      eventName: EventName.modelWasUpdate,
-      function: (e) => console.log(e),
-    });
-
-    expect(model.observer.subscribe).toBeCalled;
+    model.observer.subscribe = jest.fn((sub) => console.log(sub));
+    model.subscribe = jest.fn((sub) => model.observer.subscribe(sub));
+    model.subscribe(sub);
+    expect(model.observer.subscribe).toBeCalled();
   });
   test("should notify to observer", () => {
     const action = {
       type: ModelAction.setIsVertical,
       payload: { value: true },
     };
+    model.observer.notify = jest.fn((sub) => console.log(sub));
     model.updateState(action);
 
-    expect(model.observer.notify).toBeCalled;
+    expect(model.observer.notify).toBeCalled();
   });
 });
