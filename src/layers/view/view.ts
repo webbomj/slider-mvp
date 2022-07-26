@@ -31,7 +31,7 @@ class View {
     this.init({ scaleOptions, lineBlockOptions });
   }
 
-  init = ({ scaleOptions, lineBlockOptions }: IViewInitProps) => {
+  private init = ({ scaleOptions, lineBlockOptions }: IViewInitProps) => {
     this.slide = new lineBlock({
       container: this.container,
       model: this.options,
@@ -50,7 +50,11 @@ class View {
     }
   };
 
-  updateView = ({ model, scaleProps, lineBlockOptions }: IUpdateViewProps) => {
+  public updateView = ({
+    model,
+    scaleProps,
+    lineBlockOptions,
+  }: IUpdateViewProps) => {
     this.slide.update(model, lineBlockOptions);
     if (model.isScale) {
       this.scale.update(scaleProps);
