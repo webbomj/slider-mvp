@@ -24,7 +24,7 @@ class ProgressBar {
     this.observer = observer;
     this.render(this.container);
   }
-  render = (container: HTMLElement): void => {
+  private render = (container: HTMLElement): void => {
     const progressBar = document.createElement("div");
     progressBar.classList.add("lineBlock__progressBar");
     container.appendChild(progressBar);

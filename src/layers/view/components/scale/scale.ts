@@ -28,14 +28,14 @@ class Scale {
     this.render();
   }
 
-  notify = (e: PointerEvent) => {
+  private notify = (e: PointerEvent) => {
     this.observer.notify({
       eventName: EventName.clickedScaleItem,
       eventPayload: e,
     });
   };
 
-  render = () => {
+  private render = () => {
     const scale = document.createElement("div");
     scale.classList.add("scale");
     this.arrayScale.forEach((el) => {
@@ -53,7 +53,8 @@ class Scale {
     this.container.appendChild(scale);
     const scaleNode = this.container.querySelector(".scale");
     if (scaleNode) {
-      const scaleItemsNode = scaleNode.querySelectorAll(".scale__item");
+      let scaleItemsNode: NodeListOf<HTMLDivElement> =
+        scaleNode.querySelectorAll(".scale__item");
       let margin = 0;
       for (let index = 0; index < scaleItemsNode.length; index++) {
         if (margin > 100) {
@@ -71,7 +72,7 @@ class Scale {
     }
   };
 
-  update = ({ scale, shift }: IScaleProps) => {
+  public update = ({ scale, shift }: IScaleProps) => {
     this.arrayScale = scale;
     this.shift = shift;
     const scaleContainer = this.container.querySelector(".scale");
@@ -81,7 +82,7 @@ class Scale {
     this.render();
   };
 
-  createItem = () => {
+  private createItem = () => {
     const scale = document.createElement("div");
     scale.classList.add("scale__item");
     return scale;

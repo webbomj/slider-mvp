@@ -30,7 +30,7 @@ class lineBlock {
     this.init(options);
   }
 
-  init = (options: ILineBlockOptions) => {
+  private init = (options: ILineBlockOptions) => {
     const { progressBarWidth, shift, shiftFrom } = options;
     const lineBlock = document.createElement("div");
     const activeBlock = document.createElement("div");
@@ -116,7 +116,7 @@ class lineBlock {
     }
   };
 
-  update = (model: IModelOptions, options: ILineBlockOptions) => {
+  public update = (model: IModelOptions, options: ILineBlockOptions) => {
     const { from, to, isInterval, isLabel, isVertical } = model;
     const { progressBarWidth, shift, shiftFrom } = options;
 
