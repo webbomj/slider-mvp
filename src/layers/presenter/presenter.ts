@@ -65,8 +65,13 @@ class Presenter {
   };
 
   clickedScaleItemHandler = (e: PointerEvent): void => {
+    if (!(e.target instanceof HTMLElement)) {
+      return;
+    }
+
     this.getState();
-    const newValue = +e.target?.textContent;
+
+    const newValue = Number(e.target?.textContent);
     const { from, to, isInterval } = this.state;
     if (isInterval) {
       const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
@@ -105,11 +110,16 @@ class Presenter {
 
   clickedLineHandler = (event: PointerEvent) => {
     const { max, min, step, isInterval, isVertical, to, from } = this.state;
-    let slider = this.container.querySelector(".lineBlock");
+    let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
     let progressbar = this.container.querySelector(".lineBlock__progressBar");
     if (event.target !== progressbar && event.target !== slider) {
       return false;
     }
+
+    if (!slider) {
+      return;
+    }
+
     let sliderCoords = getCoords(slider);
     let left = ((event.pageY - sliderCoords.top) / sliderCoords.height) * 100;
     if (!isVertical) {
@@ -164,16 +174,28 @@ class Presenter {
   };
 
   clickedHandleHandler = (event: PointerEvent): void => {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
     const { max, min, step, isInterval, isVertical, to, from } = this.state;
-
     let sliderSpan = event.target;
-    let slider = this.container.querySelector(".lineBlock");
+    let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
 
     if (to === min && from === min) {
-      sliderSpan = this.container.querySelector("[data-handle=to]");
+      const sliderSpanNode: HTMLElement | null =
+        this.container.querySelector("[data-handle=to]");
+      if (!sliderSpanNode) {
+        return;
+      }
+
+      sliderSpan = sliderSpanNode;
       console.log(sliderSpan);
     }
     let position = sliderSpan?.dataset.handle;
+
+    if (!slider || !sliderSpan) {
+      return;
+    }
 
     let sliderCoords = getCoords(slider);
     let sliderSpanCoords = getCoords(sliderSpan);
@@ -245,6 +267,7 @@ class Presenter {
   };
 
   subscribe = (): void => {
+    // view sub
     this.view.subscribe({
       eventName: EventName.clickedScaleItem,
       function: this.clickedScaleItemHandler,
