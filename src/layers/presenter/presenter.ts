@@ -53,7 +53,6 @@ class Presenter {
   };
 
   createLineBlock = (): ILineBlockOptions => {
-    this.getState();
     const { progressWidth, shiftFrom, shiftTo } = lineBlockCreator(this.state);
     return { progressBarWidth: progressWidth, shift: shiftTo, shiftFrom };
   };
@@ -64,12 +63,10 @@ class Presenter {
     return { scale, shift };
   };
 
-  clickedScaleItemHandler = (e: PointerEvent): void => {
+  clickedScaleItemHandler = (e: Event): void => {
     if (!(e.target instanceof HTMLElement)) {
       return;
     }
-
-    this.getState();
 
     const newValue = Number(e.target?.textContent);
     const { from, to, isInterval } = this.state;
@@ -177,6 +174,8 @@ class Presenter {
     if (!(event.target instanceof HTMLElement)) {
       return;
     }
+    // if (!(event instanceof PointerEvent)) return;
+
     const { max, min, step, isInterval, isVertical, to, from } = this.state;
     let sliderSpan = event.target;
     let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
@@ -199,6 +198,7 @@ class Presenter {
 
     let sliderCoords = getCoords(slider);
     let sliderSpanCoords = getCoords(sliderSpan);
+
     let shift = event.pageX - sliderSpanCoords.left;
     if (isVertical) {
       shift = event.pageY - sliderSpanCoords.top;
@@ -260,7 +260,7 @@ class Presenter {
   };
 
   modelWasUpdate = (model: IModelOptions): void => {
-    this.getState();
+    this.state = model;
     const scaleProps = this.createArrScale();
     const lineBlockOptions = this.createLineBlock();
     this.view.updateView({ model, scaleProps, lineBlockOptions });
@@ -288,6 +288,9 @@ class Presenter {
       eventName: EventName.modelWasUpdate,
       function: this.modelWasUpdate,
     });
+  };
+  getModel = () => {
+    return this.model;
   };
 }
 
