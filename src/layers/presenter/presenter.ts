@@ -9,7 +9,7 @@ import {
 } from "../interfaces/interfaces";
 import Model from "../model/model";
 import View from "../view/view";
-import { arrScaleCreator } from "./utils/scale";
+import { arrScaleCreator, countValueRounding } from "./utils/scale";
 import { getCoords } from "./utils/handle";
 import { lineBlockCreator } from "./utils/lineBlock";
 
@@ -68,8 +68,11 @@ class Presenter {
       return;
     }
 
-    const newValue = Number(e.target?.textContent);
     const { from, to, isInterval } = this.state;
+
+    const newValue = Number(e.target?.textContent);
+
+    console.log((19.9999999999).toFixed(2));
     if (isInterval) {
       const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
       const difToNewValue = Math.abs(Math.abs(to) - Math.abs(newValue));

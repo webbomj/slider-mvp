@@ -12,6 +12,18 @@ describe("Presenter", () => {
   document.body.innerHTML = `<div id="app"></div>`;
   let presenter: Presenter;
   let container: HTMLElement | null;
+  const options2: IModelOptions = {
+    min: -8,
+    max: -2,
+    from: -8,
+    to: -4,
+    step: 1,
+    isVertical: true,
+    isInterval: true,
+    isLabel: true,
+    isScale: true,
+    isProgressBar: true,
+  };
   beforeEach(() => {
     container = document.getElementById("app");
     const options: IModelOptions = {
@@ -53,19 +65,7 @@ describe("Presenter", () => {
   });
   describe("modelWasUpdate", () => {
     test("should update View", () => {
-      const options: IModelOptions = {
-        min: -8,
-        max: -2,
-        from: -8,
-        to: -4,
-        step: 1,
-        isVertical: true,
-        isInterval: true,
-        isLabel: true,
-        isScale: true,
-        isProgressBar: true,
-      };
-      presenter.modelWasUpdate(options);
+      presenter.modelWasUpdate(options2);
       const labels = document.querySelectorAll(".lineBlock__label");
       expect(labels[1]?.textContent).toBe("-8");
       expect(labels[0]?.textContent).toBe("-4");
@@ -82,4 +82,25 @@ describe("Presenter", () => {
       expect(presenter.getModel()).toBeInstanceOf(Model);
     });
   });
+  // describe("clickedLineHandler", () => {
+  //   jest.mock("../presenter.ts");
+
+  //   document.body.innerHTML = `<div id="app"></div>`;
+  //   const container: HTMLDivElement | null = document.querySelector("#app");
+  //   if (!container) return;
+
+  //   const presenter = new Presenter({ options: options2, container });
+
+  //   test("should be", () => {
+  //     presenter.getModel().updateState = jest.fn(() => {});
+  //     presenter.clickedHandleHandler = jest.fn(() => {});
+
+  //     const eve2 = $.Event("pointerup");
+  //     $(".lineBlock__handle").first().trigger(eve2);
+  //     const handle = document.querySelector(".lineBlock__handle");
+  //     const event = new Event("pointerdown");
+  //     handle?.dispatchEvent(event);
+  //     expect().toBeCalled();
+  //   });
+  // });
 });
