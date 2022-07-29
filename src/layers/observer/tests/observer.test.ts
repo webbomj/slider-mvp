@@ -21,6 +21,7 @@ describe("observer", () => {
     from: 0,
     to: 2,
     step: 2,
+    stepScale: 2,
     isVertical: true,
     isInterval: true,
     isLabel: true,

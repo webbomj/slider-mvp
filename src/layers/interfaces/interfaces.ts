@@ -6,6 +6,7 @@ interface IModelOptions {
   from: number;
   to: number;
   step: number;
+  stepScale: number;
   isVertical: boolean;
   isInterval: boolean;
   isLabel: boolean;
@@ -19,6 +20,7 @@ enum ModelAction {
   "setFromValue",
   "setToValue",
   "setStep",
+  "setStepScale",
   "setIsVertical",
   "setIsInterval",
   "setIsLabel",

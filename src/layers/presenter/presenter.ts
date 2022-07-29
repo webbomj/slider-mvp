@@ -25,6 +25,7 @@ class Presenter {
       from: 20,
       to: 0,
       step: 1,
+      stepScale: 1,
       isVertical: false,
       isInterval: false,
       isLabel: true,
@@ -36,7 +37,7 @@ class Presenter {
     this.model = new Model(joinOptions);
     this.getState();
     const scaleOptions = this.createArrScale();
-
+    console.log("scaleop", scaleOptions);
     const lineBlockOptions = this.createLineBlock();
     this.view = new View({
       options: joinOptions,
@@ -58,8 +59,8 @@ class Presenter {
   };
 
   createArrScale = (): IScaleProps => {
-    const { max, min, step } = this.state;
-    const { scale, shift } = arrScaleCreator({ max, min, step });
+    const { max, min, stepScale } = this.state;
+    const { scale, shift } = arrScaleCreator({ max, min, step: stepScale });
     return { scale, shift };
   };
 
@@ -72,7 +73,6 @@ class Presenter {
 
     const newValue = Number(e.target?.textContent);
 
-    console.log((19.9999999999).toFixed(2));
     if (isInterval) {
       const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
       const difToNewValue = Math.abs(Math.abs(to) - Math.abs(newValue));
@@ -135,8 +135,11 @@ class Presenter {
     if (stepLeft < 0) stepLeft = 0;
     if (stepLeft > 100) stepLeft = 100;
 
-    let result = Number(((stepLeft / stepPercent) * step).toFixed());
-    let value = result + min;
+    const valueFix = countValueRounding(step);
+
+    let result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
+    let value = Number((result + min).toFixed(valueFix));
+    console.log(valueFix, result, value);
 
     if (isInterval) {
       const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(value));
@@ -228,8 +231,9 @@ class Presenter {
       if (stepLeft > 100) stepLeft = 100;
 
       //Расчитаем значение равное шагу слайдера
-      let result = Number(((stepLeft / stepPercent) * step).toFixed());
-      let value = result + min;
+      const valueFix = countValueRounding(step);
+      let result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
+      let value = Number((result + min).toFixed(valueFix));
 
       if (isInterval) {
         if (position === HandlePosition.to) {

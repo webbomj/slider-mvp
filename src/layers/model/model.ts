@@ -19,6 +19,8 @@ export default class Model {
 
   private step: number;
 
+  private stepScale: number;
+
   private isVertical: boolean;
 
   private isInterval: boolean;
@@ -38,6 +40,7 @@ export default class Model {
       from,
       to,
       step,
+      stepScale,
       isVertical,
       isInterval,
       isLabel,
@@ -50,6 +53,7 @@ export default class Model {
     this.fromValue = from;
     this.toValue = to;
     this.step = step;
+    this.stepScale = stepScale;
     this.isVertical = isVertical;
     this.isInterval = isInterval;
     this.isLabel = isLabel;
@@ -74,6 +78,9 @@ export default class Model {
           break;
         case ModelAction.setStep:
           this.step = payload.value;
+          break;
+        case ModelAction.setStepScale:
+          this.stepScale = payload.value;
           break;
       }
       this.observer.notify({
@@ -121,6 +128,7 @@ export default class Model {
       max: this.maxValue,
       min: this.minValue,
       step: this.step,
+      stepScale: this.stepScale,
       to: this.toValue,
     };
   };

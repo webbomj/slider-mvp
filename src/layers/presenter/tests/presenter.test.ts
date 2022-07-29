@@ -2,11 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { IModelOptions, ModelAction } from "../../interfaces/interfaces";
+import { IModelOptions } from "../../interfaces/interfaces";
 import Presenter from "../presenter";
-import $ from "jquery";
 import Model from "../../model/model";
-import { getCoords } from "../utils/handle";
 
 describe("Presenter", () => {
   document.body.innerHTML = `<div id="app"></div>`;
@@ -18,6 +16,7 @@ describe("Presenter", () => {
     from: -8,
     to: -4,
     step: 1,
+    stepScale: 1,
     isVertical: true,
     isInterval: true,
     isLabel: true,
@@ -32,6 +31,7 @@ describe("Presenter", () => {
       from: 0,
       to: 10,
       step: 1,
+      stepScale: 1,
       isVertical: true,
       isInterval: true,
       isLabel: true,

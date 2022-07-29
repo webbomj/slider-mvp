@@ -8,6 +8,7 @@ describe("Model", () => {
     from: -10,
     to: -8,
     step: 2,
+    stepScale: 3,
     isVertical: true,
     isInterval: true,
     isLabel: true,
@@ -49,6 +50,11 @@ describe("Model", () => {
     const action = { type: ModelAction.setStep, payload: { value: 1 } };
     model.updateState(action);
     expect(state().step).toBe(1);
+  });
+  test("getState should update STEP value", () => {
+    const action = { type: ModelAction.setStepScale, payload: { value: 1 } };
+    model.updateState(action);
+    expect(state().stepScale).toBe(1);
   });
   test("getState should update INTERVAL value", () => {
     const action = {
