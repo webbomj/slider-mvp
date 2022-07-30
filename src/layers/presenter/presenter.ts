@@ -12,6 +12,7 @@ import View from "../view/view";
 import { arrScaleCreator, countValueRounding } from "./utils/scale";
 import { getCoords } from "./utils/handle";
 import { lineBlockCreator } from "./utils/lineBlock";
+import { validateModel } from "./utils/validateModelOption";
 
 class Presenter {
   private model;
@@ -33,14 +34,18 @@ class Presenter {
       isProgressBar: true,
     };
     this.container = container;
-    const joinOptions = { ...defaultOptions, ...options };
-    this.model = new Model(joinOptions);
-    this.getState();
+
+    const isValide = validateModel({ ...defaultOptions, ...options });
+
+    this.state = { ...defaultOptions, ...options };
+
+    this.model = new Model(this.state);
+
     const scaleOptions = this.createArrScale();
     console.log("scaleop", scaleOptions);
     const lineBlockOptions = this.createLineBlock();
     this.view = new View({
-      options: joinOptions,
+      options: this.state,
       container: this.container,
       scaleOptions,
       lineBlockOptions,
@@ -48,10 +53,6 @@ class Presenter {
 
     this.subscribe();
   }
-
-  getState = (): void => {
-    this.state = this.model.getState();
-  };
 
   createLineBlock = (): ILineBlockOptions => {
     const { progressWidth, shiftFrom, shiftTo } = lineBlockCreator(this.state);
