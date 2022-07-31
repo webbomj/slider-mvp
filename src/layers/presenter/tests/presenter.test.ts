@@ -71,17 +71,33 @@ describe("Presenter", () => {
       expect(labels[0]?.textContent).toBe("-4");
     });
   });
+  describe("fullUpdate", () => {
+    const newModel: IModelOptions = {
+      min: 80,
+      max: 20,
+      from: 80,
+      to: 40,
+      step: 10,
+      stepScale: 10,
+      isVertical: true,
+      isInterval: true,
+      isLabel: true,
+      isScale: true,
+      isProgressBar: true,
+    };
+    test("should update Model", () => {
+      presenter.fullUpdate(newModel);
+
+      expect(presenter.getModel().getState()).toEqual(newModel);
+    });
+  });
 
   describe("getModel", () => {
     test("should be instance of Model", () => {
       expect(presenter.getModel()).toBeInstanceOf(Model);
     });
   });
-  describe("getModel", () => {
-    test("should be instance of Model", () => {
-      expect(presenter.getModel()).toBeInstanceOf(Model);
-    });
-  });
+
   // describe("clickedLineHandler", () => {
   //   jest.mock("../presenter.ts");
 

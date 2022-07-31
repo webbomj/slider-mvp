@@ -300,6 +300,14 @@ class Presenter {
   getModel = () => {
     return this.model;
   };
+
+  fullUpdate = (options: Partial<IModelOptions>) => {
+    const newState = { ...this.state, ...options };
+    this.model.updateState({
+      type: ModelAction.setFullState,
+      payload: { value: newState },
+    });
+  };
 }
 
 export default Presenter;

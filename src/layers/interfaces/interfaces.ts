@@ -26,12 +26,13 @@ enum ModelAction {
   "setIsLabel",
   "setIsProgressBar",
   "setIsScale",
+  "setFullState",
 }
 
 interface IModelAction {
   type: ModelAction;
   payload: {
-    value: number | boolean;
+    value: number | boolean | IModelOptions;
   };
 }
 

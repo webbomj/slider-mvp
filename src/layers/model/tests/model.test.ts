@@ -90,6 +90,28 @@ describe("Model", () => {
     model.updateState(action);
     expect(state().isVertical).toBe(true);
   });
+  test("getState should update full state", () => {
+    const options = {
+      min: -100,
+      max: -20,
+      from: -10,
+      to: -8,
+      step: 2,
+      stepScale: 3,
+      isVertical: true,
+      isInterval: true,
+      isLabel: true,
+      isScale: true,
+      isProgressBar: true,
+    };
+
+    const action = {
+      type: ModelAction.setFullState,
+      payload: { value: options },
+    };
+    model.updateState(action);
+    expect(state()).toEqual(options);
+  });
   test("should subscribe to observer", () => {
     model.observer.subscribe = jest.fn((sub) => console.log(sub));
     model.subscribe = jest.fn((sub) => model.observer.subscribe(sub));

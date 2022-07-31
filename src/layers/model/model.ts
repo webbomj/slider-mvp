@@ -109,6 +109,26 @@ export default class Model {
         eventName: EventName.modelWasUpdate,
         eventPayload: this.getState(),
       });
+    } else if (typeof payload.value === "object") {
+      switch (type) {
+        case ModelAction.setFullState:
+          this.minValue = payload.value.min;
+          this.maxValue = payload.value.max;
+          this.fromValue = payload.value.from;
+          this.toValue = payload.value.to;
+          this.step = payload.value.step;
+          this.stepScale = payload.value.stepScale;
+          this.isVertical = payload.value.isVertical;
+          this.isInterval = payload.value.isInterval;
+          this.isLabel = payload.value.isLabel;
+          this.isScale = payload.value.isScale;
+          this.isProgressBar = payload.value.isProgressBar;
+          break;
+      }
+      this.observer.notify({
+        eventName: EventName.modelWasUpdate,
+        eventPayload: this.getState(),
+      });
     }
     console.log(type, payload.value);
   };
