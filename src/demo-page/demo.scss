@@ -2,7 +2,17 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin: 50% auto;
   &__item {
     margin-right: 20px;
   }
+  // &__leftBlock {
+  //   display: flex;
+  //   width: 35%;
+  // }
+  // &__rightBlock {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   width: 60%;
+  // }
 }

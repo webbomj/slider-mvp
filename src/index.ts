@@ -10,7 +10,7 @@ const defaultOptions1: IModelOptions = {
   to: 4,
   step: 2,
   stepScale: 2,
-  isVertical: false,
+  isVertical: true,
   isInterval: true,
   isLabel: true,
   isScale: true,
@@ -33,8 +33,8 @@ container1?.classList.add("app1");
   };
 })(jQuery);
 
-const first = $("#app1").slider(defaultOptions1);
-const firstContainer = $("#app1")[0];
+const first = $(".app__slider").slider(defaultOptions1);
+const firstContainer = $(".app__control")[0];
 if (first) {
   new Controller({
     container: firstContainer,

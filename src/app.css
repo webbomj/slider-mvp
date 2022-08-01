@@ -1,17 +1,17 @@
 #app {
   display: flex;
-  justify-content: center;
-  transform: translateY(-50%);
-  width: 200px;
-  height: 200px;
-  margin: 50vh auto 0;
+  flex-direction: column;
 }
 
-.app1 {
+.app__slider-wrapper {
+  display: flex;
+}
+
+.app__slider {
+  position: relative;
   display: flex;
   justify-content: center;
-  transform: translateY(-50%);
-  width: 200px;
+  width: 70vw;
   height: 200px;
-  margin: 50vh auto 0;
+  margin: 50vh auto;
 }
