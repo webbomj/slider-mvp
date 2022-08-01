@@ -13,10 +13,11 @@ import { arrScaleCreator, countValueRounding } from "./utils/scale";
 import { getCoords } from "./utils/handle";
 import { lineBlockCreator } from "./utils/lineBlock";
 import { validateModel } from "./utils/validateModelOption";
+import { isNeedRerender } from "./utils/checkNeedRerender";
 
 class Presenter {
-  private model;
-  private view;
+  private model: Model;
+  private view: View;
   private state: IModelOptions;
   private container;
   constructor({ options, container }: IPresenterOptions) {
@@ -41,17 +42,10 @@ class Presenter {
 
     this.model = new Model(this.state);
 
-    const scaleOptions = this.createArrScale();
-    console.log("scaleop", scaleOptions);
-    const lineBlockOptions = this.createLineBlock();
-    this.view = new View({
-      options: this.state,
-      container: this.container,
-      scaleOptions,
-      lineBlockOptions,
-    });
+    this.createView();
 
-    this.subscribe();
+    this.subscribeView();
+    this.subscribeModel();
   }
 
   createLineBlock = (): ILineBlockOptions => {
@@ -274,7 +268,7 @@ class Presenter {
     this.view.updateView({ model, scaleProps, lineBlockOptions });
   };
 
-  subscribe = (): void => {
+  subscribeView = (): void => {
     // view sub
     this.view.subscribe({
       eventName: EventName.clickedScaleItem,
@@ -290,23 +284,57 @@ class Presenter {
       eventName: EventName.clickedLine,
       function: this.clickedLineHandler,
     });
+  };
 
-    // model sub
+  subscribeModel = () => {
     this.model.subscribe({
       eventName: EventName.modelWasUpdate,
       function: this.modelWasUpdate,
     });
   };
+
   getModel = () => {
     return this.model;
   };
 
-  fullUpdate = (options: Partial<IModelOptions>) => {
-    const newState = { ...this.state, ...options };
-    this.model.updateState({
-      type: ModelAction.setFullState,
-      payload: { value: newState },
+  createView = () => {
+    const scaleOptions = this.createArrScale();
+    const lineBlockOptions = this.createLineBlock();
+
+    this.view = new View({
+      options: this.state,
+      container: this.container,
+      scaleOptions,
+      lineBlockOptions,
     });
+  };
+
+  fullUpdate = (options: Partial<IModelOptions>) => {
+    const newState: IModelOptions = { ...this.state, ...options };
+    const isOptionsValid = validateModel(newState);
+
+    if (isOptionsValid) {
+      this.state = newState;
+
+      // let isNeedRerenderView = isNeedRerender(options);
+      // if (isNeedRerenderView) {
+
+      // }
+      // const lineBlock = this.container.querySelector('.lineBlock')
+      // const scale = this.container.querySelector('.scale')
+      // scale?.innerHTML =
+      // lineBlock?.innerHTML = ""
+      this.container.innerHTML = "";
+      this.createView();
+      this.subscribeView();
+
+      this.model.updateState({
+        type: ModelAction.setFullState,
+        payload: { value: newState },
+      });
+    } else {
+      throw Error("Options is not valide");
+    }
   };
 }
 

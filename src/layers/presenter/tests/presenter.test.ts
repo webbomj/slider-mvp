@@ -10,6 +10,19 @@ describe("Presenter", () => {
   document.body.innerHTML = `<div id="app"></div>`;
   let presenter: Presenter;
   let container: HTMLElement | null;
+  const options: IModelOptions = {
+    min: 0,
+    max: 10,
+    from: 0,
+    to: 10,
+    step: 1,
+    stepScale: 1,
+    isVertical: true,
+    isInterval: true,
+    isLabel: true,
+    isScale: true,
+    isProgressBar: true,
+  };
   const options2: IModelOptions = {
     min: -8,
     max: -2,
@@ -25,19 +38,7 @@ describe("Presenter", () => {
   };
   beforeEach(() => {
     container = document.getElementById("app");
-    const options: IModelOptions = {
-      min: 0,
-      max: 10,
-      from: 0,
-      to: 10,
-      step: 1,
-      stepScale: 1,
-      isVertical: true,
-      isInterval: true,
-      isLabel: true,
-      isScale: true,
-      isProgressBar: true,
-    };
+
     if (container) {
       presenter = new Presenter({ options, container });
     }
@@ -72,23 +73,17 @@ describe("Presenter", () => {
     });
   });
   describe("fullUpdate", () => {
-    const newModel: IModelOptions = {
-      min: 80,
-      max: 20,
-      from: 80,
-      to: 40,
-      step: 10,
-      stepScale: 10,
-      isVertical: true,
-      isInterval: true,
-      isLabel: true,
-      isScale: true,
-      isProgressBar: true,
+    const newModel: Partial<IModelOptions> = {
+      isScale: false,
+      isProgressBar: false,
     };
     test("should update Model", () => {
       presenter.fullUpdate(newModel);
-
-      expect(presenter.getModel().getState()).toEqual(newModel);
+      const result = {
+        ...options,
+        ...newModel,
+      };
+      expect(presenter.getModel().getState()).toEqual(result);
     });
   });
 

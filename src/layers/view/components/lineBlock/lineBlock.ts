@@ -124,6 +124,7 @@ class lineBlock {
       this.labelTo.update(to, shift);
     }
     if (isInterval) {
+      console.log(model);
       this.handleFrom.update(shiftFrom, isVertical);
       if (isLabel) {
         this.labelFrom.update(from, shiftFrom);

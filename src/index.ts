@@ -1,19 +1,7 @@
+import { Controller } from "./demo-page/controller";
 import { IModelOptions } from "./layers/interfaces/interfaces";
 import Presenter from "./layers/presenter/presenter";
-
-const defaultOptions: IModelOptions = {
-  min: 0,
-  max: 10,
-  from: 1,
-  to: 3.3,
-  step: 0.333,
-  stepScale: 2,
-  isVertical: true,
-  isInterval: true,
-  isLabel: true,
-  isScale: true,
-  isProgressBar: true,
-};
+import { validateModel } from "./layers/presenter/utils/validateModelOption";
 
 const defaultOptions1: IModelOptions = {
   min: 2,
@@ -29,36 +17,51 @@ const defaultOptions1: IModelOptions = {
   isProgressBar: true,
 };
 
-const container = document.getElementById("app");
 const container1 = document.getElementById("app1");
 container1?.classList.add("app1");
 
-if (container) {
-  const app = new Presenter({ container, options: defaultOptions });
-  console.log(app);
-}
-
-// $.fn.extend({
-//   slider: (options: IModelOptions, container: HTMLElement) => {
-//     console.log(this, options);
-//     new Presenter({ container, options });
-//   },
-// });
-
 (function ($) {
-  $.fn.slider = function (options: IModelOptions, container: HTMLElement) {
-    console.log(typeof this, "asdasdsa");
-    new Presenter({ options, container });
-    // Тут пишем функционал нашего плагина
+  $.fn.slider = function (options: IModelOptions) {
+    if (!this[0]) {
+      return;
+    }
+    const isValid = validateModel(options);
+    if (isValid) {
+      return new Presenter({ options, container: this[0] });
+    }
+    throw Error("Options is not valid");
   };
 })(jQuery);
 
-if (container1) {
-  $("#app1").slider(defaultOptions1, container1);
+const first = $("#app1").slider(defaultOptions1);
+const firstContainer = $("#app1")[0];
+if (first) {
+  new Controller({
+    container: firstContainer,
+    slider: first,
+  });
 }
+// first?.fullUpdate({
+//   max: 5,
+//   min: -4,
+//   step: 1,
+//   to: 5,
+//   from: 3,
+//   isInterval: false,
+//   isVertical: false,
+// });
+
+const input = document.querySelector(".input");
+input?.addEventListener("change", (e) => {
+  if (!(e.target instanceof HTMLInputElement)) {
+    return;
+  }
+
+  first?.fullUpdate({ isVertical: e.target.checked });
+});
 
 declare global {
   interface JQuery {
-    slider(options: IModelOptions, container: HTMLElement): void;
+    slider(options: IModelOptions): Presenter | undefined;
   }
 }
