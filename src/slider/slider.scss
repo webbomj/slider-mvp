@@ -1,0 +1,30 @@
+.js-slider {
+  &[data-isvertical="true"] {
+    flex-direction: row;
+    & .lineBlock {
+      height: 100%;
+      width: 6px;
+      margin-left: 5px;
+      touch-action: none;
+      & .lineBlock__handler {
+        top: 0%;
+        transform: translate(-30%, -5px);
+      }
+      & .lineBlock__progressBar {
+        width: 100%;
+      }
+      & ~ .scale {
+        flex-direction: column;
+        margin-top: 0;
+        margin-left: -35px;
+        & .scale__item {
+          transform: translateY(-50%);
+        }
+      }
+      & .lineBlock__label {
+        margin-left: 30px;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

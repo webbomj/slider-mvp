@@ -1,5 +1,5 @@
-import { IModelOptions } from "../layers/interfaces/interfaces";
-import Presenter from "../layers/presenter/presenter";
+import { IModelOptions } from "../slider/layers/interfaces/interfaces";
+import Presenter from "../slider/layers/presenter/presenter";
 import { IControllerProps, ICreateControlPanelProps } from "./interfaces";
 import "./demo.scss";
 

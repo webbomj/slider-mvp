@@ -35,6 +35,7 @@ class Presenter {
       isProgressBar: true,
     };
     this.container = container;
+    this.container.classList.add("js-slider");
 
     const isValide = validateModel({ ...defaultOptions, ...options });
 

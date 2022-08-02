@@ -1,17 +1,19 @@
-#app {
-  display: flex;
-  flex-direction: column;
-}
-
 .app__slider-wrapper {
   display: flex;
+  border: 1px solid black;
+  padding: 15px;
+  margin-bottom: 10px;
 }
 
 .app__slider {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 70vw;
-  height: 200px;
-  margin: 50vh auto;
+  width: 70%;
+  padding: 35px;
+}
+
+.app__control {
+  width: 30%;
 }

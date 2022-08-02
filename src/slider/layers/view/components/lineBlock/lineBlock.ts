@@ -38,7 +38,10 @@ class lineBlock {
     const { to, from } = this.state;
 
     lineBlock.classList.add("lineBlock");
-    lineBlock.setAttribute("data-isvertical", String(this.state.isVertical));
+    this.container.setAttribute(
+      "data-isvertical",
+      String(this.state.isVertical)
+    );
     activeBlock.classList.add("lineBlock__active");
     lineBlock.addEventListener("pointerdown", (e) =>
       this.observer.notify({

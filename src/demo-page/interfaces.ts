@@ -1,4 +1,4 @@
-import Presenter from "../layers/presenter/presenter";
+import Presenter from "../slider/layers/presenter/presenter";
 
 interface IControllerProps {
   container: HTMLElement;
