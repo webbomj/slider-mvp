@@ -1,3 +1,4 @@
+import { IModelOptions } from "../slider/layers/interfaces/interfaces";
 import Presenter from "../slider/layers/presenter/presenter";
 
 interface IControllerProps {
@@ -10,4 +11,9 @@ enum ICreateControlPanelProps {
   "checkbox" = "checkbox",
 }
 
-export { IControllerProps, ICreateControlPanelProps };
+type NumberInputs = Omit<
+  IModelOptions,
+  "isVertical" | "isInterval" | "isScale" | "isLabel" | "isProgressBar"
+>;
+
+export { IControllerProps, ICreateControlPanelProps, NumberInputs };

@@ -9,7 +9,7 @@ const defaultOptions1: IModelOptions = {
   to: 4,
   step: 2,
   stepScale: 2,
-  isVertical: false,
+  isVertical: true,
   isInterval: true,
   isLabel: true,
   isScale: true,

@@ -1,4 +1,10 @@
 .js-slider {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  padding: 35px;
   &[data-isvertical="true"] {
     flex-direction: row;
     & .lineBlock {
