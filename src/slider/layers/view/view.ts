@@ -14,7 +14,7 @@ class View {
   private container: HTMLElement;
   private options: IModelOptions;
   public observer: Observer;
-  private slide: lineBlock;
+  private slider: lineBlock;
   private scale: Scale;
   private isVertical: boolean;
 
@@ -32,7 +32,7 @@ class View {
   }
 
   private init = ({ scaleOptions, lineBlockOptions }: IViewInitProps) => {
-    this.slide = new lineBlock({
+    this.slider = new lineBlock({
       container: this.container,
       model: this.options,
       observer: this.observer,
@@ -55,7 +55,7 @@ class View {
     scaleProps,
     lineBlockOptions,
   }: IUpdateViewProps) => {
-    this.slide.update(model, lineBlockOptions);
+    this.slider.update(model, lineBlockOptions);
     if (model.isScale) {
       this.scale.update(scaleProps);
     }

@@ -112,8 +112,10 @@ class lineBlock {
       observer: this.observer,
       isVertical: this.state.isVertical,
     };
+    if (this.state.isProgressBar) {
+      this.progressBar = new ProgressBar(ProgressBarOptions);
+    }
 
-    this.progressBar = new ProgressBar(ProgressBarOptions);
     if (this.container) {
       this.container.append(lineBlock);
     }
@@ -138,12 +140,13 @@ class lineBlock {
     } else {
       this.handleTo.update(shift);
     }
-
-    this.progressBar.update({
-      shiftFrom: shiftFrom,
-      width: progressBarWidth,
-      isVertical: this.state.isVertical,
-    });
+    if (this.state.isProgressBar) {
+      this.progressBar.update({
+        shiftFrom: shiftFrom,
+        width: progressBarWidth,
+        isVertical: this.state.isVertical,
+      });
+    }
   };
 }
 
