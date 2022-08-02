@@ -176,7 +176,6 @@ class Presenter {
     if (!(event.target instanceof HTMLElement)) {
       return;
     }
-    // if (!(event instanceof PointerEvent)) return;
 
     const { max, min, step, isInterval, isVertical, to, from } = this.state;
     let sliderSpan = event.target;
@@ -190,8 +189,8 @@ class Presenter {
       }
 
       sliderSpan = sliderSpanNode;
-      console.log(sliderSpan);
     }
+
     let position = sliderSpan?.dataset.handle;
 
     if (!slider || !sliderSpan) {
@@ -218,19 +217,27 @@ class Presenter {
       }
       if (left < 0) left = 0;
       if (left > 100) left = 100;
-
+      console.log("---------------", left);
       //Шаг слайдера
       let stepCount = (max - min) / step;
       let stepPercent = 100 / stepCount;
-      let stepLeft = (left / stepPercent) * stepPercent;
+      let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
       if (stepLeft < 0) stepLeft = 0;
       if (stepLeft > 100) stepLeft = 100;
 
       //Расчитаем значение равное шагу слайдера
       const valueFix = countValueRounding(step);
-      let result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
+      let result = Number((stepLeft / stepPercent) * step);
       let value = Number((result + min).toFixed(valueFix));
-
+      console.log(
+        value,
+        result,
+        valueFix,
+        stepLeft,
+        left,
+        stepPercent,
+        stepCount
+      );
       if (isInterval) {
         if (position === HandlePosition.to) {
           if (value < this.state.from) {
