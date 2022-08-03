@@ -69,8 +69,10 @@ class Presenter {
     const newValue = Number(e.target?.textContent);
 
     if (isInterval) {
-      const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(newValue));
-      const difToNewValue = Math.abs(Math.abs(to) - Math.abs(newValue));
+      const difFromNewValue = Math.abs(from - newValue);
+      const difToNewValue = Math.abs(to - newValue);
+
+      console.log(from, to, difFromNewValue, difToNewValue, "new", newValue);
 
       if (difToNewValue < difFromNewValue) {
         this.model.updateState({
@@ -101,6 +103,8 @@ class Presenter {
         payload: { value: newValue },
       });
     }
+    const { to: to2, from: from2 } = this.getModel().getState();
+    console.log("new", from2, to2);
   };
 
   clickedLineHandler = (event: PointerEvent) => {
@@ -137,8 +141,8 @@ class Presenter {
     console.log(valueFix, result, value);
 
     if (isInterval) {
-      const difFromNewValue = Math.abs(Math.abs(from) - Math.abs(value));
-      const difToNewValue = Math.abs(Math.abs(to) - Math.abs(value));
+      const difFromNewValue = Math.abs(from - value);
+      const difToNewValue = Math.abs(to - value);
 
       if (difToNewValue < difFromNewValue) {
         this.model.updateState({
