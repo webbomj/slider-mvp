@@ -3,6 +3,7 @@ import {
   IProgressBarUpdateProps,
 } from "../../../interfaces/interfaces";
 import Observer from "../../../observer/observer";
+import "./progressBar.scss";
 
 class ProgressBar {
   private container: HTMLElement;
@@ -26,7 +27,7 @@ class ProgressBar {
   }
   private render = (container: HTMLElement): void => {
     const progressBar = document.createElement("div");
-    progressBar.classList.add("lineBlock__progressBar");
+    progressBar.classList.add("progressBar");
     container.appendChild(progressBar);
     this.update({
       shiftFrom: this.shiftFrom,
@@ -43,9 +44,8 @@ class ProgressBar {
     this.shiftFrom = shiftFrom;
 
     this.width = width;
-    const progressBarNode: HTMLElement | null = this.container.querySelector(
-      ".lineBlock__progressBar"
-    );
+    const progressBarNode: HTMLElement | null =
+      this.container.querySelector(".progressBar");
     if (progressBarNode) {
       if (isVertical) {
         progressBarNode.style.top = `${this.shiftFrom}%`;

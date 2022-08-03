@@ -27,7 +27,7 @@ describe("Handle", () => {
       isVertical,
       handlePosition,
     });
-    handleNode = document.querySelector(".lineBlock__handler");
+    handleNode = document.querySelector(".handler");
   });
 
   afterEach(() => {
@@ -38,8 +38,8 @@ describe("Handle", () => {
   test("Should have handler", () => {
     expect(handleNode).not.toBeNull();
   });
-  test("Should have a class: lineBlock__handler", () => {
-    expect(handleNode?.classList["0"]).toBe("lineBlock__handler");
+  test("Should have a class: handler", () => {
+    expect(handleNode?.classList["0"]).toBe("handler");
   });
   test("Should have a dataset: from", () => {
     expect(handleNode?.dataset.handle).toBe("from");

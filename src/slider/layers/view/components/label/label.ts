@@ -1,5 +1,6 @@
 import { ILabelProps } from "../../../interfaces/interfaces";
 import Observer from "../../../observer/observer";
+import "./label.scss";
 
 class Label {
   private label: HTMLElement;
@@ -19,7 +20,7 @@ class Label {
     this.render();
   }
   private render = () => {
-    this.label.classList.add("lineBlock__label");
+    this.label.classList.add("label");
     this.container.append(this.label);
     this.update(this.text, this.shift);
   };

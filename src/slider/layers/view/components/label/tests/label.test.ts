@@ -26,7 +26,7 @@ describe("label", () => {
       text: 20,
     };
     label = new Label(options);
-    labelNode = document.querySelector(".lineBlock__label");
+    labelNode = document.querySelector(".label");
   });
 
   afterEach(() => {
@@ -34,9 +34,9 @@ describe("label", () => {
     <div id="app"></div>
   `;
   });
-  test("Should have class lineBlock__label", () => {
+  test("Should have class label", () => {
     expect(labelNode).not.toBeNull();
-    expect(labelNode?.classList[0]).toBe("lineBlock__label");
+    expect(labelNode?.classList[0]).toBe("label");
   });
   test("Update: if shift 25 and vertical position", () => {
     label.update(25, 25);
@@ -52,8 +52,7 @@ describe("label", () => {
       isVertical: false,
       container: container ? container : document.body,
     });
-    let labelNode: HTMLElement | null =
-      document.querySelector(".lineBlock__label");
+    let labelNode: HTMLElement | null = document.querySelector(".label");
     label.update(35, 35);
     expect(labelNode?.style.left).toBe("35%");
   });

@@ -23,16 +23,16 @@ describe("progressBar", () => {
       width: 200,
     };
     progressBar = new ProgressBar(options);
-    progressBarNode = document.querySelector(".lineBlock__progressBar");
+    progressBarNode = document.querySelector(".progressBar");
   });
   afterEach(() => {
     document.body.innerHTML = `
     <div id="app"></div>
   `;
   });
-  test("Should have class: lineBlock__progressBar", () => {
+  test("Should have class: progressBar", () => {
     expect(progressBarNode).not.toBeNull();
-    expect(progressBarNode?.classList[0]).toBe("lineBlock__progressBar");
+    expect(progressBarNode?.classList[0]).toBe("progressBar");
   });
   test("Update: should width 400, shiftFrom: 70, isVertical: false", () => {
     progressBar.update({ shiftFrom: 70, width: 400, isVertical: false });

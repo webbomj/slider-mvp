@@ -106,21 +106,19 @@ describe("label", () => {
       expect(lineBlockActive?.children).toHaveLength(2);
     });
     test("handle should correct style left", () => {
-      const lineBlockHandler: HTMLDivElement | null = document.querySelector(
-        ".lineBlock__handler"
-      );
+      const lineBlockHandler: HTMLDivElement | null =
+        document.querySelector(".handler");
       expect(lineBlockHandler?.style.left).toBe("80%");
     });
     test("label should in DOM", () => {
       const lineBlockLabel: HTMLDivElement | null =
-        document.querySelector(".lineBlock__label");
+        document.querySelector(".label");
       expect(lineBlockLabel).not.toBeNull();
     });
 
     test("progressBar should in DOM", () => {
-      const lineProgressBar: HTMLDivElement | null = document.querySelector(
-        ".lineBlock__progressBar"
-      );
+      const lineProgressBar: HTMLDivElement | null =
+        document.querySelector(".progressBar");
       expect(lineProgressBar).not.toBeNull();
     });
   });
@@ -171,25 +169,24 @@ describe("label", () => {
     });
     test("first handle should correct style top", () => {
       const lineBlockHandler: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".lineBlock__handler");
+        document.querySelectorAll(".handler");
       expect(lineBlockHandler[0]?.style.top).toBe("80%");
     });
     test("second handle should correct style top", () => {
       const lineBlockHandler: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".lineBlock__handler");
+        document.querySelectorAll(".handler");
       expect(lineBlockHandler[1]?.style.top).toBe("70%");
     });
 
     test("both labels should be in DOM", () => {
       const lineBlockLabels: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".lineBlock__label");
+        document.querySelectorAll(".label");
       expect(lineBlockLabels).toHaveLength(2);
     });
 
     test("progressBar should in DOM", () => {
-      const lineProgressBar: HTMLDivElement | null = document.querySelector(
-        ".lineBlock__progressBar"
-      );
+      const lineProgressBar: HTMLDivElement | null =
+        document.querySelector(".progressBar");
       expect(lineProgressBar).not.toBeNull();
     });
   });

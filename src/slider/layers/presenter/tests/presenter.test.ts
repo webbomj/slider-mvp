@@ -52,11 +52,11 @@ describe("Presenter", () => {
       expect(lineBlock).not.toBeNull();
     });
     test("Handlers should be in DOM", () => {
-      const handlers = document.querySelectorAll(".lineBlock__handler");
+      const handlers = document.querySelectorAll(".handler");
       expect(handlers).toHaveLength(2);
     });
     test("Labels should be in DOM", () => {
-      const labels = document.querySelectorAll(".lineBlock__label");
+      const labels = document.querySelectorAll(".label");
       expect(labels).toHaveLength(2);
     });
     test("Scale should be in DOM", () => {
@@ -67,7 +67,7 @@ describe("Presenter", () => {
   describe("modelWasUpdate", () => {
     test("should update View", () => {
       presenter.modelWasUpdate(options2);
-      const labels = document.querySelectorAll(".lineBlock__label");
+      const labels = document.querySelectorAll(".label");
       expect(labels[1]?.textContent).toBe("-8");
       expect(labels[0]?.textContent).toBe("-4");
     });

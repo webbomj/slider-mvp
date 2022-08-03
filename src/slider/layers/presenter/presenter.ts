@@ -36,14 +36,11 @@ class Presenter {
     this.container = container;
     this.container.classList.add("js-slider");
 
-    const isValide = validateModel({ ...defaultOptions, ...options });
-
     this.state = { ...defaultOptions, ...options };
 
     this.model = new Model(this.state);
 
     this.createView();
-
     this.subscribeView();
     this.subscribeModel();
   }
@@ -71,8 +68,6 @@ class Presenter {
     if (isInterval) {
       const difFromNewValue = Math.abs(from - newValue);
       const difToNewValue = Math.abs(to - newValue);
-
-      console.log(from, to, difFromNewValue, difToNewValue, "new", newValue);
 
       if (difToNewValue < difFromNewValue) {
         this.model.updateState({
@@ -103,14 +98,12 @@ class Presenter {
         payload: { value: newValue },
       });
     }
-    const { to: to2, from: from2 } = this.getModel().getState();
-    console.log("new", from2, to2);
   };
 
   clickedLineHandler = (event: PointerEvent) => {
     const { max, min, step, isInterval, isVertical, to, from } = this.state;
     let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
-    let progressbar = this.container.querySelector(".lineBlock__progressBar");
+    let progressbar = this.container.querySelector(".progressBar");
     if (event.target !== progressbar && event.target !== slider) {
       return false;
     }
@@ -232,15 +225,7 @@ class Presenter {
       const valueFix = countValueRounding(step);
       let result = Number((stepLeft / stepPercent) * step);
       let value = Number((result + min).toFixed(valueFix));
-      console.log(
-        value,
-        result,
-        valueFix,
-        stepLeft,
-        left,
-        stepPercent,
-        stepCount
-      );
+
       if (isInterval) {
         if (position === HandlePosition.to) {
           if (value < this.state.from) {
@@ -327,14 +312,6 @@ class Presenter {
     if (isOptionsValid) {
       this.state = newState;
 
-      // let isNeedRerenderView = isNeedRerender(options);
-      // if (isNeedRerenderView) {
-
-      // }
-      // const lineBlock = this.container.querySelector('.lineBlock')
-      // const scale = this.container.querySelector('.scale')
-      // scale?.innerHTML =
-      // lineBlock?.innerHTML = ""
       this.container.innerHTML = "";
       this.createView();
       this.subscribeView();

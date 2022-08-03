@@ -60,11 +60,11 @@ describe("View", () => {
       expect(scale).not.toBeNull();
     });
     test("Both handle should be in DOM", () => {
-      const handles = document.querySelectorAll(".lineBlock__handler");
+      const handles = document.querySelectorAll(".handler");
       expect(handles.length).toBe(2);
     });
     test("Both label should be in DOM", () => {
-      const label = document.querySelectorAll(".lineBlock__label");
+      const label = document.querySelectorAll(".label");
       expect(label.length).toBe(2);
     });
   });
@@ -137,15 +137,14 @@ describe("View", () => {
     });
 
     test("updateView: handles should have new shift", () => {
-      const handles: NodeListOf<HTMLDivElement> = document.querySelectorAll(
-        ".lineBlock__handler"
-      );
+      const handles: NodeListOf<HTMLDivElement> =
+        document.querySelectorAll(".handler");
       expect(handles[0].style.top).toBe("10%");
       expect(handles[1].style.top).toBe("50%");
     });
     test("updateView: labels should have new shift", () => {
       const label: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".lineBlock__label");
+        document.querySelectorAll(".label");
       expect(label[0].style.top).toBe("10%");
       expect(label[1].style.top).toBe("50%");
     });
@@ -156,9 +155,8 @@ describe("View", () => {
       expect(scaleItems[3].textContent).toBe("-2");
     });
     test("updateView: progressBar top height should have new correct value", () => {
-      const progressBar: HTMLDivElement | null = document.querySelector(
-        ".lineBlock__progressBar"
-      );
+      const progressBar: HTMLDivElement | null =
+        document.querySelector(".progressBar");
       expect(progressBar?.style.top).toBe("50%");
       expect(progressBar?.style.height).toBe("220%");
     });

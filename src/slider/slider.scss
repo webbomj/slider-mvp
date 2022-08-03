@@ -12,11 +12,11 @@
       width: 6px;
       margin-left: 5px;
       touch-action: none;
-      & .lineBlock__handler {
+      & .handler {
         top: 0%;
         transform: translate(-30%, -5px);
       }
-      & .lineBlock__progressBar {
+      & .progressBar {
         width: 100%;
       }
       & ~ .scale {
@@ -27,7 +27,7 @@
           transform: translateY(-50%);
         }
       }
-      & .lineBlock__label {
+      & .label {
         margin-left: 30px;
         transform: translateY(-50%);
       }

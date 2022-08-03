@@ -4,6 +4,7 @@ import {
   IHandleProps,
 } from "../../../interfaces/interfaces";
 import Observer from "../../../observer/observer";
+import "./handle.scss";
 
 class Handle {
   private container: HTMLElement;
@@ -28,7 +29,7 @@ class Handle {
   }
   private render = () => {
     const handle = document.createElement("div");
-    handle.classList.add("lineBlock__handler");
+    handle.classList.add("handler");
     if (this.handlePosition) {
       handle.dataset.handle = this.handlePosition;
     }
