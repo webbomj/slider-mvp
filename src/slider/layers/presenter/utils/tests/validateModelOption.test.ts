@@ -58,6 +58,20 @@ describe("validateModelOption", () => {
     isProgressBar: true,
   };
 
+  const fromValueGreaterThenToValue: IModelOptions = {
+    min: 0,
+    max: 10,
+    from: 10,
+    to: 9,
+    step: 1,
+    stepScale: 2,
+    isVertical: true,
+    isInterval: true,
+    isLabel: true,
+    isScale: true,
+    isProgressBar: true,
+  };
+
   test("Should return true", () => {
     expect(validateModel(trueModel)).toBe(true);
   });
@@ -69,5 +83,8 @@ describe("validateModelOption", () => {
   });
   test("Should return false, because to greater then max", () => {
     expect(validateModel(toValueGreaterThenMinValue)).toBe(false);
+  });
+  test("Should return false, because from greater then to", () => {
+    expect(validateModel(fromValueGreaterThenToValue)).toBe(false);
   });
 });

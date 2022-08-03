@@ -17,6 +17,6 @@ import "./slider.scss";
 
 declare global {
   interface JQuery {
-    slider(options: IModelOptions): Presenter | undefined;
+    slider(options: Partial<IModelOptions>): Presenter | undefined;
   }
 }

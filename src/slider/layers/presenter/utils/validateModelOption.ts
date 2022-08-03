@@ -1,10 +1,26 @@
 import { IModelOptions } from "../../interfaces/interfaces";
 
+const defaultOptions: IModelOptions = {
+  min: 0,
+  max: 100,
+  from: 20,
+  to: 100,
+  step: 1,
+  stepScale: 1,
+  isVertical: false,
+  isInterval: false,
+  isLabel: true,
+  isScale: true,
+  isProgressBar: true,
+};
+
 const validateModel = (model: IModelOptions) => {
-  const { max, min, step, from, to } = model;
+  const fullModel = { ...defaultOptions, ...model };
+  const { max, min, step, from, to } = fullModel;
   const validateWidthMoreThenStep = Math.abs(max - min) >= step;
   const validateFromLessThenMin = from >= min;
   const validateToLessThenMax = to <= max;
+  const validateFromLessTo = from <= to;
 
   if (!validateWidthMoreThenStep) {
     console.log(
@@ -22,6 +38,10 @@ const validateModel = (model: IModelOptions) => {
     console.log(
       "The ending point of the start slider must be less than or equal to the slider's maximum value"
     );
+    return false;
+  }
+  if (!validateFromLessTo) {
+    console.log("From point must be less or equal To point");
     return false;
   }
 

@@ -13,7 +13,6 @@ import { arrScaleCreator, countValueRounding } from "./utils/scale";
 import { getCoords } from "./utils/handle";
 import { lineBlockCreator } from "./utils/lineBlock";
 import { validateModel } from "./utils/validateModelOption";
-import { isNeedRerender } from "./utils/checkNeedRerender";
 
 class Presenter {
   private model: Model;
@@ -126,7 +125,7 @@ class Presenter {
 
     let stepCount = (max - min) / step;
     let stepPercent = 100 / stepCount;
-    let stepLeft = (left / stepPercent) * stepPercent;
+    let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
 
     if (stepLeft < 0) stepLeft = 0;
     if (stepLeft > 100) stepLeft = 100;
@@ -217,7 +216,7 @@ class Presenter {
       }
       if (left < 0) left = 0;
       if (left > 100) left = 100;
-      console.log("---------------", left);
+
       //Шаг слайдера
       let stepCount = (max - min) / step;
       let stepPercent = 100 / stepCount;
