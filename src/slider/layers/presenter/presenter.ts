@@ -61,111 +61,22 @@ class Presenter {
       return;
     }
 
-    const { from, to, isInterval } = this.state;
-
     const newValue = Number(e.target?.textContent);
-
-    if (isInterval) {
-      const difFromNewValue = Math.abs(from - newValue);
-      const difToNewValue = Math.abs(to - newValue);
-
-      if (difToNewValue < difFromNewValue) {
-        this.model.updateState({
-          type: ModelAction.setToValue,
-          payload: { value: newValue },
-        });
-      } else if (difToNewValue > difFromNewValue) {
-        this.model.updateState({
-          type: ModelAction.setFromValue,
-          payload: { value: newValue },
-        });
-      } else if (difFromNewValue === difToNewValue) {
-        if (newValue < to) {
-          this.model.updateState({
-            type: ModelAction.setFromValue,
-            payload: { value: newValue },
-          });
-        } else {
-          this.model.updateState({
-            type: ModelAction.setToValue,
-            payload: { value: newValue },
-          });
-        }
-      }
-    } else {
-      this.model.updateState({
-        type: ModelAction.setToValue,
-        payload: { value: newValue },
-      });
-    }
+    this.updateModel(newValue);
   };
 
   clickedLineHandler = (event: PointerEvent) => {
-    const { max, min, step, isInterval, isVertical, to, from } = this.state;
     let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
     let progressbar = this.container.querySelector(".progressBar");
     if (event.target !== progressbar && event.target !== slider) {
-      return false;
+      return;
     }
-
     if (!slider) {
       return;
     }
 
-    let sliderCoords = getCoords(slider);
-    let left = ((event.pageY - sliderCoords.top) / sliderCoords.height) * 100;
-    if (!isVertical) {
-      left = ((event.pageX - sliderCoords.left) / sliderCoords.width) * 100;
-    }
-    if (left < 0) left = 0;
-    if (left > 100) left = 100;
-
-    let stepCount = (max - min) / step;
-    let stepPercent = 100 / stepCount;
-    let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
-
-    if (stepLeft < 0) stepLeft = 0;
-    if (stepLeft > 100) stepLeft = 100;
-
-    const valueFix = countValueRounding(step);
-
-    let result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
-    let value = Number((result + min).toFixed(valueFix));
-    console.log(valueFix, result, value);
-
-    if (isInterval) {
-      const difFromNewValue = Math.abs(from - value);
-      const difToNewValue = Math.abs(to - value);
-
-      if (difToNewValue < difFromNewValue) {
-        this.model.updateState({
-          type: ModelAction.setToValue,
-          payload: { value: value },
-        });
-      } else if (difToNewValue > difFromNewValue) {
-        this.model.updateState({
-          type: ModelAction.setFromValue,
-          payload: { value: value },
-        });
-      } else if (difFromNewValue === difToNewValue) {
-        if (value < to) {
-          this.model.updateState({
-            type: ModelAction.setFromValue,
-            payload: { value: value },
-          });
-        } else {
-          this.model.updateState({
-            type: ModelAction.setToValue,
-            payload: { value: value },
-          });
-        }
-      }
-    } else {
-      this.model.updateState({
-        type: ModelAction.setToValue,
-        payload: { value: value },
-      });
-    }
+    let value = this.countValueForModel(slider, event);
+    this.updateModel(value);
   };
 
   clickedHandleHandler = (event: PointerEvent): void => {
@@ -173,7 +84,7 @@ class Presenter {
       return;
     }
 
-    const { max, min, step, isInterval, isVertical, to, from } = this.state;
+    const { min, isVertical, to, from } = this.state;
     let sliderSpan = event.target;
     let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
 
@@ -183,7 +94,6 @@ class Presenter {
       if (!sliderSpanNode) {
         return;
       }
-
       sliderSpan = sliderSpanNode;
     }
 
@@ -193,65 +103,20 @@ class Presenter {
       return;
     }
 
-    let sliderCoords = getCoords(slider);
     let sliderSpanCoords = getCoords(sliderSpan);
 
     let shift = event.pageX - sliderSpanCoords.left;
     if (isVertical) {
       shift = event.pageY - sliderSpanCoords.top;
     }
-    const mouseMoveHandler = (evt: PointerEvent) => handleMove(evt);
+    const mouseMoveHandler = (evt: PointerEvent) => {
+      if (slider) {
+        this.handleMove(evt, slider, position);
+      }
+    };
     document.addEventListener("pointermove", mouseMoveHandler);
 
     //Начнем движение ползунка
-    const handleMove = (evt: PointerEvent): void => {
-      let left =
-        ((evt.pageX - shift - sliderCoords.left) / sliderCoords.width) * 100;
-      if (isVertical) {
-        left =
-          ((evt.pageY - shift - sliderCoords.top) / sliderCoords.height) * 100;
-      }
-      if (left < 0) left = 0;
-      if (left > 100) left = 100;
-
-      //Шаг слайдера
-      let stepCount = (max - min) / step;
-      let stepPercent = 100 / stepCount;
-      let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
-      if (stepLeft < 0) stepLeft = 0;
-      if (stepLeft > 100) stepLeft = 100;
-
-      //Расчитаем значение равное шагу слайдера
-      const valueFix = countValueRounding(step);
-      let result = Number((stepLeft / stepPercent) * step);
-      let value = Number((result + min).toFixed(valueFix));
-
-      if (isInterval) {
-        if (position === HandlePosition.to) {
-          if (value < this.state.from) {
-            value = this.state.from;
-          }
-          this.model.updateState({
-            type: ModelAction.setToValue,
-            payload: { value },
-          });
-        } else if (position === HandlePosition.from) {
-          if (value > this.state.to) {
-            value = this.state.to;
-          }
-          this.model.updateState({
-            type: ModelAction.setFromValue,
-            payload: { value },
-          });
-        }
-      } else {
-        this.model.updateState({
-          type: ModelAction.setToValue,
-          payload: { value },
-        });
-      }
-    };
-
     document.addEventListener("pointerup", function () {
       document.removeEventListener("pointermove", mouseMoveHandler);
     });
@@ -265,7 +130,6 @@ class Presenter {
   };
 
   subscribeView = (): void => {
-    // view sub
     this.view.subscribe({
       eventName: EventName.clickedScaleItem,
       function: this.clickedScaleItemHandler,
@@ -323,6 +187,102 @@ class Presenter {
     } else {
       throw Error("Options is not valide");
     }
+  };
+
+  handleMove = (
+    evt: PointerEvent,
+    slider: HTMLElement,
+    position: string | undefined
+  ): void => {
+    const { isInterval } = this.state;
+
+    let value = this.countValueForModel(slider, evt);
+
+    if (isInterval) {
+      if (position === HandlePosition.to) {
+        if (value < this.state.from) {
+          value = this.state.from;
+        }
+        this.model.updateState({
+          type: ModelAction.setToValue,
+          payload: { value },
+        });
+      } else if (position === HandlePosition.from) {
+        if (value > this.state.to) {
+          value = this.state.to;
+        }
+        this.model.updateState({
+          type: ModelAction.setFromValue,
+          payload: { value },
+        });
+      }
+    } else {
+      this.model.updateState({
+        type: ModelAction.setToValue,
+        payload: { value },
+      });
+    }
+  };
+
+  updateModel = (newValue: number) => {
+    const { from, to, isInterval } = this.state;
+    if (isInterval) {
+      const difFromNewValue = Math.abs(from - newValue);
+      const difToNewValue = Math.abs(to - newValue);
+
+      if (difToNewValue < difFromNewValue) {
+        this.model.updateState({
+          type: ModelAction.setToValue,
+          payload: { value: newValue },
+        });
+      } else if (difToNewValue > difFromNewValue) {
+        this.model.updateState({
+          type: ModelAction.setFromValue,
+          payload: { value: newValue },
+        });
+      } else if (difFromNewValue === difToNewValue) {
+        if (newValue < to) {
+          this.model.updateState({
+            type: ModelAction.setFromValue,
+            payload: { value: newValue },
+          });
+        } else {
+          this.model.updateState({
+            type: ModelAction.setToValue,
+            payload: { value: newValue },
+          });
+        }
+      }
+    } else {
+      this.model.updateState({
+        type: ModelAction.setToValue,
+        payload: { value: newValue },
+      });
+    }
+  };
+
+  countValueForModel = (slider: HTMLElement, event: PointerEvent): number => {
+    const { isVertical, max, min, step } = this.state;
+    let sliderCoords = getCoords(slider);
+    let left = ((event.pageY - sliderCoords.top) / sliderCoords.height) * 100;
+    if (!isVertical) {
+      left = ((event.pageX - sliderCoords.left) / sliderCoords.width) * 100;
+    }
+    if (left < 0) left = 0;
+    if (left > 100) left = 100;
+
+    let stepCount = (max - min) / step;
+    let stepPercent = 100 / stepCount;
+    let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
+
+    if (stepLeft < 0) stepLeft = 0;
+    if (stepLeft > 100) stepLeft = 100;
+
+    const valueFix = countValueRounding(step);
+
+    let result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
+    let value = Number((result + min).toFixed(valueFix));
+    return value;
   };
 }
 

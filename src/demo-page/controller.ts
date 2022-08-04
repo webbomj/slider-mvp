@@ -22,7 +22,11 @@ class Controller {
     this.setListeners();
   }
 
-  createControlItem = (type: string, name: string, value: number | boolean) => {
+  private createControlItem = (
+    type: string,
+    name: string,
+    value: number | boolean
+  ) => {
     const elementWrapper = document.createElement("div");
     elementWrapper.classList.add("control__item");
 
@@ -46,7 +50,7 @@ class Controller {
     return elementWrapper;
   };
 
-  createControlPanel = () => {
+  private createControlPanel = () => {
     const controlWrapper = document.createElement("div");
     controlWrapper.classList.add("control");
     const controlLeft = document.createElement("div");
@@ -79,23 +83,23 @@ class Controller {
     this.control = controlWrapper;
   };
 
-  setListeners = () => {
-    //number
-    const rightBlockInputs = this.container.querySelectorAll(".control__input");
+  private setListeners = () => {
+    const rightBlockInputs = this.container.querySelectorAll(
+      ".control__rightBlock .control__input"
+    );
     rightBlockInputs?.forEach((el) =>
       el.addEventListener("blur", (e) => {
         this.inputsHandler(e);
       })
     );
 
-    //boolean
     const leftBlock = this.container.querySelector(".control__leftBlock");
     leftBlock?.addEventListener("click", (e) => {
       this.inputsHandler(e);
     });
   };
 
-  private inputsHandler = (e: Event) => {
+  inputsHandler = (e: Event) => {
     if (!(e.target instanceof HTMLInputElement)) {
       return;
     }
