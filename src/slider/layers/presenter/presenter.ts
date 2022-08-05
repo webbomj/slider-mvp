@@ -18,13 +18,13 @@ class Presenter {
   private model: Model;
   private view: View;
   private state: IModelOptions;
-  private container;
+  private container: HTMLElement;
   constructor({ options, container }: IPresenterOptions) {
     const defaultOptions: IModelOptions = {
       min: 0,
       max: 100,
       from: 20,
-      to: 0,
+      to: 30,
       step: 1,
       stepScale: 1,
       isVertical: false,

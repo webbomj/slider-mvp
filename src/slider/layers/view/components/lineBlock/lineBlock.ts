@@ -63,7 +63,6 @@ class lineBlock {
           container: activeBlock,
           shift: shift,
           text: to,
-          observer: this.observer,
           isVertical: this.state.isVertical,
         });
       }
@@ -81,7 +80,6 @@ class lineBlock {
           container: activeBlock,
           shift: shiftFrom,
           text: from,
-          observer: this.observer,
           isVertical: this.state.isVertical,
         });
       }
@@ -97,7 +95,6 @@ class lineBlock {
           container: activeBlock,
           shift: shift,
           text: to,
-          observer: this.observer,
           isVertical: this.state.isVertical,
         });
       }
@@ -109,7 +106,6 @@ class lineBlock {
       container: lineBlock,
       shiftFrom: shiftFrom,
       width: progressBarWidth,
-      observer: this.observer,
       isVertical: this.state.isVertical,
     };
     if (this.state.isProgressBar) {
@@ -129,7 +125,6 @@ class lineBlock {
       this.labelTo.update(to, shift);
     }
     if (isInterval) {
-      console.log(model);
       this.handleFrom.update(shiftFrom, isVertical);
       if (isLabel) {
         this.labelFrom.update(from, shiftFrom);

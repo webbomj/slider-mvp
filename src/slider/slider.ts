@@ -4,7 +4,6 @@ import { validateModel } from "./layers/presenter/utils/validateModelOption";
 import "./slider.scss";
 import $ from "jquery";
 
-// (function ($) {
 $.fn.slider = function (options: IModelOptions) {
   if (!this[0]) {
     return;
@@ -15,7 +14,6 @@ $.fn.slider = function (options: IModelOptions) {
   }
   throw Error("Options is not valid");
 };
-// })(jQuery);
 
 declare global {
   interface JQuery {

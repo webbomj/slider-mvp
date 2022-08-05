@@ -86,7 +86,7 @@ describe("Controller", () => {
     const $fromInput = $(`.control__rightBlock .control__input[name="from"]`);
     $fromInput.trigger(event);
     if (fromInput) {
-      fromInput.value = `21`;
+      fromInput.stepUp();
     }
     $fromInput.trigger(event2);
     $(`.control__leftBlock`).trigger(event);

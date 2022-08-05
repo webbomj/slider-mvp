@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1659629460955" clover="3.2.0">
-  <project timestamp="1659629460955" name="All files">
-    <metrics statements="550" coveredstatements="519" conditionals="134" coveredconditionals="111" methods="74" coveredmethods="65" elements="758" coveredelements="695" complexity="0" loc="550" ncloc="550" packages="12" files="16" classes="16"/>
+<coverage generated="1659708732033" clover="3.2.0">
+  <project timestamp="1659708732033" name="All files">
+    <metrics statements="544" coveredstatements="515" conditionals="134" coveredconditionals="111" methods="74" coveredmethods="65" elements="752" coveredelements="691" complexity="0" loc="544" ncloc="544" packages="12" files="16" classes="16"/>
     <package name="demo-page">
-      <metrics statements="64" coveredstatements="56" conditionals="17" coveredconditionals="13" methods="9" coveredmethods="8"/>
+      <metrics statements="62" coveredstatements="56" conditionals="17" coveredconditionals="13" methods="9" coveredmethods="8"/>
       <file name="controller.ts" path="K:\work\metalamp\metalamp-slider\src\demo-page\controller.ts">
-        <metrics statements="60" coveredstatements="52" conditionals="15" coveredconditionals="11" methods="8" coveredmethods="7"/>
+        <metrics statements="58" coveredstatements="52" conditionals="15" coveredconditionals="11" methods="8" coveredmethods="7"/>
         <line num="3" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="17" count="4" type="stmt"/>
@@ -61,11 +61,9 @@
         <line num="107" count="0" type="stmt"/>
         <line num="109" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="110" count="0" type="stmt"/>
-        <line num="111" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="114" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
-        <line num="121" count="1" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
       </file>
       <file name="interfaces.ts" path="K:\work\metalamp\metalamp-slider\src\demo-page\interfaces.ts">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
@@ -97,18 +95,18 @@
         <line num="78" count="8" type="stmt"/>
         <line num="79" count="8" type="stmt"/>
         <line num="80" count="8" type="stmt"/>
-        <line num="163" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="162" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="163" count="8" type="stmt"/>
         <line num="164" count="8" type="stmt"/>
-        <line num="165" count="8" type="stmt"/>
-        <line num="186" count="8" type="stmt"/>
-        <line num="205" count="8" type="stmt"/>
-        <line num="209" count="8" type="stmt"/>
+        <line num="184" count="8" type="stmt"/>
+        <line num="203" count="8" type="stmt"/>
+        <line num="207" count="8" type="stmt"/>
       </file>
     </package>
     <package name="slider.layers.model">
-      <metrics statements="65" coveredstatements="65" conditionals="17" coveredconditionals="17" methods="4" coveredmethods="4"/>
+      <metrics statements="64" coveredstatements="64" conditionals="17" coveredconditionals="17" methods="4" coveredmethods="4"/>
       <file name="model.ts" path="K:\work\metalamp\metalamp-slider\src\slider\layers\model\model.ts">
-        <metrics statements="65" coveredstatements="65" conditionals="17" coveredconditionals="17" methods="4" coveredmethods="4"/>
+        <metrics statements="64" coveredstatements="64" conditionals="17" coveredconditionals="17" methods="4" coveredmethods="4"/>
         <line num="1" count="3" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
         <line num="11" count="3" type="stmt"/>
@@ -169,26 +167,25 @@
         <line num="125" count="3" type="stmt"/>
         <line num="126" count="3" type="stmt"/>
         <line num="128" count="3" type="stmt"/>
-        <line num="133" count="23" type="stmt"/>
-        <line num="136" count="24" type="stmt"/>
-        <line num="137" count="23" type="stmt"/>
-        <line num="140" count="24" type="stmt"/>
-        <line num="141" count="52" type="stmt"/>
+        <line num="135" count="24" type="stmt"/>
+        <line num="136" count="23" type="stmt"/>
+        <line num="139" count="24" type="stmt"/>
+        <line num="140" count="52" type="stmt"/>
       </file>
     </package>
     <package name="slider.layers.observer">
       <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="6" coveredmethods="5"/>
       <file name="observer.ts" path="K:\work\metalamp\metalamp-slider\src\slider\layers\observer\observer.ts">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="6" coveredmethods="5"/>
-        <line num="6" count="66" type="stmt"/>
-        <line num="8" count="66" type="stmt"/>
+        <line num="6" count="65" type="stmt"/>
+        <line num="8" count="65" type="stmt"/>
         <line num="9" count="100" type="stmt"/>
-        <line num="11" count="66" type="stmt"/>
+        <line num="11" count="65" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="14" count="66" type="stmt"/>
+        <line num="14" count="65" type="stmt"/>
         <line num="15" count="23" type="stmt"/>
         <line num="16" count="11" type="cond" truecount="1" falsecount="1"/>
-        <line num="23" count="10" type="stmt"/>
+        <line num="23" count="9" type="stmt"/>
       </file>
     </package>
     <package name="slider.layers.presenter">
@@ -471,36 +468,35 @@
       </file>
     </package>
     <package name="slider.layers.view.components.label">
-      <metrics statements="21" coveredstatements="21" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+      <metrics statements="20" coveredstatements="20" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
       <file name="label.ts" path="K:\work\metalamp\metalamp-slider\src\slider\layers\view\components\label\label.ts">
-        <metrics statements="21" coveredstatements="21" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="3" count="5" type="stmt"/>
+        <metrics statements="20" coveredstatements="20" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="11" count="88" type="stmt"/>
+        <line num="12" count="88" type="stmt"/>
         <line num="13" count="88" type="stmt"/>
         <line num="14" count="88" type="stmt"/>
         <line num="15" count="88" type="stmt"/>
         <line num="16" count="88" type="stmt"/>
         <line num="17" count="88" type="stmt"/>
-        <line num="18" count="88" type="stmt"/>
         <line num="19" count="88" type="stmt"/>
         <line num="20" count="88" type="stmt"/>
+        <line num="21" count="88" type="stmt"/>
         <line num="22" count="88" type="stmt"/>
-        <line num="23" count="88" type="stmt"/>
         <line num="24" count="88" type="stmt"/>
-        <line num="25" count="88" type="stmt"/>
-        <line num="27" count="88" type="stmt"/>
-        <line num="28" count="135" type="stmt"/>
-        <line num="29" count="135" type="stmt"/>
-        <line num="30" count="135" type="stmt"/>
-        <line num="31" count="135" type="cond" truecount="2" falsecount="0"/>
-        <line num="32" count="120" type="stmt"/>
-        <line num="34" count="15" type="stmt"/>
-        <line num="39" count="5" type="stmt"/>
+        <line num="25" count="135" type="stmt"/>
+        <line num="26" count="135" type="stmt"/>
+        <line num="27" count="135" type="stmt"/>
+        <line num="28" count="135" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="120" type="stmt"/>
+        <line num="31" count="15" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
       </file>
     </package>
     <package name="slider.layers.view.components.lineBlock">
-      <metrics statements="52" coveredstatements="51" conditionals="13" coveredconditionals="13" methods="4" coveredmethods="3"/>
+      <metrics statements="51" coveredstatements="50" conditionals="13" coveredconditionals="13" methods="4" coveredmethods="3"/>
       <file name="lineBlock.ts" path="K:\work\metalamp\metalamp-slider\src\slider\layers\view\components\lineBlock\lineBlock.ts">
-        <metrics statements="52" coveredstatements="51" conditionals="13" coveredconditionals="13" methods="4" coveredmethods="3"/>
+        <metrics statements="51" coveredstatements="50" conditionals="13" coveredconditionals="13" methods="4" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
@@ -525,63 +521,61 @@
         <line num="54" count="38" type="stmt"/>
         <line num="61" count="38" type="cond" truecount="1" falsecount="0"/>
         <line num="62" count="38" type="stmt"/>
-        <line num="71" count="38" type="stmt"/>
-        <line num="79" count="38" type="cond" truecount="1" falsecount="0"/>
-        <line num="80" count="38" type="stmt"/>
-        <line num="89" count="8" type="stmt"/>
-        <line num="95" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="96" count="8" type="stmt"/>
-        <line num="106" count="46" type="stmt"/>
-        <line num="108" count="46" type="stmt"/>
+        <line num="70" count="38" type="stmt"/>
+        <line num="78" count="38" type="cond" truecount="1" falsecount="0"/>
+        <line num="79" count="38" type="stmt"/>
+        <line num="87" count="8" type="stmt"/>
+        <line num="93" count="8" type="cond" truecount="1" falsecount="0"/>
+        <line num="94" count="8" type="stmt"/>
+        <line num="103" count="46" type="stmt"/>
+        <line num="105" count="46" type="stmt"/>
+        <line num="111" count="46" type="cond" truecount="1" falsecount="0"/>
+        <line num="112" count="44" type="stmt"/>
         <line num="115" count="46" type="cond" truecount="1" falsecount="0"/>
-        <line num="116" count="44" type="stmt"/>
-        <line num="119" count="46" type="cond" truecount="1" falsecount="0"/>
+        <line num="116" count="46" type="stmt"/>
         <line num="120" count="46" type="stmt"/>
-        <line num="124" count="46" type="stmt"/>
+        <line num="121" count="26" type="stmt"/>
+        <line num="122" count="26" type="stmt"/>
+        <line num="124" count="26" type="cond" truecount="1" falsecount="0"/>
         <line num="125" count="26" type="stmt"/>
-        <line num="126" count="26" type="stmt"/>
-        <line num="128" count="26" type="cond" truecount="1" falsecount="0"/>
-        <line num="129" count="26" type="stmt"/>
-        <line num="131" count="26" type="cond" truecount="1" falsecount="0"/>
-        <line num="132" count="19" type="stmt"/>
-        <line num="133" count="19" type="stmt"/>
-        <line num="134" count="19" type="cond" truecount="1" falsecount="0"/>
-        <line num="135" count="19" type="stmt"/>
-        <line num="138" count="26" type="cond" truecount="2" falsecount="0"/>
-        <line num="139" count="20" type="stmt"/>
-        <line num="141" count="6" type="stmt"/>
-        <line num="143" count="26" type="cond" truecount="1" falsecount="0"/>
-        <line num="144" count="24" type="stmt"/>
-        <line num="153" count="4" type="stmt"/>
+        <line num="127" count="26" type="cond" truecount="1" falsecount="0"/>
+        <line num="128" count="19" type="stmt"/>
+        <line num="129" count="19" type="cond" truecount="1" falsecount="0"/>
+        <line num="130" count="19" type="stmt"/>
+        <line num="133" count="26" type="cond" truecount="2" falsecount="0"/>
+        <line num="134" count="20" type="stmt"/>
+        <line num="136" count="6" type="stmt"/>
+        <line num="138" count="26" type="cond" truecount="1" falsecount="0"/>
+        <line num="139" count="24" type="stmt"/>
+        <line num="148" count="4" type="stmt"/>
       </file>
     </package>
     <package name="slider.layers.view.components.progressBar">
-      <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
+      <metrics statements="22" coveredstatements="22" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
       <file name="progressBar.ts" path="K:\work\metalamp\metalamp-slider\src\slider\layers\view\components\progressBar\progressBar.ts">
-        <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <metrics statements="22" coveredstatements="22" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="6" count="5" type="stmt"/>
+        <line num="19" count="47" type="stmt"/>
+        <line num="20" count="47" type="stmt"/>
         <line num="21" count="47" type="stmt"/>
         <line num="22" count="47" type="stmt"/>
         <line num="23" count="47" type="stmt"/>
-        <line num="24" count="47" type="stmt"/>
         <line num="25" count="47" type="stmt"/>
         <line num="26" count="47" type="stmt"/>
+        <line num="27" count="47" type="stmt"/>
         <line num="28" count="47" type="stmt"/>
         <line num="29" count="47" type="stmt"/>
-        <line num="30" count="47" type="stmt"/>
-        <line num="31" count="47" type="stmt"/>
-        <line num="32" count="47" type="stmt"/>
-        <line num="39" count="47" type="stmt"/>
-        <line num="44" count="73" type="stmt"/>
-        <line num="46" count="73" type="stmt"/>
-        <line num="48" count="73" type="stmt"/>
-        <line num="49" count="73" type="cond" truecount="1" falsecount="0"/>
-        <line num="50" count="73" type="cond" truecount="2" falsecount="0"/>
-        <line num="51" count="58" type="stmt"/>
-        <line num="52" count="58" type="stmt"/>
-        <line num="54" count="15" type="stmt"/>
-        <line num="55" count="15" type="stmt"/>
-        <line num="61" count="5" type="stmt"/>
+        <line num="36" count="47" type="stmt"/>
+        <line num="41" count="73" type="stmt"/>
+        <line num="43" count="73" type="stmt"/>
+        <line num="45" count="73" type="stmt"/>
+        <line num="46" count="73" type="cond" truecount="1" falsecount="0"/>
+        <line num="47" count="73" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="58" type="stmt"/>
+        <line num="49" count="58" type="stmt"/>
+        <line num="51" count="15" type="stmt"/>
+        <line num="52" count="15" type="stmt"/>
+        <line num="58" count="5" type="stmt"/>
       </file>
     </package>
     <package name="slider.layers.view.components.scale">

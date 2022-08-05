@@ -3,7 +3,6 @@
  */
 
 import { ILabelProps } from "../../../../interfaces/interfaces";
-import Observer from "../../../../observer/observer";
 import Label from "../label";
 
 describe("label", () => {
@@ -11,7 +10,6 @@ describe("label", () => {
   let container: HTMLElement | null;
   let labelNode: HTMLElement | null;
   let options: ILabelProps;
-  const observer = new Observer();
   document.body.innerHTML = `
     <div id="app"></div>
   `;
@@ -21,7 +19,6 @@ describe("label", () => {
     options = {
       container: container ? container : document.body,
       isVertical: true,
-      observer,
       shift: 20,
       text: 20,
     };
@@ -46,7 +43,6 @@ describe("label", () => {
     document.body.innerHTML = '<div id="app"></div>';
     let container: HTMLElement | null = document.getElementById("app");
     let label = new Label({
-      observer,
       shift: 20,
       text: 20,
       isVertical: false,

@@ -119,7 +119,6 @@ interface IProgressBarOptions {
   container: HTMLElement;
   shiftFrom: number;
   width: number;
-  observer: Observer;
   isVertical: boolean;
 }
 
@@ -177,7 +176,6 @@ interface ILabelProps {
   container: HTMLElement;
   shift: number;
   text: number;
-  observer: Observer;
   isVertical: boolean;
 }
 

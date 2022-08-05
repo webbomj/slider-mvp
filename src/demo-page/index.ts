@@ -1,6 +1,6 @@
-import { Controller } from "./demo-page/controller";
-import { IModelOptions } from "./slider/layers/interfaces/interfaces";
-import "./slider/slider";
+import { Controller } from "./controller";
+import { IModelOptions } from "../slider/layers/interfaces/interfaces";
+import "../slider/slider";
 import $ from "jquery";
 
 const options: Partial<IModelOptions>[] = [

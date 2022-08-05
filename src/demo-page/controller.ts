@@ -108,10 +108,8 @@ class Controller {
 
     if (this.numberInputs.includes(name)) {
       value = Number(e.target.value);
-      console.log("number", name, value);
     } else {
       value = e.target.checked;
-      console.log("number", name, value);
     }
 
     this.slider.fullUpdate({ [name]: value });

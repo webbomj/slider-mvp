@@ -1,20 +1,17 @@
 import { ILabelProps } from "../../../interfaces/interfaces";
-import Observer from "../../../observer/observer";
 import "./label.scss";
 
 class Label {
   private label: HTMLElement;
   private container: HTMLElement;
   private shift: number;
-  private observer: Observer;
   private isVertical: boolean;
   private text: number;
-  constructor({ container, shift, text, observer, isVertical }: ILabelProps) {
+  constructor({ container, shift, text, isVertical }: ILabelProps) {
     this.container = container;
     this.shift = shift;
     this.text = text;
     this.isVertical = isVertical;
-    this.observer = observer;
     const label = document.createElement("div");
     this.label = label;
     this.render();

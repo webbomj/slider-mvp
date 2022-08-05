@@ -9,20 +9,17 @@ class ProgressBar {
   private container: HTMLElement;
   private shiftFrom: number;
   private width: number;
-  private observer: Observer;
   private isVertical: boolean;
   constructor({
     container,
     shiftFrom,
     width,
-    observer,
     isVertical,
   }: IProgressBarOptions) {
     this.container = container;
     this.shiftFrom = shiftFrom;
     this.isVertical = isVertical;
     this.width = width;
-    this.observer = observer;
     this.render(this.container);
   }
   private render = (container: HTMLElement): void => {
