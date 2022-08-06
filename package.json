@@ -1,15 +1,14 @@
 {
   "name": "metalamp-slider",
   "version": "1.0.0",
-  "source": "src/demo-page/index.html",
+  "source": "src/slider",
   "description": "",
   "homepage": "https://webbomj.github.io/slider-mvp/",
   "scripts": {
     "test": "jest",
     "test:coverage": "npx jest --coverage",
-    "watch": "parcel watch src/index.ts",
     "dev": "parcel serve --open ",
-    "build": "parcel src/slider/slider.ts",
+    "build": "parcel src/slider/slider.ts --public-url ./",
     "buildDemoPage": "parcel src/demo-page/index.html --public-url ./",
     "predeployDemoPage": "npm run buildDemoPage",
     "deployDemoPage": "gh-pages -d dist"

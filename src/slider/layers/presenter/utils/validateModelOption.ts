@@ -21,6 +21,7 @@ const validateModel = (model: IModelOptions) => {
   const validateFromLessThenMin = from >= min;
   const validateToLessThenMax = to <= max;
   const validateFromLessTo = from <= to;
+  const stepMoreThenZero = step > 0;
 
   if (!validateWidthMoreThenStep) {
     console.log(
@@ -42,6 +43,10 @@ const validateModel = (model: IModelOptions) => {
   }
   if (!validateFromLessTo) {
     console.log("From point must be less or equal To point");
+    return false;
+  }
+  if (!stepMoreThenZero) {
+    console.log("Step should be more then 0");
     return false;
   }
 
