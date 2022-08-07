@@ -21,8 +21,6 @@ declare global {
   interface JQuery {
     slider(options: Partial<IModelOptions>): Presenter | undefined;
   }
-  interface Window {
-    $: JQuery;
-    JQuery: JQuery;
-  }
 }
+
+// export default $.fn.slider;

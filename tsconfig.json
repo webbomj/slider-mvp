@@ -12,7 +12,7 @@
     "src/slider/layers/view/label",
     "src/slider/layers/presenter/utils/tests/handle.test.ks"
   ],
-  "CommonJS": "ES6",
+  "CommonJS": "ESNext",
   "compilerOptions": {
     "strict": true,
     "strictPropertyInitialization": false,

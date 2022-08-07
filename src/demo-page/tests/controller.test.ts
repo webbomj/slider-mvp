@@ -4,8 +4,7 @@
 
 import Presenter from "../../slider/layers/presenter/presenter";
 import { Controller } from "../controller";
-
-window.$ = require("jquery");
+import $ from "jquery";
 
 describe("Controller", () => {
   document.body.innerHTML = `
