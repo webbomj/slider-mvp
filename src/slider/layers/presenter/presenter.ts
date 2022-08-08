@@ -5,6 +5,7 @@ import {
   IModelOptions,
   IPresenterOptions,
   IScaleProps,
+  ISubscriber,
   ModelAction,
 } from "../interfaces/interfaces";
 import Model from "../model/model";
@@ -13,13 +14,17 @@ import { arrScaleCreator, countValueRounding } from "./utils/scale";
 import { getCoords } from "./utils/handle";
 import { lineBlockCreator } from "./utils/lineBlock";
 import { validateModel } from "./utils/validateModelOption";
+import Observer from "../observer/observer";
 
 class Presenter {
   private model: Model;
   private view: View;
   private state: IModelOptions;
   private container: HTMLElement;
+  private observer: Observer;
   constructor({ options, container }: IPresenterOptions) {
+    this.observer = new Observer();
+
     const defaultOptions: IModelOptions = {
       min: 0,
       max: 100,
@@ -127,6 +132,10 @@ class Presenter {
     const scaleProps = this.createArrScale();
     const lineBlockOptions = this.createLineBlock();
     this.view.updateView({ model, scaleProps, lineBlockOptions });
+    this.observer.notify({
+      eventName: EventName.sliderChange,
+      eventPayload: this.state,
+    });
   };
 
   subscribeView = (): void => {
@@ -155,6 +164,10 @@ class Presenter {
 
   getModel = () => {
     return this.model;
+  };
+
+  getState = () => {
+    return this.state;
   };
 
   createView = () => {
@@ -283,6 +296,22 @@ class Presenter {
     let result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
     let value = Number((result + min).toFixed(valueFix));
     return value;
+  };
+
+  subscribe = (fn: (e: Event | IModelOptions) => void) => {
+    const subscriber: ISubscriber = {
+      eventName: EventName.sliderChange,
+      function: fn,
+    };
+    this.observer.subscribe(subscriber);
+  };
+
+  unsubscribe = (fn: (e: Event | IModelOptions) => void) => {
+    const subscriber: ISubscriber = {
+      eventName: EventName.sliderChange,
+      function: fn,
+    };
+    this.observer.unsubscribe(subscriber);
   };
 }
 

@@ -2,6 +2,7 @@
   "name": "metalamp-slider",
   "version": "1.0.0",
   "source": "src/demo-page/index.html",
+  "module": "dist/slider.js",
   "description": "",
   "homepage": "https://webbomj.github.io/slider-mvp/",
   "scripts": {

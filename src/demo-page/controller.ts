@@ -5,7 +5,7 @@ import {
   ICreateControlPanelProps,
   NumberInputs,
 } from "./interfaces";
-import "./demo.scss";
+import "./controller.scss";
 
 class Controller {
   container: HTMLElement;

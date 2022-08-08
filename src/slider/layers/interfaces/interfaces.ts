@@ -78,16 +78,17 @@ enum EventName {
   modelWasUpdate = "modelWasUpdate",
   clickedHandle = "clickedHandle",
   clickedLine = "clickedLine",
+  sliderChange = "sliderChange",
 }
 
 interface ISubscriber {
   eventName: EventName;
-  function: (e: Event | IModelOptions | Event[]) => void;
+  function: (e: Event | IModelOptions) => void;
 }
 
 interface IEventObject {
   eventName: EventName;
-  eventPayload: Event | IModelOptions | Event[];
+  eventPayload: Event | IModelOptions;
 }
 
 interface IScaleOptions {
