@@ -56,20 +56,20 @@ const options: Partial<IModelOptions>[] = [
 type typeData = [string, Partial<IModelOptions>, string];
 
 const dataArray: typeData[] = [
-  ['#slider1 .app__slider', options[0], '#slider1 .app__control'],
-  ['#slider2 .app__slider', options[1], '#slider2 .app__control'],
-  ['#slider3 .app__slider', options[2], '#slider3 .app__control'],
-  ['#slider4 .app__slider', options[3], '#slider4 .app__control'],
+  ['#slider1 .js-app__slider', options[0], '#slider1 .js-app__control'],
+  ['#slider2 .js-app__slider', options[1], '#slider2 .js-app__control'],
+  ['#slider3 .js-app__slider', options[2], '#slider3 .js-app__control'],
+  ['#slider4 .js-app__slider', options[3], '#slider4 .js-app__control'],
 ];
 
 dataArray.forEach((data) => {
-  const slider = $(`${data[0]}`).slider(data[1]);
-  const firstContainer = $(`${data[2]}`)[0];
-  if (slider) {
+  const $slider = $(`${data[0]}`).slider(data[1]);
+  const $firstContainer = $(`${data[2]}`)[0];
+  if ($slider) {
     // eslint-disable-next-line no-new
     new Controller({
-      container: firstContainer,
-      slider: slider,
+      container: $firstContainer,
+      slider: $slider,
     });
   }
 });

@@ -67,7 +67,7 @@ class Presenter {
     return { scale, shift };
   };
 
-  clickedScaleItemHandler = (e: Event): void => {
+  handleScaleItemClick = (e: Event): void => {
     if (!(e.target instanceof HTMLElement)) {
       return;
     }
@@ -76,9 +76,8 @@ class Presenter {
     this.updateModel(newValue);
   };
 
-  clickedLineHandler = (event: PointerEvent) => {
-    const slider: HTMLElement | null =
-      this.container.querySelector('.line-block');
+  handleLineBlockClick = (event: PointerEvent) => {
+    const slider: HTMLElement | null = this.container.querySelector('.line-block');
     const progressbar = this.container.querySelector('.progress-bar');
     if (event.target !== progressbar && event.target !== slider) {
       return;
@@ -91,19 +90,17 @@ class Presenter {
     this.updateModel(value);
   };
 
-  clickedHandleHandler = (event: PointerEvent): void => {
+  handleHandleClick = (event: PointerEvent): void => {
     if (!(event.target instanceof HTMLElement)) {
       return;
     }
 
     const { min, isVertical, to, from } = this.state;
     let sliderSpan = event.target;
-    const slider: HTMLElement | null =
-      this.container.querySelector('.line-block');
+    const slider: HTMLElement | null = this.container.querySelector('.line-block');
 
     if (to === min && from === min) {
-      const sliderSpanNode: HTMLElement | null =
-        this.container.querySelector('[data-handle=to]');
+      const sliderSpanNode: HTMLElement | null = this.container.querySelector('[data-handle=to]');
       if (!sliderSpanNode) {
         return;
       }
@@ -123,16 +120,16 @@ class Presenter {
       // eslint-disable-next-line no-unused-vars
       shift = event.pageY - sliderSpanCoords.top;
     }
-    const mouseMoveHandler = (evt: PointerEvent) => {
+    const handleHandlerMouseMove = (evt: PointerEvent) => {
       if (slider) {
-        this.handleMove(evt, slider, position);
+        this.handleHandleMove(evt, slider, position);
       }
     };
-    document.addEventListener('pointermove', mouseMoveHandler);
+    document.addEventListener('pointermove', handleHandlerMouseMove);
 
     // Начнем движение ползунка
     document.addEventListener('pointerup', () => {
-      document.removeEventListener('pointermove', mouseMoveHandler);
+      document.removeEventListener('pointermove', handleHandlerMouseMove);
     });
   };
 
@@ -150,17 +147,17 @@ class Presenter {
   subscribeView = (): void => {
     this.view.subscribe({
       eventName: EventName.clickedScaleItem,
-      function: this.clickedScaleItemHandler,
+      function: this.handleScaleItemClick,
     });
 
     this.view.subscribe({
       eventName: EventName.clickedHandle,
-      function: this.clickedHandleHandler,
+      function: this.handleHandleClick,
     });
 
     this.view.subscribe({
       eventName: EventName.clickedLine,
-      function: this.clickedLineHandler,
+      function: this.handleLineBlockClick,
     });
   };
 
@@ -189,7 +186,7 @@ class Presenter {
 
   fullUpdate = (options: Partial<IModelOptions>) => {
     const newState: IModelOptions = { ...this.state, ...options };
-    const isOptionsValid = validateModel(newState);
+    const [isOptionsValid, message] = validateModel(newState);
 
     if (isOptionsValid) {
       this.state = newState;
@@ -202,16 +199,13 @@ class Presenter {
         type: ModelAction.setFullState,
         payload: { value: newState },
       });
-    } else {
-      throw Error('Options is not valide');
+    }
+    if (message) {
+      throw Error(message);
     }
   };
 
-  handleMove = (
-    evt: PointerEvent,
-    slider: HTMLElement,
-    position: string | undefined,
-  ): void => {
+  handleHandleMove = (evt: PointerEvent, slider: HTMLElement, position: string | undefined): void => {
     const { isInterval } = this.state;
 
     let value = this.countValueForModel(slider, evt);

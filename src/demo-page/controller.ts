@@ -23,7 +23,7 @@ class Controller {
     this.setListeners();
   }
 
-  inputsHandler = (e: Event) => {
+  handleInputClick = (e: Event) => {
     if (!(e.target instanceof HTMLInputElement)) {
       return;
     }
@@ -100,13 +100,13 @@ class Controller {
     const rightBlockInputs = this.container.querySelectorAll('.control__rightBlock .control__input');
     rightBlockInputs?.forEach((el) =>
       el.addEventListener('blur', (e) => {
-        this.inputsHandler(e);
+        this.handleInputClick(e);
       }),
     );
 
     const leftBlock = this.container.querySelector('.control__leftBlock');
     leftBlock?.addEventListener('click', (e) => {
-      this.inputsHandler(e);
+      this.handleInputClick(e);
     });
   };
 }

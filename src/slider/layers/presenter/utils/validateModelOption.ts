@@ -1,4 +1,4 @@
-import { IModelOptions } from "../../interfaces/interfaces";
+import { IModelOptions } from '../../interfaces/interfaces';
 
 const defaultOptions: IModelOptions = {
   min: 0,
@@ -14,7 +14,7 @@ const defaultOptions: IModelOptions = {
   isProgressBar: true,
 };
 
-const validateModel = (model: IModelOptions) => {
+const validateModel = (model: IModelOptions): [boolean, string] => {
   const fullModel = { ...defaultOptions, ...model };
   const { max, min, step, from, to } = fullModel;
   const validateWidthMoreThenStep = Math.abs(max - min) >= step;
@@ -22,35 +22,37 @@ const validateModel = (model: IModelOptions) => {
   const validateToLessThenMax = to <= max;
   const validateFromLessTo = from <= to;
   const stepMoreThenZero = step > 0;
-
-  if (!validateWidthMoreThenStep) {
-    console.log(
-      "The difference between the maximum and minimum value must be equal to or greater than the step"
-    );
-    return false;
+  let isValid = false;
+  let errorMessage = '';
+  try {
+    if (!validateWidthMoreThenStep) {
+      throw Error(
+        'The difference between the maximum and minimum value must be equal to or greater than the step',
+      );
+    }
+    if (!validateFromLessThenMin) {
+      throw Error(
+        "The starting point of the start slider must be less than or equal to the slider's minimum value",
+      );
+    }
+    if (!validateToLessThenMax) {
+      throw Error(
+        "The ending point of the start slider must be less than or equal to the slider's maximum value",
+      );
+    }
+    if (!validateFromLessTo) {
+      throw Error('From point must be less or equal To point');
+    }
+    if (!stepMoreThenZero) {
+      throw Error('Step should be more then 0');
+    }
+    isValid = true;
+  } catch (e) {
+    errorMessage = (e as Error).message;
+    isValid = false;
+  } finally {
+    return [isValid, errorMessage];
   }
-  if (!validateFromLessThenMin) {
-    console.log(
-      "The starting point of the start slider must be less than or equal to the slider's minimum value"
-    );
-    return false;
-  }
-  if (!validateToLessThenMax) {
-    console.log(
-      "The ending point of the start slider must be less than or equal to the slider's maximum value"
-    );
-    return false;
-  }
-  if (!validateFromLessTo) {
-    console.log("From point must be less or equal To point");
-    return false;
-  }
-  if (!stepMoreThenZero) {
-    console.log("Step should be more then 0");
-    return false;
-  }
-
-  return true;
 };
 
 export { validateModel };

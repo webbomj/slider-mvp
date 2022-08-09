@@ -105,20 +105,20 @@ describe('Presenter', () => {
     const presenter = new Presenter({ options: options2, container });
 
     test('should clickedHandleHandler called', () => {
-      const handleHandler = jest.spyOn(presenter, 'clickedHandleHandler');
+      const handleHandler = jest.spyOn(presenter, 'handleHandleClick');
 
       const handle = document.querySelector('.handler');
       if (!handle) {
         return;
       }
-      const eve2 = $.Event('pointerup', { target: handle });
-      $('.handler').trigger(eve2);
+      const $eve2 = $.Event('pointerup', { target: handle });
+      $('.handler').trigger($eve2);
 
-      presenter.clickedHandleHandler(eve2);
+      presenter.handleHandleClick($eve2);
       expect(handleHandler).toBeCalled();
     });
     test('should clickedLineHandler called', () => {
-      const clickedHandler = jest.spyOn(presenter, 'clickedLineHandler');
+      const clickedHandler = jest.spyOn(presenter, 'handleLineBlockClick');
 
       const lineBlock = document.querySelector('.line-block');
       if (!lineBlock) {
@@ -127,11 +127,11 @@ describe('Presenter', () => {
       const eve2 = $.Event('pointerdown', { target: lineBlock });
       $('.line-block').trigger(eve2);
 
-      presenter.clickedLineHandler(eve2);
+      presenter.handleLineBlockClick(eve2);
       expect(clickedHandler).toBeCalled();
     });
     test('should clickedScaleItemHandler called', () => {
-      const scaleHandler = jest.spyOn(presenter, 'clickedScaleItemHandler');
+      const scaleHandler = jest.spyOn(presenter, 'handleScaleItemClick');
 
       const scaleItem = document.querySelector('.scale__item');
       if (!scaleItem) {
@@ -140,7 +140,7 @@ describe('Presenter', () => {
       const eve2 = $.Event('pointerdown', { target: scaleItem });
       $('.line-block').trigger(eve2);
 
-      presenter.clickedScaleItemHandler(eve2);
+      presenter.handleScaleItemClick(eve2);
       expect(scaleHandler).toBeCalled();
     });
   });
@@ -148,17 +148,16 @@ describe('Presenter', () => {
   describe('handlerMove', () => {
     const handlers = document.querySelectorAll('.handler');
     let slider: HTMLElement;
-    const sliderNode: HTMLElement | null =
-      document.querySelector('.line-block');
+    const sliderNode: HTMLElement | null = document.querySelector('.line-block');
     if (sliderNode) {
       slider = sliderNode;
     }
-    const event1 = $.Event('pointermove', {
+    const $event1 = $.Event('pointermove', {
       target: handlers[0],
       pageX: 10,
       pageY: 10,
     });
-    const event2 = $.Event('pointermove', {
+    const $event2 = $.Event('pointermove', {
       target: handlers[1],
       pageX: 200,
       pageY: 100,
@@ -167,18 +166,18 @@ describe('Presenter', () => {
     const positionFrom = 'from';
     const positionUndefined = undefined;
     test('Should updatestate with position from', () => {
-      presenter.handleMove(event2, slider, positionFrom);
+      presenter.handleHandleMove($event2, slider, positionFrom);
 
       expect(presenter.getModel().getState().to).toBe(10);
       expect(presenter.getModel().getState().from).toBe(10);
     });
     test('Should updatestate with position to', () => {
-      presenter.handleMove(event1, slider, positionTo);
+      presenter.handleHandleMove($event1, slider, positionTo);
       expect(presenter.getModel().getState().to).toBe(10);
       expect(presenter.getModel().getState().from).toBe(1);
     });
     test('Should updatestate with position undefined', () => {
-      presenter.handleMove(event1, slider, positionUndefined);
+      presenter.handleHandleMove($event1, slider, positionUndefined);
       expect(presenter.getModel().getState().to).toBe(10);
       expect(presenter.getModel().getState().from).toBe(1);
     });

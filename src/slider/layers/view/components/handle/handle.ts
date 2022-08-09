@@ -1,10 +1,6 @@
-import {
-  EventName,
-  HandlePosition,
-  IHandleProps,
-} from "../../../interfaces/interfaces";
-import Observer from "../../../observer/observer";
-import "./handle.scss";
+import { EventName, HandlePosition, IHandleProps } from '../../../interfaces/interfaces';
+import Observer from '../../../observer/observer';
+import './handle.scss';
 
 class Handle {
   private container: HTMLElement;
@@ -19,13 +15,7 @@ class Handle {
 
   private handlePosition: HandlePosition | undefined;
 
-  constructor({
-    container,
-    shift,
-    observer,
-    handlePosition,
-    isVertical,
-  }: IHandleProps) {
+  constructor({ container, shift, observer, handlePosition, isVertical }: IHandleProps) {
     this.container = container;
     this.shift = shift;
     this.observer = observer;
@@ -35,20 +25,18 @@ class Handle {
   }
 
   private render = () => {
-    const handle = document.createElement("div");
-    handle.classList.add("handler");
+    const handle = document.createElement('div');
+    handle.classList.add('handler');
     if (this.handlePosition) {
       handle.dataset.handle = this.handlePosition;
     }
     this.handle = handle;
     this.container.append(handle);
-    this.handle.addEventListener("pointerdown", (e: PointerEvent) =>
-      this.clickHandler(e)
-    );
+    this.handle.addEventListener('pointerdown', (e: PointerEvent) => this.handleHandleClick(e));
     this.update(this.shift, this.isVertical);
   };
 
-  private clickHandler = (event: PointerEvent) => {
+  private handleHandleClick = (event: PointerEvent) => {
     this.observer.notify({
       eventName: EventName.clickedHandle,
       eventPayload: event,
