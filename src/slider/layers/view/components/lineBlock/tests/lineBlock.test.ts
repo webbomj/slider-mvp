@@ -1,16 +1,17 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable no-undef */
 
 import {
   ILineBlockOptions,
   ILineBlockProps,
   IModelOptions,
-} from "../../../../interfaces/interfaces";
-import Observer from "../../../../observer/observer";
-import LineBlock from "../lineBlock";
+} from '../../../../interfaces/interfaces';
+import Observer from '../../../../observer/observer';
+import LineBlock from '../lineBlock';
 
-describe("label", () => {
+describe('label', () => {
   let lineBlock: LineBlock;
   let container: HTMLElement | null;
   let lineBlockNode: HTMLElement | null;
@@ -19,9 +20,9 @@ describe("label", () => {
   document.body.innerHTML = `
       <div id="app"></div>
     `;
-  describe("label", () => {
+  describe('label', () => {
     beforeEach(() => {
-      container = document.getElementById("app");
+      container = document.getElementById('app');
       const model: IModelOptions = {
         min: -10,
         max: -2,
@@ -42,7 +43,7 @@ describe("label", () => {
         options: { shift: 0, shiftFrom: 20, progressBarWidth: 300 },
       };
       lineBlock = new LineBlock(options);
-      lineBlockNode = document.querySelector(".lineBlock");
+      lineBlockNode = document.querySelector('.line-block');
     });
 
     afterEach(() => {
@@ -51,17 +52,17 @@ describe("label", () => {
     `;
     });
 
-    test("should have class lineBlock", () => {
+    test('should have class lineBlock', () => {
       expect(lineBlockNode).not.toBeNull();
-      expect(lineBlockNode?.classList[0]).toBe("lineBlock");
+      expect(lineBlockNode?.classList[0]).toBe('line-block');
     });
-    test("should have class lineBlock", () => {
+    test('should have class lineBlock', () => {
       expect(lineBlockNode).not.toBeNull();
-      expect(lineBlockNode?.classList[0]).toBe("lineBlock");
+      expect(lineBlockNode?.classList[0]).toBe('line-block');
     });
   });
 
-  describe("lineBlock: update horisontal, positive, label, progressbar", () => {
+  describe('lineBlock: update horisontal, positive, label, progressbar', () => {
     const iLineBlockOptions: ILineBlockOptions = {
       shift: 80,
       shiftFrom: 70,
@@ -81,7 +82,7 @@ describe("label", () => {
       isProgressBar: true,
     };
     beforeEach(() => {
-      container = document.getElementById("app");
+      container = document.getElementById('app');
       options = {
         container: container ? container : document.body,
         observer,
@@ -89,7 +90,7 @@ describe("label", () => {
         options: { shift: 0, shiftFrom: 20, progressBarWidth: 300 },
       };
       lineBlock = new LineBlock(options);
-      lineBlockNode = document.querySelector(".lineBlock");
+      lineBlockNode = document.querySelector('.line-block');
       lineBlock.update(model, iLineBlockOptions);
     });
 
@@ -98,32 +99,32 @@ describe("label", () => {
       <div id="app"></div>
     `;
     });
-    test("should correct children length", () => {
+    test('should correct children length', () => {
       expect(lineBlockNode?.childNodes).toHaveLength(2);
     });
-    test("should correct lineBlock__active children length", () => {
-      const lineBlockActive = document.querySelector(".lineBlock__active");
+    test('should correct lineBlock__active children length', () => {
+      const lineBlockActive = document.querySelector('.line-block__active');
       expect(lineBlockActive?.children).toHaveLength(2);
     });
-    test("handle should correct style left", () => {
+    test('handle should correct style left', () => {
       const lineBlockHandler: HTMLDivElement | null =
-        document.querySelector(".handler");
-      expect(lineBlockHandler?.style.left).toBe("80%");
+        document.querySelector('.handler');
+      expect(lineBlockHandler?.style.left).toBe('80%');
     });
-    test("label should in DOM", () => {
+    test('label should in DOM', () => {
       const lineBlockLabel: HTMLDivElement | null =
-        document.querySelector(".label");
+        document.querySelector('.label');
       expect(lineBlockLabel).not.toBeNull();
     });
 
-    test("progressBar should in DOM", () => {
+    test('progressBar should in DOM', () => {
       const lineProgressBar: HTMLDivElement | null =
-        document.querySelector(".progressBar");
+        document.querySelector('.progress-bar');
       expect(lineProgressBar).not.toBeNull();
     });
   });
 
-  describe("lineBlock: update vertical, negative, interval", () => {
+  describe('lineBlock: update vertical, negative, interval', () => {
     const iLineBlockOptions: ILineBlockOptions = {
       shift: 80,
       shiftFrom: 70,
@@ -143,7 +144,7 @@ describe("label", () => {
       isProgressBar: true,
     };
     beforeEach(() => {
-      container = document.getElementById("app");
+      container = document.getElementById('app');
       options = {
         container: container ? container : document.body,
         observer,
@@ -151,7 +152,7 @@ describe("label", () => {
         options: { shift: 0, shiftFrom: 20, progressBarWidth: 300 },
       };
       lineBlock = new LineBlock(options);
-      lineBlockNode = document.querySelector(".lineBlock");
+      lineBlockNode = document.querySelector('.line-block');
       lineBlock.update(model, iLineBlockOptions);
     });
 
@@ -160,33 +161,33 @@ describe("label", () => {
       <div id="app"></div>
     `;
     });
-    test("should correct children length", () => {
+    test('should correct children length', () => {
       expect(lineBlockNode?.childNodes).toHaveLength(2);
     });
-    test("should correct lineBlock__active children length", () => {
-      const lineBlockActive = document.querySelector(".lineBlock__active");
+    test('should correct lineBlock__active children length', () => {
+      const lineBlockActive = document.querySelector('.line-block__active');
       expect(lineBlockActive?.children).toHaveLength(4);
     });
-    test("first handle should correct style top", () => {
+    test('first handle should correct style top', () => {
       const lineBlockHandler: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".handler");
-      expect(lineBlockHandler[0]?.style.top).toBe("80%");
+        document.querySelectorAll('.handler');
+      expect(lineBlockHandler[0]?.style.top).toBe('80%');
     });
-    test("second handle should correct style top", () => {
+    test('second handle should correct style top', () => {
       const lineBlockHandler: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".handler");
-      expect(lineBlockHandler[1]?.style.top).toBe("70%");
+        document.querySelectorAll('.handler');
+      expect(lineBlockHandler[1]?.style.top).toBe('70%');
     });
 
-    test("both labels should be in DOM", () => {
+    test('both labels should be in DOM', () => {
       const lineBlockLabels: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".label");
+        document.querySelectorAll('.label');
       expect(lineBlockLabels).toHaveLength(2);
     });
 
-    test("progressBar should in DOM", () => {
+    test('progressBar should in DOM', () => {
       const lineProgressBar: HTMLDivElement | null =
-        document.querySelector(".progressBar");
+        document.querySelector('.progress-bar');
       expect(lineProgressBar).not.toBeNull();
     });
   });

@@ -1,5 +1,6 @@
 import {
   EventName,
+  fn,
   HandlePosition,
   ILineBlockOptions,
   IModelOptions,
@@ -7,14 +8,14 @@ import {
   IScaleProps,
   ISubscriber,
   ModelAction,
-} from "../interfaces/interfaces";
-import Model from "../model/model";
-import View from "../view/view";
-import { arrScaleCreator, countValueRounding } from "./utils/scale";
-import { getCoords } from "./utils/handle";
-import { lineBlockCreator } from "./utils/lineBlock";
-import { validateModel } from "./utils/validateModelOption";
-import Observer from "../observer/observer";
+} from '../interfaces/interfaces';
+import Model from '../model/model';
+import View from '../view/view';
+import { arrScaleCreator, countValueRounding } from './utils/scale';
+import { getCoords } from './utils/handle';
+import { lineBlockCreator } from './utils/lineBlock';
+import { validateModel } from './utils/validateModelOption';
+import Observer from '../observer/observer';
 
 class Presenter {
   private model: Model;
@@ -39,7 +40,7 @@ class Presenter {
       isProgressBar: true,
     };
     this.container = container;
-    this.container.classList.add("js-slider");
+    this.container.classList.add('js-slider');
 
     this.state = { ...defaultOptions, ...options };
 
@@ -71,8 +72,9 @@ class Presenter {
   };
 
   clickedLineHandler = (event: PointerEvent) => {
-    let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
-    let progressbar = this.container.querySelector(".progressBar");
+    let slider: HTMLElement | null =
+      this.container.querySelector('.line-block');
+    let progressbar = this.container.querySelector('.progress-bar');
     if (event.target !== progressbar && event.target !== slider) {
       return;
     }
@@ -91,11 +93,12 @@ class Presenter {
 
     const { min, isVertical, to, from } = this.state;
     let sliderSpan = event.target;
-    let slider: HTMLElement | null = this.container.querySelector(".lineBlock");
+    let slider: HTMLElement | null =
+      this.container.querySelector('.line-block');
 
     if (to === min && from === min) {
       const sliderSpanNode: HTMLElement | null =
-        this.container.querySelector("[data-handle=to]");
+        this.container.querySelector('[data-handle=to]');
       if (!sliderSpanNode) {
         return;
       }
@@ -112,6 +115,7 @@ class Presenter {
 
     let shift = event.pageX - sliderSpanCoords.left;
     if (isVertical) {
+      // eslint-disable-next-line no-unused-vars
       shift = event.pageY - sliderSpanCoords.top;
     }
     const mouseMoveHandler = (evt: PointerEvent) => {
@@ -119,11 +123,11 @@ class Presenter {
         this.handleMove(evt, slider, position);
       }
     };
-    document.addEventListener("pointermove", mouseMoveHandler);
+    document.addEventListener('pointermove', mouseMoveHandler);
 
     //Начнем движение ползунка
-    document.addEventListener("pointerup", function () {
-      document.removeEventListener("pointermove", mouseMoveHandler);
+    document.addEventListener('pointerup', () => {
+      document.removeEventListener('pointermove', mouseMoveHandler);
     });
   };
 
@@ -189,7 +193,7 @@ class Presenter {
     if (isOptionsValid) {
       this.state = newState;
 
-      this.container.innerHTML = "";
+      this.container.innerHTML = '';
       this.createView();
       this.subscribeView();
 
@@ -198,14 +202,14 @@ class Presenter {
         payload: { value: newState },
       });
     } else {
-      throw Error("Options is not valide");
+      throw Error('Options is not valide');
     }
   };
 
   handleMove = (
     evt: PointerEvent,
     slider: HTMLElement,
-    position: string | undefined
+    position: string | undefined,
   ): void => {
     const { isInterval } = this.state;
 
@@ -298,7 +302,7 @@ class Presenter {
     return value;
   };
 
-  subscribe = (fn: (e: Event | IModelOptions) => void) => {
+  subscribe = (fn: fn) => {
     const subscriber: ISubscriber = {
       eventName: EventName.sliderChange,
       function: fn,
@@ -306,7 +310,7 @@ class Presenter {
     this.observer.subscribe(subscriber);
   };
 
-  unsubscribe = (fn: (e: Event | IModelOptions) => void) => {
+  unsubscribe = (fn: fn) => {
     const subscriber: ISubscriber = {
       eventName: EventName.sliderChange,
       function: fn,

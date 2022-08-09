@@ -5,12 +5,12 @@ import {
   ILineBlockProps,
   IModelOptions,
   IProgressBarOptions,
-} from "../../../interfaces/interfaces";
-import Observer from "../../../observer/observer";
-import Handle from "../handle/handle";
-import Label from "../label/label";
-import ProgressBar from "../progressBar/progressBar";
-import "./lineBlock.scss";
+} from '../../../interfaces/interfaces';
+import Observer from '../../../observer/observer';
+import Handle from '../handle/handle';
+import Label from '../label/label';
+import ProgressBar from '../progressBar/progressBar';
+import './lineBlock.scss';
 
 class lineBlock {
   private container: HTMLElement;
@@ -32,22 +32,22 @@ class lineBlock {
 
   private init = (options: ILineBlockOptions) => {
     const { progressBarWidth, shift, shiftFrom } = options;
-    const lineBlock = document.createElement("div");
-    const activeBlock = document.createElement("div");
+    const lineBlock = document.createElement('div');
+    const activeBlock = document.createElement('div');
 
     const { to, from } = this.state;
 
-    lineBlock.classList.add("lineBlock");
+    lineBlock.classList.add('line-block');
     this.container.setAttribute(
-      "data-isvertical",
-      String(this.state.isVertical)
+      'data-isvertical',
+      String(this.state.isVertical),
     );
-    activeBlock.classList.add("lineBlock__active");
-    lineBlock.addEventListener("pointerdown", (e) =>
+    activeBlock.classList.add('line-block__active');
+    lineBlock.addEventListener('pointerdown', (e) =>
       this.observer.notify({
         eventName: EventName.clickedLine,
         eventPayload: e,
-      })
+      }),
     );
 
     if (this.state.isInterval) {

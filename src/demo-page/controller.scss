@@ -5,4 +5,12 @@
   &__item {
     margin-right: 20px;
   }
+  &__header {
+    display: inline-block;
+    font-size: 1.17em;
+    font-weight: bold;
+  }
+  &__input {
+    cursor: pointer;
+  }
 }

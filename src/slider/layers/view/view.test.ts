@@ -1,20 +1,21 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable no-undef */
 
-import { IModelOptions } from "../interfaces/interfaces";
-import View from "./view";
+import { IModelOptions } from '../interfaces/interfaces';
+import View from './view';
 document.body.innerHTML = `
     <div id="app"></div>
   `;
 
-describe("View", () => {
+describe('View', () => {
   let container: HTMLElement | null;
   let view: View | null;
 
-  describe("View components should be in DOM", () => {
+  describe('View components should be in DOM', () => {
     beforeEach(() => {
-      container = document.getElementById("app");
+      container = document.getElementById('app');
       const options: IModelOptions = {
         min: 0,
         max: 10,
@@ -51,27 +52,27 @@ describe("View", () => {
        `;
     });
 
-    test("lineBlock should be in DOM", () => {
-      const lineBlock = document.querySelector(".lineBlock");
+    test('lineBlock should be in DOM', () => {
+      const lineBlock = document.querySelector('.line-block');
       expect(lineBlock).not.toBeNull();
     });
-    test("scale should be in DOM", () => {
-      const scale = document.querySelector(".scale");
+    test('scale should be in DOM', () => {
+      const scale = document.querySelector('.scale');
       expect(scale).not.toBeNull();
     });
-    test("Both handle should be in DOM", () => {
-      const handles = document.querySelectorAll(".handler");
+    test('Both handle should be in DOM', () => {
+      const handles = document.querySelectorAll('.handler');
       expect(handles.length).toBe(2);
     });
-    test("Both label should be in DOM", () => {
-      const label = document.querySelectorAll(".label");
+    test('Both label should be in DOM', () => {
+      const label = document.querySelectorAll('.label');
       expect(label.length).toBe(2);
     });
   });
 
-  describe("UpdateView", () => {
+  describe('UpdateView', () => {
     beforeEach(() => {
-      container = document.getElementById("app");
+      container = document.getElementById('app');
       const options1: IModelOptions = {
         min: 0,
         max: 10,
@@ -136,29 +137,29 @@ describe("View", () => {
        `;
     });
 
-    test("updateView: handles should have new shift", () => {
+    test('updateView: handles should have new shift', () => {
       const handles: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".handler");
-      expect(handles[0].style.top).toBe("10%");
-      expect(handles[1].style.top).toBe("50%");
+        document.querySelectorAll('.handler');
+      expect(handles[0].style.top).toBe('10%');
+      expect(handles[1].style.top).toBe('50%');
     });
-    test("updateView: labels should have new shift", () => {
+    test('updateView: labels should have new shift', () => {
       const label: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".label");
-      expect(label[0].style.top).toBe("10%");
-      expect(label[1].style.top).toBe("50%");
+        document.querySelectorAll('.label');
+      expect(label[0].style.top).toBe('10%');
+      expect(label[1].style.top).toBe('50%');
     });
-    test("updateView: scale max min should have new correct value", () => {
+    test('updateView: scale max min should have new correct value', () => {
       const scaleItems: NodeListOf<HTMLDivElement> =
-        document.querySelectorAll(".scale__item");
-      expect(scaleItems[0].textContent).toBe("-8");
-      expect(scaleItems[3].textContent).toBe("-2");
+        document.querySelectorAll('.scale__item');
+      expect(scaleItems[0].textContent).toBe('-8');
+      expect(scaleItems[3].textContent).toBe('-2');
     });
-    test("updateView: progressBar top height should have new correct value", () => {
+    test('updateView: progressBar top height should have new correct value', () => {
       const progressBar: HTMLDivElement | null =
-        document.querySelector(".progressBar");
-      expect(progressBar?.style.top).toBe("50%");
-      expect(progressBar?.style.height).toBe("220%");
+        document.querySelector('.progress-bar');
+      expect(progressBar?.style.top).toBe('50%');
+      expect(progressBar?.style.height).toBe('220%');
     });
   });
 });

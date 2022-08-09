@@ -1,7 +1,7 @@
-import { Controller } from "./controller";
-import { IModelOptions } from "../slider/layers/interfaces/interfaces";
-import "../slider/slider";
-import $ from "jquery";
+import { Controller } from './controller';
+import { IModelOptions } from '../slider/layers/interfaces/interfaces';
+import '../slider/slider';
+import $ from 'jquery';
 
 const options: Partial<IModelOptions>[] = [
   {
@@ -56,10 +56,10 @@ const options: Partial<IModelOptions>[] = [
 type typeData = [string, Partial<IModelOptions>, string];
 
 const dataArray: typeData[] = [
-  ["#slider1 .app__slider", options[0], "#slider1 .app__control"],
-  ["#slider2 .app__slider", options[1], "#slider2 .app__control"],
-  ["#slider3 .app__slider", options[2], "#slider3 .app__control"],
-  ["#slider4 .app__slider", options[3], "#slider4 .app__control"],
+  ['#slider1 .app__slider', options[0], '#slider1 .app__control'],
+  ['#slider2 .app__slider', options[1], '#slider2 .app__control'],
+  ['#slider3 .app__slider', options[2], '#slider3 .app__control'],
+  ['#slider4 .app__slider', options[3], '#slider4 .app__control'],
 ];
 
 dataArray.forEach((data) => {

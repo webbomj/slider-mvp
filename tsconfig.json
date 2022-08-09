@@ -14,6 +14,8 @@
   ],
   "CommonJS": "ESNext",
   "compilerOptions": {
+    "module": "ES6",
+    "target": "ES5",
     "strict": true,
     "strictPropertyInitialization": false,
     "strictFunctionTypes": false,

@@ -1,4 +1,4 @@
-import Observer from "../observer/observer";
+import Observer from '../observer/observer';
 
 interface IModelOptions {
   min: number;
@@ -16,18 +16,18 @@ interface IModelOptions {
 }
 
 enum ModelAction {
-  "setMinValue",
-  "setMaxValue",
-  "setFromValue",
-  "setToValue",
-  "setStep",
-  "setStepScale",
-  "setIsVertical",
-  "setIsInterval",
-  "setIsLabel",
-  "setIsProgressBar",
-  "setIsScale",
-  "setFullState",
+  'setMinValue',
+  'setMaxValue',
+  'setFromValue',
+  'setToValue',
+  'setStep',
+  'setStepScale',
+  'setIsVertical',
+  'setIsInterval',
+  'setIsLabel',
+  'setIsProgressBar',
+  'setIsScale',
+  'setFullState',
 }
 
 interface IModelAction {
@@ -74,12 +74,14 @@ interface IObserver {
 }
 
 enum EventName {
-  clickedScaleItem = "clickedScaleItem",
-  modelWasUpdate = "modelWasUpdate",
-  clickedHandle = "clickedHandle",
-  clickedLine = "clickedLine",
-  sliderChange = "sliderChange",
+  clickedScaleItem = 'clickedScaleItem',
+  modelWasUpdate = 'modelWasUpdate',
+  clickedHandle = 'clickedHandle',
+  clickedLine = 'clickedLine',
+  sliderChange = 'sliderChange',
 }
+
+type fn = (e: IModelOptions) => void;
 
 interface ISubscriber {
   eventName: EventName;
@@ -129,7 +131,7 @@ interface ICountShiftFromProps {
   step: number;
   max: number;
   isInterval: boolean;
-  handle: "from" | "to";
+  handle: 'from' | 'to';
 }
 
 interface ICountShiftToProps {
@@ -161,8 +163,8 @@ interface ICountStepPixelProps {
 }
 
 enum HandlePosition {
-  from = "from",
-  to = "to",
+  from = 'from',
+  to = 'to',
 }
 
 interface IHandleProps {
@@ -206,4 +208,5 @@ export {
   ILabelProps,
   IScaleProps,
   EventName,
+  fn,
 };

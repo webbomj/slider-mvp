@@ -1,5 +1,5 @@
-import { IModelOptions } from "../slider/layers/interfaces/interfaces";
-import Presenter from "../slider/layers/presenter/presenter";
+import { IModelOptions } from '../slider/layers/interfaces/interfaces';
+import Presenter from '../slider/layers/presenter/presenter';
 
 interface IControllerProps {
   container: HTMLElement;
@@ -7,13 +7,13 @@ interface IControllerProps {
 }
 
 enum ICreateControlPanelProps {
-  "number" = "number",
-  "checkbox" = "checkbox",
+  'number' = 'number',
+  'checkbox' = 'checkbox',
 }
 
 type NumberInputs = Omit<
   IModelOptions,
-  "isVertical" | "isInterval" | "isScale" | "isLabel" | "isProgressBar"
+  'isVertical' | 'isInterval' | 'isScale' | 'isLabel' | 'isProgressBar'
 >;
 
 export { IControllerProps, ICreateControlPanelProps, NumberInputs };

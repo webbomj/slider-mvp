@@ -1,10 +1,13 @@
-import { ILabelProps } from "../../../interfaces/interfaces";
-import "./label.scss";
+import { ILabelProps } from '../../../interfaces/interfaces';
+import './label.scss';
 
 class Label {
   private label: HTMLElement;
+
   private container: HTMLElement;
+
   private shift: number;
+
   private isVertical: boolean;
   private text: number;
   constructor({ container, shift, text, isVertical }: ILabelProps) {
@@ -12,12 +15,12 @@ class Label {
     this.shift = shift;
     this.text = text;
     this.isVertical = isVertical;
-    const label = document.createElement("div");
+    const label = document.createElement('div');
     this.label = label;
     this.render();
   }
   private render = () => {
-    this.label.classList.add("label");
+    this.label.classList.add('label');
     this.container.append(this.label);
     this.update(this.text, this.shift);
   };

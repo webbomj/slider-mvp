@@ -1,11 +1,11 @@
-import { IModelOptions } from "../slider/layers/interfaces/interfaces";
-import Presenter from "../slider/layers/presenter/presenter";
+import { IModelOptions } from '../slider/layers/interfaces/interfaces';
+import Presenter from '../slider/layers/presenter/presenter';
 import {
   IControllerProps,
   ICreateControlPanelProps,
   NumberInputs,
-} from "./interfaces";
-import "./controller.scss";
+} from './interfaces';
+import './controller.scss';
 
 class Controller {
   container: HTMLElement;
@@ -17,7 +17,7 @@ class Controller {
     this.container = container;
     this.slider = slider;
     this.state = this.slider.getModel().getState();
-    this.numberInputs = ["min", "max", "from", "to", "step", "stepScale"];
+    this.numberInputs = ['min', 'max', 'from', 'to', 'step', 'stepScale'];
     this.createControlPanel();
     this.setListeners();
   }
@@ -25,23 +25,23 @@ class Controller {
   private createControlItem = (
     type: string,
     name: string,
-    value: number | boolean
+    value: number | boolean,
   ) => {
-    const elementWrapper = document.createElement("div");
-    elementWrapper.classList.add("control__item");
+    const elementWrapper = document.createElement('div');
+    elementWrapper.classList.add('control__item');
 
-    const minPanel = document.createElement("input");
-    minPanel.classList.add("control__input");
+    const minPanel = document.createElement('input');
+    minPanel.classList.add('control__input');
     minPanel.type = type;
     minPanel.name = name;
-    if (typeof value === "number") {
+    if (typeof value === 'number') {
       minPanel.value = `${value}`;
     } else {
       minPanel.checked = value;
     }
 
-    const minPanelLabel = document.createElement("h3");
-    minPanelLabel.classList.add("control__header");
+    const minPanelLabel = document.createElement('span');
+    minPanelLabel.classList.add('control__header');
     minPanelLabel.textContent = name;
 
     elementWrapper.append(minPanelLabel);
@@ -51,12 +51,12 @@ class Controller {
   };
 
   private createControlPanel = () => {
-    const controlWrapper = document.createElement("div");
-    controlWrapper.classList.add("control");
-    const controlLeft = document.createElement("div");
-    controlLeft.classList.add("control__leftBlock");
-    const controlRight = document.createElement("div");
-    controlRight.classList.add("control__rightBlock");
+    const controlWrapper = document.createElement('form');
+    controlWrapper.classList.add('control');
+    const controlLeft = document.createElement('div');
+    controlLeft.classList.add('control__leftBlock');
+    const controlRight = document.createElement('div');
+    controlRight.classList.add('control__rightBlock');
 
     for (const key in this.state) {
       let element;
@@ -65,14 +65,14 @@ class Controller {
         element = this.createControlItem(
           ICreateControlPanelProps.number,
           key,
-          this.state[key as keyof IModelOptions]
+          this.state[key as keyof IModelOptions],
         );
         controlRight.append(element);
       } else {
         element = this.createControlItem(
           ICreateControlPanelProps.checkbox,
           key,
-          this.state[key as keyof IModelOptions]
+          this.state[key as keyof IModelOptions],
         );
         controlLeft.append(element);
       }
@@ -85,16 +85,16 @@ class Controller {
 
   private setListeners = () => {
     const rightBlockInputs = this.container.querySelectorAll(
-      ".control__rightBlock .control__input"
+      '.control__rightBlock .control__input',
     );
     rightBlockInputs?.forEach((el) =>
-      el.addEventListener("blur", (e) => {
+      el.addEventListener('blur', (e) => {
         this.inputsHandler(e);
-      })
+      }),
     );
 
-    const leftBlock = this.container.querySelector(".control__leftBlock");
-    leftBlock?.addEventListener("click", (e) => {
+    const leftBlock = this.container.querySelector('.control__leftBlock');
+    leftBlock?.addEventListener('click', (e) => {
       this.inputsHandler(e);
     });
   };

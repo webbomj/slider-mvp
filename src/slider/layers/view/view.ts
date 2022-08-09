@@ -5,10 +5,10 @@ import {
   IUpdateViewProps,
   IViewInitProps,
   IViewOptions,
-} from "../interfaces/interfaces";
-import Observer from "../observer/observer";
-import lineBlock from "./components/lineBlock/lineBlock";
-import Scale from "./components/scale/scale";
+} from '../interfaces/interfaces';
+import Observer from '../observer/observer';
+import lineBlock from './components/lineBlock/lineBlock';
+import Scale from './components/scale/scale';
 
 class View {
   private container: HTMLElement;
