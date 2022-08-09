@@ -533,10 +533,10 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"9Invy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _controller = require("./controller");
-var _slider = require("../slider/slider");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+var _controller = require("./controller");
+var _slider = require("../slider/slider");
 const options = [
     {
         min: 2,
@@ -588,41 +588,42 @@ const options = [
 ];
 const dataArray = [
     [
-        "#slider1 .app__slider",
+        "#slider1 .js-app__slider",
         options[0],
-        "#slider1 .app__control"
+        "#slider1 .js-app__control"
     ],
     [
-        "#slider2 .app__slider",
+        "#slider2 .js-app__slider",
         options[1],
-        "#slider2 .app__control"
+        "#slider2 .js-app__control"
     ],
     [
-        "#slider3 .app__slider",
+        "#slider3 .js-app__slider",
         options[2],
-        "#slider3 .app__control"
+        "#slider3 .js-app__control"
     ],
     [
-        "#slider4 .app__slider",
+        "#slider4 .js-app__slider",
         options[3],
-        "#slider4 .app__control"
+        "#slider4 .js-app__control"
     ], 
 ];
 dataArray.forEach((data)=>{
-    const slider = (0, _jqueryDefault.default)(`${data[0]}`).slider(data[1]);
-    const firstContainer = (0, _jqueryDefault.default)(`${data[2]}`)[0];
-    if (slider) new (0, _controller.Controller)({
-        container: firstContainer,
-        slider: slider
+    const $slider = (0, _jqueryDefault.default)(`${data[0]}`).slider(data[1]);
+    const $firstContainer = (0, _jqueryDefault.default)(`${data[2]}`)[0];
+    if ($slider) // eslint-disable-next-line no-new
+    new (0, _controller.Controller)({
+        container: $firstContainer,
+        slider: $slider
     });
 });
 
-},{"./controller":"k3wdx","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../slider/slider":"fxfxT"}],"k3wdx":[function(require,module,exports) {
+},{"./controller":"k3wdx","../slider/slider":"fxfxT","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k3wdx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Controller", ()=>Controller);
 var _interfaces = require("./interfaces");
-var _demoScss = require("./demo.scss");
+var _controllerScss = require("./controller.scss");
 class Controller {
     constructor({ container , slider  }){
         this.container = container;
@@ -639,6 +640,16 @@ class Controller {
         this.createControlPanel();
         this.setListeners();
     }
+    handleInputClick = (e)=>{
+        if (!(e.target instanceof HTMLInputElement)) return;
+        let value;
+        const name = e.target.name;
+        if (this.numberInputs.includes(name)) value = Number(e.target.value);
+        else value = e.target.checked;
+        this.slider.fullUpdate({
+            [name]: value
+        });
+    };
     createControlItem = (type, name, value)=>{
         const elementWrapper = document.createElement("div");
         elementWrapper.classList.add("control__item");
@@ -648,7 +659,7 @@ class Controller {
         minPanel.name = name;
         if (typeof value === "number") minPanel.value = `${value}`;
         else minPanel.checked = value;
-        const minPanelLabel = document.createElement("h3");
+        const minPanelLabel = document.createElement("span");
         minPanelLabel.classList.add("control__header");
         minPanelLabel.textContent = name;
         elementWrapper.append(minPanelLabel);
@@ -656,7 +667,7 @@ class Controller {
         return elementWrapper;
     };
     createControlPanel = ()=>{
-        const controlWrapper = document.createElement("div");
+        const controlWrapper = document.createElement("form");
         controlWrapper.classList.add("control");
         const controlLeft = document.createElement("div");
         controlLeft.classList.add("control__leftBlock");
@@ -680,26 +691,16 @@ class Controller {
     setListeners = ()=>{
         const rightBlockInputs = this.container.querySelectorAll(".control__rightBlock .control__input");
         rightBlockInputs?.forEach((el)=>el.addEventListener("blur", (e)=>{
-                this.inputsHandler(e);
+                this.handleInputClick(e);
             }));
         const leftBlock = this.container.querySelector(".control__leftBlock");
         leftBlock?.addEventListener("click", (e)=>{
-            this.inputsHandler(e);
-        });
-    };
-    inputsHandler = (e)=>{
-        if (!(e.target instanceof HTMLInputElement)) return;
-        let value;
-        const name = e.target.name;
-        if (this.numberInputs.includes(name)) value = Number(e.target.value);
-        else value = e.target.checked;
-        this.slider.fullUpdate({
-            [name]: value
+            this.handleInputClick(e);
         });
     };
 }
 
-},{"./interfaces":"4VAyf","./demo.scss":"d3tFQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4VAyf":[function(require,module,exports) {
+},{"./interfaces":"4VAyf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./controller.scss":"gWHMm"}],"4VAyf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ICreateControlPanelProps", ()=>ICreateControlPanelProps);
@@ -739,7 +740,934 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"d3tFQ":[function() {},{}],"hgMhh":[function(require,module,exports) {
+},{}],"gWHMm":[function() {},{}],"fxfxT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+/* eslint-disable no-unused-vars */ var _jquery = require("jquery");
+var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+var _presenter = require("./layers/presenter/presenter");
+var _presenterDefault = parcelHelpers.interopDefault(_presenter);
+var _validateModelOption = require("./layers/presenter/utils/validateModelOption");
+var _sliderScss = require("./slider.scss");
+(function sliderMVP($) {
+    $.fn.slider = function JQuerySlider(options) {
+        if (!this[0]) return;
+        const isValid = (0, _validateModelOption.validateModel)(options);
+        if (isValid) return new (0, _presenterDefault.default)({
+            options,
+            container: this[0]
+        });
+        throw Error("Options is not valid");
+    };
+})((0, _jqueryDefault.default));
+
+},{"./layers/presenter/presenter":"78EnD","./layers/presenter/utils/validateModelOption":"eDSHo","./slider.scss":"11Cfd","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78EnD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _interfaces = require("../interfaces/interfaces");
+var _model = require("../model/model");
+var _modelDefault = parcelHelpers.interopDefault(_model);
+var _view = require("../view/view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _observer = require("../observer/observer");
+var _observerDefault = parcelHelpers.interopDefault(_observer);
+var _scale = require("./utils/scale");
+var _handle = require("./utils/handle");
+var _lineBlock = require("./utils/lineBlock");
+var _validateModelOption = require("./utils/validateModelOption");
+class Presenter {
+    constructor({ options , container  }){
+        this.observer = new (0, _observerDefault.default)();
+        const defaultOptions = {
+            min: 0,
+            max: 100,
+            from: 20,
+            to: 30,
+            step: 1,
+            stepScale: 1,
+            isVertical: false,
+            isInterval: false,
+            isLabel: true,
+            isScale: true,
+            isProgressBar: true
+        };
+        this.container = container;
+        this.container.classList.add("js-slider");
+        this.state = {
+            ...defaultOptions,
+            ...options
+        };
+        this.model = new (0, _modelDefault.default)(this.state);
+        this.createView();
+        this.subscribeView();
+        this.subscribeModel();
+    }
+    createLineBlock = ()=>{
+        const { progressWidth , shiftFrom , shiftTo  } = (0, _lineBlock.lineBlockCreator)(this.state);
+        return {
+            progressBarWidth: progressWidth,
+            shift: shiftTo,
+            shiftFrom
+        };
+    };
+    createArrScale = ()=>{
+        const { max , min , stepScale  } = this.state;
+        const { scale , shift  } = (0, _scale.arrScaleCreator)({
+            max,
+            min,
+            step: stepScale
+        });
+        return {
+            scale,
+            shift
+        };
+    };
+    handleScaleItemClick = (e)=>{
+        if (!(e.target instanceof HTMLElement)) return;
+        const newValue = Number(e.target?.textContent);
+        this.updateModel(newValue);
+    };
+    handleLineBlockClick = (event)=>{
+        const slider = this.container.querySelector(".line-block");
+        const progressbar = this.container.querySelector(".progress-bar");
+        if (event.target !== progressbar && event.target !== slider) return;
+        if (!slider) return;
+        const value = this.countValueForModel(slider, event);
+        this.updateModel(value);
+    };
+    handleHandleClick = (event)=>{
+        if (!(event.target instanceof HTMLElement)) return;
+        const { min , isVertical , to , from  } = this.state;
+        let sliderSpan = event.target;
+        const slider = this.container.querySelector(".line-block");
+        if (to === min && from === min) {
+            const sliderSpanNode = this.container.querySelector("[data-handle=to]");
+            if (!sliderSpanNode) return;
+            sliderSpan = sliderSpanNode;
+        }
+        const position = sliderSpan?.dataset.handle;
+        if (!slider || !sliderSpan) return;
+        const sliderSpanCoords = (0, _handle.getCoords)(sliderSpan);
+        let shift = event.pageX - sliderSpanCoords.left;
+        if (isVertical) // eslint-disable-next-line no-unused-vars
+        shift = event.pageY - sliderSpanCoords.top;
+        const handleHandlerMouseMove = (evt)=>{
+            if (slider) this.handleHandleMove(evt, slider, position);
+        };
+        document.addEventListener("pointermove", handleHandlerMouseMove);
+        // Начнем движение ползунка
+        document.addEventListener("pointerup", ()=>{
+            document.removeEventListener("pointermove", handleHandlerMouseMove);
+        });
+    };
+    modelWasUpdate = (model)=>{
+        this.state = model;
+        const scaleProps = this.createArrScale();
+        const lineBlockOptions = this.createLineBlock();
+        this.view.updateView({
+            model,
+            scaleProps,
+            lineBlockOptions
+        });
+        this.observer.notify({
+            eventName: (0, _interfaces.EventName).sliderChange,
+            eventPayload: this.state
+        });
+    };
+    subscribeView = ()=>{
+        this.view.subscribe({
+            eventName: (0, _interfaces.EventName).clickedScaleItem,
+            function: this.handleScaleItemClick
+        });
+        this.view.subscribe({
+            eventName: (0, _interfaces.EventName).clickedHandle,
+            function: this.handleHandleClick
+        });
+        this.view.subscribe({
+            eventName: (0, _interfaces.EventName).clickedLine,
+            function: this.handleLineBlockClick
+        });
+    };
+    subscribeModel = ()=>{
+        this.model.subscribe({
+            eventName: (0, _interfaces.EventName).modelWasUpdate,
+            function: this.modelWasUpdate
+        });
+    };
+    getModel = ()=>this.model;
+    getState = ()=>this.state;
+    createView = ()=>{
+        const scaleOptions = this.createArrScale();
+        const lineBlockOptions = this.createLineBlock();
+        this.view = new (0, _viewDefault.default)({
+            options: this.state,
+            container: this.container,
+            scaleOptions,
+            lineBlockOptions
+        });
+    };
+    fullUpdate = (options)=>{
+        const newState = {
+            ...this.state,
+            ...options
+        };
+        const [isOptionsValid, message] = (0, _validateModelOption.validateModel)(newState);
+        if (isOptionsValid) {
+            this.state = newState;
+            this.container.innerHTML = "";
+            this.createView();
+            this.subscribeView();
+            this.model.updateState({
+                type: (0, _interfaces.ModelAction).setFullState,
+                payload: {
+                    value: newState
+                }
+            });
+        }
+        if (message) throw Error(message);
+    };
+    handleHandleMove = (evt, slider, position)=>{
+        const { isInterval  } = this.state;
+        let value = this.countValueForModel(slider, evt);
+        if (isInterval) {
+            if (position === (0, _interfaces.HandlePosition).to) {
+                if (value < this.state.from) value = this.state.from;
+                this.model.updateState({
+                    type: (0, _interfaces.ModelAction).setToValue,
+                    payload: {
+                        value
+                    }
+                });
+            } else if (position === (0, _interfaces.HandlePosition).from) {
+                if (value > this.state.to) value = this.state.to;
+                this.model.updateState({
+                    type: (0, _interfaces.ModelAction).setFromValue,
+                    payload: {
+                        value
+                    }
+                });
+            }
+        } else this.model.updateState({
+            type: (0, _interfaces.ModelAction).setToValue,
+            payload: {
+                value
+            }
+        });
+    };
+    updateModel = (newValue)=>{
+        const { from , to , isInterval  } = this.state;
+        if (isInterval) {
+            const difFromNewValue = Math.abs(from - newValue);
+            const difToNewValue = Math.abs(to - newValue);
+            if (difToNewValue < difFromNewValue) this.model.updateState({
+                type: (0, _interfaces.ModelAction).setToValue,
+                payload: {
+                    value: newValue
+                }
+            });
+            else if (difToNewValue > difFromNewValue) this.model.updateState({
+                type: (0, _interfaces.ModelAction).setFromValue,
+                payload: {
+                    value: newValue
+                }
+            });
+            else if (difFromNewValue === difToNewValue) {
+                if (newValue < to) this.model.updateState({
+                    type: (0, _interfaces.ModelAction).setFromValue,
+                    payload: {
+                        value: newValue
+                    }
+                });
+                else this.model.updateState({
+                    type: (0, _interfaces.ModelAction).setToValue,
+                    payload: {
+                        value: newValue
+                    }
+                });
+            }
+        } else this.model.updateState({
+            type: (0, _interfaces.ModelAction).setToValue,
+            payload: {
+                value: newValue
+            }
+        });
+    };
+    countValueForModel = (slider, event)=>{
+        const { isVertical , max , min , step  } = this.state;
+        const sliderCoords = (0, _handle.getCoords)(slider);
+        let left = (event.pageY - sliderCoords.top) / sliderCoords.height * 100;
+        if (!isVertical) left = (event.pageX - sliderCoords.left) / sliderCoords.width * 100;
+        if (left < 0) left = 0;
+        if (left > 100) left = 100;
+        const stepCount = (max - min) / step;
+        const stepPercent = 100 / stepCount;
+        let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
+        if (stepLeft < 0) stepLeft = 0;
+        if (stepLeft > 100) stepLeft = 100;
+        const valueFix = (0, _scale.countValueRounding)(step);
+        const result = Number((stepLeft / stepPercent * step).toFixed(valueFix));
+        const value = Number((result + min).toFixed(valueFix));
+        return value;
+    };
+    subscribe = (fn)=>{
+        const subscriber = {
+            eventName: (0, _interfaces.EventName).sliderChange,
+            function: fn
+        };
+        this.observer.subscribe(subscriber);
+    };
+    unsubscribe = (fn)=>{
+        const subscriber = {
+            eventName: (0, _interfaces.EventName).sliderChange,
+            function: fn
+        };
+        this.observer.unsubscribe(subscriber);
+    };
+}
+exports.default = Presenter;
+
+},{"../interfaces/interfaces":"1Ox8w","../model/model":"ixj1U","../view/view":"a9OmV","./utils/scale":"jxo06","./utils/handle":"8m6Op","./utils/lineBlock":"cecMt","./utils/validateModelOption":"eDSHo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../observer/observer":"aiZ7y"}],"1Ox8w":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ModelAction", ()=>ModelAction);
+parcelHelpers.export(exports, "HandlePosition", ()=>HandlePosition);
+parcelHelpers.export(exports, "EventName", ()=>EventName);
+let ModelAction;
+(function(ModelAction1) {
+    ModelAction1[ModelAction1["setMinValue"] = 0] = "setMinValue";
+    ModelAction1[ModelAction1["setMaxValue"] = 1] = "setMaxValue";
+    ModelAction1[ModelAction1["setFromValue"] = 2] = "setFromValue";
+    ModelAction1[ModelAction1["setToValue"] = 3] = "setToValue";
+    ModelAction1[ModelAction1["setStep"] = 4] = "setStep";
+    ModelAction1[ModelAction1["setStepScale"] = 5] = "setStepScale";
+    ModelAction1[ModelAction1["setIsVertical"] = 6] = "setIsVertical";
+    ModelAction1[ModelAction1["setIsInterval"] = 7] = "setIsInterval";
+    ModelAction1[ModelAction1["setIsLabel"] = 8] = "setIsLabel";
+    ModelAction1[ModelAction1["setIsProgressBar"] = 9] = "setIsProgressBar";
+    ModelAction1[ModelAction1["setIsScale"] = 10] = "setIsScale";
+    ModelAction1[ModelAction1["setFullState"] = 11] = "setFullState";
+})(ModelAction || (ModelAction = {}));
+let EventName;
+(function(EventName1) {
+    EventName1["clickedScaleItem"] = "clickedScaleItem";
+    EventName1["modelWasUpdate"] = "modelWasUpdate";
+    EventName1["clickedHandle"] = "clickedHandle";
+    EventName1["clickedLine"] = "clickedLine";
+    EventName1["sliderChange"] = "sliderChange";
+})(EventName || (EventName = {}));
+let HandlePosition;
+(function(HandlePosition1) {
+    HandlePosition1["from"] = "from";
+    HandlePosition1["to"] = "to";
+})(HandlePosition || (HandlePosition = {}));
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ixj1U":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _interfaces = require("../interfaces/interfaces");
+var _observer = require("../observer/observer");
+var _observerDefault = parcelHelpers.interopDefault(_observer);
+class Model {
+    observer = new (0, _observerDefault.default)();
+    constructor(options){
+        const { min , max , from , to , step , stepScale , isVertical , isInterval , isLabel , isScale , isProgressBar ,  } = options;
+        this.minValue = min;
+        this.maxValue = max;
+        this.fromValue = from;
+        this.toValue = to;
+        this.step = step;
+        this.stepScale = stepScale;
+        this.isVertical = isVertical;
+        this.isInterval = isInterval;
+        this.isLabel = isLabel;
+        this.isScale = isScale;
+        this.isProgressBar = isProgressBar;
+    }
+    updateState = ({ type , payload  })=>{
+        if (typeof payload.value === "number") {
+            switch(type){
+                case (0, _interfaces.ModelAction).setMinValue:
+                    this.minValue = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setMaxValue:
+                    this.maxValue = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setFromValue:
+                    this.fromValue = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setToValue:
+                    this.toValue = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setStep:
+                    this.step = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setStepScale:
+                    this.stepScale = payload.value;
+                    break;
+                default:
+                    break;
+            }
+            this.observer.notify({
+                eventName: (0, _interfaces.EventName).modelWasUpdate,
+                eventPayload: this.getState()
+            });
+        } else if (typeof payload.value === "boolean") {
+            switch(type){
+                case (0, _interfaces.ModelAction).setIsVertical:
+                    this.isVertical = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setIsInterval:
+                    this.isInterval = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setIsLabel:
+                    this.isLabel = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setIsProgressBar:
+                    this.isProgressBar = payload.value;
+                    break;
+                case (0, _interfaces.ModelAction).setIsScale:
+                    this.isScale = payload.value;
+                    break;
+                default:
+                    break;
+            }
+            this.observer.notify({
+                eventName: (0, _interfaces.EventName).modelWasUpdate,
+                eventPayload: this.getState()
+            });
+        } else if (typeof payload.value === "object") {
+            switch(type){
+                case (0, _interfaces.ModelAction).setFullState:
+                    this.minValue = payload.value.min;
+                    this.maxValue = payload.value.max;
+                    this.fromValue = payload.value.from;
+                    this.toValue = payload.value.to;
+                    this.step = payload.value.step;
+                    this.stepScale = payload.value.stepScale;
+                    this.isVertical = payload.value.isVertical;
+                    this.isInterval = payload.value.isInterval;
+                    this.isLabel = payload.value.isLabel;
+                    this.isScale = payload.value.isScale;
+                    this.isProgressBar = payload.value.isProgressBar;
+                    break;
+                default:
+                    break;
+            }
+            this.observer.notify({
+                eventName: (0, _interfaces.EventName).modelWasUpdate,
+                eventPayload: this.getState()
+            });
+        }
+    };
+    subscribe = (subscriber)=>{
+        this.observer.subscribe(subscriber);
+    };
+    getState = ()=>({
+            from: this.fromValue,
+            isInterval: this.isInterval,
+            isLabel: this.isLabel,
+            isProgressBar: this.isProgressBar,
+            isScale: this.isScale,
+            isVertical: this.isVertical,
+            max: this.maxValue,
+            min: this.minValue,
+            step: this.step,
+            stepScale: this.stepScale,
+            to: this.toValue
+        });
+}
+exports.default = Model;
+
+},{"../interfaces/interfaces":"1Ox8w","../observer/observer":"aiZ7y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aiZ7y":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class Observer {
+    constructor(){
+        this.subscribers = [];
+    }
+    subscribe = (subscriber)=>{
+        this.subscribers.push(subscriber);
+    };
+    unsubscribe = (subscriber)=>{
+        this.subscribers = this.subscribers.filter((el)=>el !== subscriber);
+    };
+    notify = (eventObject)=>{
+        this.subscribers.forEach((el)=>el.eventName === eventObject.eventName ? el.function(eventObject.eventPayload) : null);
+    };
+}
+exports.default = Observer;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a9OmV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _observer = require("../observer/observer");
+var _observerDefault = parcelHelpers.interopDefault(_observer);
+var _lineBlock = require("./components/lineBlock/lineBlock");
+var _lineBlockDefault = parcelHelpers.interopDefault(_lineBlock);
+var _scale = require("./components/scale/scale");
+var _scaleDefault = parcelHelpers.interopDefault(_scale);
+class View {
+    constructor({ options , container , scaleOptions , lineBlockOptions  }){
+        this.container = container;
+        this.options = options;
+        this.observer = new (0, _observerDefault.default)();
+        this.isVertical = options.isVertical;
+        this.init({
+            scaleOptions,
+            lineBlockOptions
+        });
+    }
+    init = ({ scaleOptions , lineBlockOptions  })=>{
+        this.slider = new (0, _lineBlockDefault.default)({
+            container: this.container,
+            model: this.options,
+            observer: this.observer,
+            options: lineBlockOptions
+        });
+        if (this.options.isScale) {
+            const scaleProps = {
+                container: this.container,
+                arrayScale: scaleOptions.scale,
+                shift: scaleOptions.shift,
+                observer: this.observer,
+                isVertical: this.isVertical
+            };
+            this.scale = new (0, _scaleDefault.default)(scaleProps);
+        }
+    };
+    updateView = ({ model , scaleProps , lineBlockOptions  })=>{
+        this.slider.update(model, lineBlockOptions);
+        if (model.isScale) this.scale.update(scaleProps);
+    };
+    subscribe = (subscriber)=>{
+        this.observer.subscribe(subscriber);
+    };
+}
+exports.default = View;
+
+},{"../observer/observer":"aiZ7y","./components/lineBlock/lineBlock":"kUmve","./components/scale/scale":"tbKgv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kUmve":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _interfaces = require("../../../interfaces/interfaces");
+var _handle = require("../handle/handle");
+var _handleDefault = parcelHelpers.interopDefault(_handle);
+var _label = require("../label/label");
+var _labelDefault = parcelHelpers.interopDefault(_label);
+var _progressBar = require("../progressBar/progressBar");
+var _progressBarDefault = parcelHelpers.interopDefault(_progressBar);
+var _lineBlockScss = require("./lineBlock.scss");
+class LineBlock {
+    constructor(lineOptions){
+        const { container , model , observer , options  } = lineOptions;
+        this.container = container;
+        this.state = model;
+        this.observer = observer;
+        this.init(options);
+    }
+    init = (options)=>{
+        const { progressBarWidth , shift , shiftFrom  } = options;
+        const lineBlock = document.createElement("div");
+        const activeBlock = document.createElement("div");
+        const { to , from  } = this.state;
+        lineBlock.classList.add("line-block");
+        this.container.setAttribute("data-isvertical", String(this.state.isVertical));
+        activeBlock.classList.add("line-block__active");
+        lineBlock.addEventListener("pointerdown", (e)=>this.observer.notify({
+                eventName: (0, _interfaces.EventName).clickedLine,
+                eventPayload: e
+            }));
+        if (this.state.isInterval) {
+            this.handleTo = new (0, _handleDefault.default)({
+                container: activeBlock,
+                shift,
+                observer: this.observer,
+                handlePosition: (0, _interfaces.HandlePosition).to,
+                isVertical: this.state.isVertical
+            });
+            if (this.state.isLabel) this.labelTo = new (0, _labelDefault.default)({
+                container: activeBlock,
+                shift,
+                text: to,
+                isVertical: this.state.isVertical
+            });
+            this.handleFrom = new (0, _handleDefault.default)({
+                container: activeBlock,
+                shift: shiftFrom,
+                observer: this.observer,
+                handlePosition: (0, _interfaces.HandlePosition).from,
+                isVertical: this.state.isVertical
+            });
+            if (this.state.isLabel) this.labelFrom = new (0, _labelDefault.default)({
+                container: activeBlock,
+                shift: shiftFrom,
+                text: from,
+                isVertical: this.state.isVertical
+            });
+        } else {
+            this.handleTo = new (0, _handleDefault.default)({
+                container: activeBlock,
+                shift,
+                observer: this.observer,
+                isVertical: this.state.isVertical
+            });
+            if (this.state.isLabel) this.labelTo = new (0, _labelDefault.default)({
+                container: activeBlock,
+                shift,
+                text: to,
+                isVertical: this.state.isVertical
+            });
+        }
+        lineBlock.append(activeBlock);
+        const ProgressBarOptions = {
+            container: lineBlock,
+            shiftFrom,
+            width: progressBarWidth,
+            isVertical: this.state.isVertical
+        };
+        if (this.state.isProgressBar) this.progressBar = new (0, _progressBarDefault.default)(ProgressBarOptions);
+        if (this.container) this.container.append(lineBlock);
+    };
+    update = (model, options)=>{
+        const { from , to , isInterval , isLabel , isVertical  } = model;
+        const { progressBarWidth , shift , shiftFrom  } = options;
+        if (isLabel) this.labelTo.update(to, shift);
+        if (isInterval) {
+            this.handleFrom.update(shiftFrom, isVertical);
+            if (isLabel) this.labelFrom.update(from, shiftFrom);
+        }
+        if (isVertical) this.handleTo.update(shift, isVertical);
+        else this.handleTo.update(shift);
+        if (this.state.isProgressBar) this.progressBar.update({
+            shiftFrom,
+            width: progressBarWidth,
+            isVertical: this.state.isVertical
+        });
+    };
+}
+exports.default = LineBlock;
+
+},{"../../../interfaces/interfaces":"1Ox8w","../handle/handle":"hACEb","../label/label":"5w9YT","../progressBar/progressBar":"b5HBq","./lineBlock.scss":"gN0z5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hACEb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _interfaces = require("../../../interfaces/interfaces");
+var _handleScss = require("./handle.scss");
+class Handle {
+    constructor({ container , shift , observer , handlePosition , isVertical  }){
+        this.container = container;
+        this.shift = shift;
+        this.observer = observer;
+        this.handlePosition = handlePosition;
+        this.isVertical = isVertical;
+        this.render();
+    }
+    render = ()=>{
+        const handle = document.createElement("div");
+        handle.classList.add("handler");
+        if (this.handlePosition) handle.dataset.handle = this.handlePosition;
+        this.handle = handle;
+        this.container.append(handle);
+        this.handle.addEventListener("pointerdown", (e)=>this.handleHandleClick(e));
+        this.update(this.shift, this.isVertical);
+    };
+    handleHandleClick = (event)=>{
+        this.observer.notify({
+            eventName: (0, _interfaces.EventName).clickedHandle,
+            eventPayload: event
+        });
+    };
+    update = (value, isVertical = false)=>{
+        this.shift = value;
+        this.isVertical = isVertical;
+        if (this.isVertical) this.handle.style.top = `${this.shift}%`;
+        else this.handle.style.left = `${this.shift}%`;
+    };
+}
+exports.default = Handle;
+
+},{"../../../interfaces/interfaces":"1Ox8w","./handle.scss":"cMQU5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMQU5":[function() {},{}],"5w9YT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _labelScss = require("./label.scss");
+class Label {
+    constructor({ container , shift , text , isVertical  }){
+        this.container = container;
+        this.shift = shift;
+        this.text = text;
+        this.isVertical = isVertical;
+        const label = document.createElement("div");
+        this.label = label;
+        this.render();
+    }
+    render = ()=>{
+        this.label.classList.add("label");
+        this.container.append(this.label);
+        this.update(this.text, this.shift);
+    };
+    update = (value, shift)=>{
+        this.text = value;
+        this.label.textContent = `${this.text}`;
+        this.shift = shift;
+        if (this.isVertical) this.label.style.top = `${this.shift}%`;
+        else this.label.style.left = `${this.shift}%`;
+    };
+}
+exports.default = Label;
+
+},{"./label.scss":"8BqjD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8BqjD":[function() {},{}],"b5HBq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _progressBarScss = require("./progressBar.scss");
+class ProgressBar {
+    constructor({ container , shiftFrom , width , isVertical  }){
+        this.container = container;
+        this.shiftFrom = shiftFrom;
+        this.isVertical = isVertical;
+        this.width = width;
+        this.render(this.container);
+    }
+    render = (container)=>{
+        const progressBar = document.createElement("div");
+        progressBar.classList.add("progress-bar");
+        container.appendChild(progressBar);
+        this.update({
+            shiftFrom: this.shiftFrom,
+            width: this.width,
+            isVertical: this.isVertical
+        });
+    };
+    update = ({ shiftFrom , width , isVertical  })=>{
+        this.shiftFrom = shiftFrom;
+        this.width = width;
+        const progressBarNode = this.container.querySelector(".progress-bar");
+        if (progressBarNode) {
+            if (isVertical) {
+                progressBarNode.style.top = `${this.shiftFrom}%`;
+                progressBarNode.style.height = `${this.width}%`;
+            } else {
+                progressBarNode.style.left = `${this.shiftFrom}%`;
+                progressBarNode.style.width = `${this.width}%`;
+            }
+        }
+    };
+}
+exports.default = ProgressBar;
+
+},{"./progressBar.scss":"eAsDs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eAsDs":[function() {},{}],"gN0z5":[function() {},{}],"tbKgv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _interfaces = require("../../../interfaces/interfaces");
+var _scaleScss = require("./scale.scss");
+class Scale {
+    constructor({ arrayScale , container , shift , observer , isVertical  }){
+        this.arrayScale = arrayScale;
+        this.container = container;
+        this.shift = shift;
+        this.observer = observer;
+        this.isVertical = isVertical;
+        this.render();
+    }
+    notify = (e)=>{
+        this.observer.notify({
+            eventName: (0, _interfaces.EventName).clickedScaleItem,
+            eventPayload: e
+        });
+    };
+    render = ()=>{
+        const scale = document.createElement("div");
+        scale.classList.add("scale");
+        this.arrayScale.forEach((el)=>{
+            const scaleNumber = this.createItem();
+            if (this.isVertical) scaleNumber.style.top = `${this.shift}`;
+            else scaleNumber.style.left = `${this.shift}`;
+            scaleNumber.textContent = `${el}`;
+            scaleNumber.addEventListener("pointerdown", (e)=>this.notify(e));
+            scale.appendChild(scaleNumber);
+        });
+        this.container.appendChild(scale);
+        const scaleNode = this.container.querySelector(".scale");
+        if (scaleNode) {
+            // eslint-disable-next-line no-undef
+            const scaleItemsNode = scaleNode.querySelectorAll(".scale__item");
+            let margin = 0;
+            for(let index = 0; index < scaleItemsNode.length; index += 1){
+                if (margin > 100) margin = 100;
+                if (this.isVertical) scaleItemsNode[index].style.top = `${margin}%`;
+                else scaleItemsNode[index].style.left = `${margin}%`;
+                margin += this.shift;
+            }
+            margin = 0;
+        }
+    };
+    update = ({ scale , shift  })=>{
+        this.arrayScale = scale;
+        this.shift = shift;
+        const scaleContainer = this.container.querySelector(".scale");
+        if (scaleContainer) scaleContainer.remove();
+        this.render();
+    };
+    createItem = ()=>{
+        const scale = document.createElement("div");
+        scale.classList.add("scale__item");
+        return scale;
+    };
+}
+exports.default = Scale;
+
+},{"../../../interfaces/interfaces":"1Ox8w","./scale.scss":"fZt7A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fZt7A":[function() {},{}],"jxo06":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "arrScaleCreator", ()=>arrScaleCreator);
+parcelHelpers.export(exports, "createArrScale", ()=>createArrScale);
+parcelHelpers.export(exports, "countValueRounding", ()=>countValueRounding);
+const countValueRounding = (step)=>{
+    const valuesEndNumber = String(step).split(".")[1];
+    const valueFix = valuesEndNumber ? valuesEndNumber.length : 0;
+    return valueFix;
+};
+const createArrScale = (min, max, step)=>{
+    const arrayScale = [];
+    for(let index = min; index <= max; index += step){
+        const valuesFix = countValueRounding(step);
+        const fixedValue = Number(index.toFixed(valuesFix));
+        if (index === min || index === max) arrayScale.push(index);
+        else arrayScale.push(fixedValue);
+    }
+    if ((max - min) % step !== 0) arrayScale.push(max);
+    return arrayScale;
+};
+const arrScaleCreator = ({ min , max , step  })=>{
+    const scale = createArrScale(min, max, step);
+    const shift = 100 / (max - min) * step;
+    return {
+        scale,
+        shift
+    };
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8m6Op":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getCoords", ()=>getCoords);
+function getCoords(elem) {
+    const { left , width , top , height  } = elem.getBoundingClientRect();
+    return {
+        left: left + scrollX,
+        width,
+        top: top + scrollY,
+        height
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cecMt":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "lineBlockCreator", ()=>lineBlockCreator);
+parcelHelpers.export(exports, "countStepPercent", ()=>countStepPercent);
+parcelHelpers.export(exports, "countShiftHandle", ()=>countShiftHandle);
+parcelHelpers.export(exports, "countProgressWidth", ()=>countProgressWidth);
+// рассчитываем начальный отступ
+const countShiftHandle = ({ min , current , max , step , isInterval , handle  })=>{
+    if (!isInterval && handle === "from") return 0;
+    const stepPercent = countStepPercent({
+        step,
+        max,
+        min
+    });
+    return (current - min) / step * stepPercent;
+};
+// рассчитываем шаг в процентах
+const countStepPercent = ({ step , max , min  })=>100 / ((max - min) / step);
+// расчитываем ширину прогрессбара
+const countProgressWidth = ({ step , max , min , to , from , isInterval  })=>{
+    const stepPercent = countStepPercent({
+        max,
+        min,
+        step
+    });
+    if (!isInterval) return (to - min) / step * stepPercent;
+    return Math.abs(to - from) / step * stepPercent;
+};
+const lineBlockCreator = (model)=>{
+    const { from , max , min , step , to , isInterval  } = model;
+    const shiftFrom = countShiftHandle({
+        current: from,
+        max,
+        min,
+        step,
+        isInterval,
+        handle: "from"
+    });
+    const shiftTo = countShiftHandle({
+        current: to,
+        max,
+        min,
+        step,
+        isInterval,
+        handle: "to"
+    });
+    const progressWidth = countProgressWidth({
+        from,
+        max,
+        min,
+        step,
+        to,
+        isInterval
+    });
+    return {
+        shiftFrom,
+        shiftTo,
+        progressWidth
+    };
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eDSHo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "validateModel", ()=>validateModel);
+const defaultOptions = {
+    min: 0,
+    max: 100,
+    from: 20,
+    to: 30,
+    step: 1,
+    stepScale: 1,
+    isVertical: false,
+    isInterval: false,
+    isLabel: true,
+    isScale: true,
+    isProgressBar: true
+};
+const validateModel = (model)=>{
+    const fullModel = {
+        ...defaultOptions,
+        ...model
+    };
+    const { max , min , step , from , to  } = fullModel;
+    const validateWidthMoreThenStep = Math.abs(max - min) >= step;
+    const validateFromLessThenMin = from >= min;
+    const validateToLessThenMax = to <= max;
+    const validateFromLessTo = from <= to;
+    const stepMoreThenZero = step > 0;
+    let isValid = false;
+    let errorMessage = "";
+    try {
+        if (!validateWidthMoreThenStep) throw Error("The difference between the maximum and minimum value must be equal to or greater than the step");
+        if (!validateFromLessThenMin) throw Error("The starting point of the start slider must be less than or equal to the slider's minimum value");
+        if (!validateToLessThenMax) throw Error("The ending point of the start slider must be less than or equal to the slider's maximum value");
+        if (!validateFromLessTo) throw Error("From point must be less or equal To point");
+        if (!stepMoreThenZero) throw Error("Step should be more then 0");
+        isValid = true;
+    } catch (e) {
+        errorMessage = e.message;
+        isValid = false;
+    } finally{
+        return [
+            isValid,
+            errorMessage
+        ];
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"11Cfd":[function() {},{}],"hgMhh":[function(require,module,exports) {
 /*!
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
@@ -7478,904 +8406,6 @@ exports.export = function(dest, destName, get) {
     return jQuery;
 });
 
-},{}],"fxfxT":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _presenter = require("./layers/presenter/presenter");
-var _presenterDefault = parcelHelpers.interopDefault(_presenter);
-var _validateModelOption = require("./layers/presenter/utils/validateModelOption");
-var _sliderScss = require("./slider.scss");
-var _jquery = require("jquery");
-var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-(0, _jqueryDefault.default).fn.slider = function(options) {
-    if (!this[0]) return;
-    const isValid = (0, _validateModelOption.validateModel)(options);
-    if (isValid) return new (0, _presenterDefault.default)({
-        options,
-        container: this[0]
-    });
-    throw Error("Options is not valid");
-};
-
-},{"./layers/presenter/presenter":"78EnD","./layers/presenter/utils/validateModelOption":"eDSHo","./slider.scss":"11Cfd","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78EnD":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _interfaces = require("../interfaces/interfaces");
-var _model = require("../model/model");
-var _modelDefault = parcelHelpers.interopDefault(_model);
-var _view = require("../view/view");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _scale = require("./utils/scale");
-var _handle = require("./utils/handle");
-var _lineBlock = require("./utils/lineBlock");
-var _validateModelOption = require("./utils/validateModelOption");
-class Presenter {
-    constructor({ options , container  }){
-        const defaultOptions = {
-            min: 0,
-            max: 100,
-            from: 20,
-            to: 30,
-            step: 1,
-            stepScale: 1,
-            isVertical: false,
-            isInterval: false,
-            isLabel: true,
-            isScale: true,
-            isProgressBar: true
-        };
-        this.container = container;
-        this.container.classList.add("js-slider");
-        this.state = {
-            ...defaultOptions,
-            ...options
-        };
-        this.model = new (0, _modelDefault.default)(this.state);
-        this.createView();
-        this.subscribeView();
-        this.subscribeModel();
-    }
-    createLineBlock = ()=>{
-        const { progressWidth , shiftFrom , shiftTo  } = (0, _lineBlock.lineBlockCreator)(this.state);
-        return {
-            progressBarWidth: progressWidth,
-            shift: shiftTo,
-            shiftFrom
-        };
-    };
-    createArrScale = ()=>{
-        const { max , min , stepScale  } = this.state;
-        const { scale , shift  } = (0, _scale.arrScaleCreator)({
-            max,
-            min,
-            step: stepScale
-        });
-        return {
-            scale,
-            shift
-        };
-    };
-    clickedScaleItemHandler = (e)=>{
-        if (!(e.target instanceof HTMLElement)) return;
-        const newValue = Number(e.target?.textContent);
-        this.updateModel(newValue);
-    };
-    clickedLineHandler = (event)=>{
-        let slider = this.container.querySelector(".lineBlock");
-        let progressbar = this.container.querySelector(".progressBar");
-        if (event.target !== progressbar && event.target !== slider) return;
-        if (!slider) return;
-        let value = this.countValueForModel(slider, event);
-        this.updateModel(value);
-    };
-    clickedHandleHandler = (event)=>{
-        if (!(event.target instanceof HTMLElement)) return;
-        const { min , isVertical , to , from  } = this.state;
-        let sliderSpan = event.target;
-        let slider = this.container.querySelector(".lineBlock");
-        if (to === min && from === min) {
-            const sliderSpanNode = this.container.querySelector("[data-handle=to]");
-            if (!sliderSpanNode) return;
-            sliderSpan = sliderSpanNode;
-        }
-        let position = sliderSpan?.dataset.handle;
-        if (!slider || !sliderSpan) return;
-        let sliderSpanCoords = (0, _handle.getCoords)(sliderSpan);
-        let shift = event.pageX - sliderSpanCoords.left;
-        if (isVertical) shift = event.pageY - sliderSpanCoords.top;
-        const mouseMoveHandler = (evt)=>{
-            if (slider) this.handleMove(evt, slider, position);
-        };
-        document.addEventListener("pointermove", mouseMoveHandler);
-        //Начнем движение ползунка
-        document.addEventListener("pointerup", function() {
-            document.removeEventListener("pointermove", mouseMoveHandler);
-        });
-    };
-    modelWasUpdate = (model)=>{
-        this.state = model;
-        const scaleProps = this.createArrScale();
-        const lineBlockOptions = this.createLineBlock();
-        this.view.updateView({
-            model,
-            scaleProps,
-            lineBlockOptions
-        });
-    };
-    subscribeView = ()=>{
-        this.view.subscribe({
-            eventName: (0, _interfaces.EventName).clickedScaleItem,
-            function: this.clickedScaleItemHandler
-        });
-        this.view.subscribe({
-            eventName: (0, _interfaces.EventName).clickedHandle,
-            function: this.clickedHandleHandler
-        });
-        this.view.subscribe({
-            eventName: (0, _interfaces.EventName).clickedLine,
-            function: this.clickedLineHandler
-        });
-    };
-    subscribeModel = ()=>{
-        this.model.subscribe({
-            eventName: (0, _interfaces.EventName).modelWasUpdate,
-            function: this.modelWasUpdate
-        });
-    };
-    getModel = ()=>{
-        return this.model;
-    };
-    createView = ()=>{
-        const scaleOptions = this.createArrScale();
-        const lineBlockOptions = this.createLineBlock();
-        this.view = new (0, _viewDefault.default)({
-            options: this.state,
-            container: this.container,
-            scaleOptions,
-            lineBlockOptions
-        });
-    };
-    fullUpdate = (options)=>{
-        const newState = {
-            ...this.state,
-            ...options
-        };
-        const isOptionsValid = (0, _validateModelOption.validateModel)(newState);
-        if (isOptionsValid) {
-            this.state = newState;
-            this.container.innerHTML = "";
-            this.createView();
-            this.subscribeView();
-            this.model.updateState({
-                type: (0, _interfaces.ModelAction).setFullState,
-                payload: {
-                    value: newState
-                }
-            });
-        } else throw Error("Options is not valide");
-    };
-    handleMove = (evt, slider, position)=>{
-        const { isInterval  } = this.state;
-        let value = this.countValueForModel(slider, evt);
-        if (isInterval) {
-            if (position === (0, _interfaces.HandlePosition).to) {
-                if (value < this.state.from) value = this.state.from;
-                this.model.updateState({
-                    type: (0, _interfaces.ModelAction).setToValue,
-                    payload: {
-                        value
-                    }
-                });
-            } else if (position === (0, _interfaces.HandlePosition).from) {
-                if (value > this.state.to) value = this.state.to;
-                this.model.updateState({
-                    type: (0, _interfaces.ModelAction).setFromValue,
-                    payload: {
-                        value
-                    }
-                });
-            }
-        } else this.model.updateState({
-            type: (0, _interfaces.ModelAction).setToValue,
-            payload: {
-                value
-            }
-        });
-    };
-    updateModel = (newValue)=>{
-        const { from , to , isInterval  } = this.state;
-        if (isInterval) {
-            const difFromNewValue = Math.abs(from - newValue);
-            const difToNewValue = Math.abs(to - newValue);
-            if (difToNewValue < difFromNewValue) this.model.updateState({
-                type: (0, _interfaces.ModelAction).setToValue,
-                payload: {
-                    value: newValue
-                }
-            });
-            else if (difToNewValue > difFromNewValue) this.model.updateState({
-                type: (0, _interfaces.ModelAction).setFromValue,
-                payload: {
-                    value: newValue
-                }
-            });
-            else if (difFromNewValue === difToNewValue) {
-                if (newValue < to) this.model.updateState({
-                    type: (0, _interfaces.ModelAction).setFromValue,
-                    payload: {
-                        value: newValue
-                    }
-                });
-                else this.model.updateState({
-                    type: (0, _interfaces.ModelAction).setToValue,
-                    payload: {
-                        value: newValue
-                    }
-                });
-            }
-        } else this.model.updateState({
-            type: (0, _interfaces.ModelAction).setToValue,
-            payload: {
-                value: newValue
-            }
-        });
-    };
-    countValueForModel = (slider, event)=>{
-        const { isVertical , max , min , step  } = this.state;
-        let sliderCoords = (0, _handle.getCoords)(slider);
-        let left = (event.pageY - sliderCoords.top) / sliderCoords.height * 100;
-        if (!isVertical) left = (event.pageX - sliderCoords.left) / sliderCoords.width * 100;
-        if (left < 0) left = 0;
-        if (left > 100) left = 100;
-        let stepCount = (max - min) / step;
-        let stepPercent = 100 / stepCount;
-        let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
-        if (stepLeft < 0) stepLeft = 0;
-        if (stepLeft > 100) stepLeft = 100;
-        const valueFix = (0, _scale.countValueRounding)(step);
-        let result = Number((stepLeft / stepPercent * step).toFixed(valueFix));
-        let value = Number((result + min).toFixed(valueFix));
-        return value;
-    };
-}
-exports.default = Presenter;
-
-},{"../interfaces/interfaces":"1Ox8w","../model/model":"ixj1U","../view/view":"a9OmV","./utils/scale":"jxo06","./utils/handle":"8m6Op","./utils/lineBlock":"cecMt","./utils/validateModelOption":"eDSHo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1Ox8w":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ModelAction", ()=>ModelAction);
-parcelHelpers.export(exports, "HandlePosition", ()=>HandlePosition);
-parcelHelpers.export(exports, "EventName", ()=>EventName);
-let ModelAction;
-(function(ModelAction1) {
-    ModelAction1[ModelAction1["setMinValue"] = 0] = "setMinValue";
-    ModelAction1[ModelAction1["setMaxValue"] = 1] = "setMaxValue";
-    ModelAction1[ModelAction1["setFromValue"] = 2] = "setFromValue";
-    ModelAction1[ModelAction1["setToValue"] = 3] = "setToValue";
-    ModelAction1[ModelAction1["setStep"] = 4] = "setStep";
-    ModelAction1[ModelAction1["setStepScale"] = 5] = "setStepScale";
-    ModelAction1[ModelAction1["setIsVertical"] = 6] = "setIsVertical";
-    ModelAction1[ModelAction1["setIsInterval"] = 7] = "setIsInterval";
-    ModelAction1[ModelAction1["setIsLabel"] = 8] = "setIsLabel";
-    ModelAction1[ModelAction1["setIsProgressBar"] = 9] = "setIsProgressBar";
-    ModelAction1[ModelAction1["setIsScale"] = 10] = "setIsScale";
-    ModelAction1[ModelAction1["setFullState"] = 11] = "setFullState";
-})(ModelAction || (ModelAction = {}));
-let EventName;
-(function(EventName1) {
-    EventName1["clickedScaleItem"] = "clickedScaleItem";
-    EventName1["modelWasUpdate"] = "modelWasUpdate";
-    EventName1["clickedHandle"] = "clickedHandle";
-    EventName1["clickedLine"] = "clickedLine";
-})(EventName || (EventName = {}));
-let HandlePosition;
-(function(HandlePosition1) {
-    HandlePosition1["from"] = "from";
-    HandlePosition1["to"] = "to";
-})(HandlePosition || (HandlePosition = {}));
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ixj1U":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _interfaces = require("../interfaces/interfaces");
-var _observer = require("../observer/observer");
-var _observerDefault = parcelHelpers.interopDefault(_observer);
-class Model {
-    observer = new (0, _observerDefault.default)();
-    constructor(options){
-        const { min , max , from , to , step , stepScale , isVertical , isInterval , isLabel , isScale , isProgressBar ,  } = options;
-        this.minValue = min;
-        this.maxValue = max;
-        this.fromValue = from;
-        this.toValue = to;
-        this.step = step;
-        this.stepScale = stepScale;
-        this.isVertical = isVertical;
-        this.isInterval = isInterval;
-        this.isLabel = isLabel;
-        this.isScale = isScale;
-        this.isProgressBar = isProgressBar;
-    }
-    updateState = ({ type , payload  })=>{
-        if (typeof payload.value === "number") {
-            switch(type){
-                case (0, _interfaces.ModelAction).setMinValue:
-                    this.minValue = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setMaxValue:
-                    this.maxValue = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setFromValue:
-                    this.fromValue = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setToValue:
-                    this.toValue = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setStep:
-                    this.step = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setStepScale:
-                    this.stepScale = payload.value;
-                    break;
-            }
-            this.observer.notify({
-                eventName: (0, _interfaces.EventName).modelWasUpdate,
-                eventPayload: this.getState()
-            });
-        } else if (typeof payload.value === "boolean") {
-            switch(type){
-                case (0, _interfaces.ModelAction).setIsVertical:
-                    this.isVertical = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setIsInterval:
-                    this.isInterval = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setIsLabel:
-                    this.isLabel = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setIsProgressBar:
-                    this.isProgressBar = payload.value;
-                    break;
-                case (0, _interfaces.ModelAction).setIsScale:
-                    this.isScale = payload.value;
-                    break;
-            }
-            this.observer.notify({
-                eventName: (0, _interfaces.EventName).modelWasUpdate,
-                eventPayload: this.getState()
-            });
-        } else if (typeof payload.value === "object") {
-            switch(type){
-                case (0, _interfaces.ModelAction).setFullState:
-                    this.minValue = payload.value.min;
-                    this.maxValue = payload.value.max;
-                    this.fromValue = payload.value.from;
-                    this.toValue = payload.value.to;
-                    this.step = payload.value.step;
-                    this.stepScale = payload.value.stepScale;
-                    this.isVertical = payload.value.isVertical;
-                    this.isInterval = payload.value.isInterval;
-                    this.isLabel = payload.value.isLabel;
-                    this.isScale = payload.value.isScale;
-                    this.isProgressBar = payload.value.isProgressBar;
-                    break;
-            }
-            this.observer.notify({
-                eventName: (0, _interfaces.EventName).modelWasUpdate,
-                eventPayload: this.getState()
-            });
-        }
-    };
-    subscribe = (subscriber)=>{
-        this.observer.subscribe(subscriber);
-    };
-    getState = ()=>{
-        return {
-            from: this.fromValue,
-            isInterval: this.isInterval,
-            isLabel: this.isLabel,
-            isProgressBar: this.isProgressBar,
-            isScale: this.isScale,
-            isVertical: this.isVertical,
-            max: this.maxValue,
-            min: this.minValue,
-            step: this.step,
-            stepScale: this.stepScale,
-            to: this.toValue
-        };
-    };
-}
-exports.default = Model;
-
-},{"../interfaces/interfaces":"1Ox8w","../observer/observer":"aiZ7y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aiZ7y":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-class Observer {
-    constructor(){
-        this.subscribers = [];
-    }
-    subscribe = (subscriber)=>{
-        this.subscribers.push(subscriber);
-    };
-    unsubscribe = (subscriber)=>{
-        this.subscribers = this.subscribers.filter((el)=>el !== subscriber);
-    };
-    notify = (eventObject)=>{
-        this.subscribers.forEach((el)=>el.eventName === eventObject.eventName ? el.function(eventObject.eventPayload) : null);
-    };
-}
-exports.default = Observer;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a9OmV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _observer = require("../observer/observer");
-var _observerDefault = parcelHelpers.interopDefault(_observer);
-var _lineBlock = require("./components/lineBlock/lineBlock");
-var _lineBlockDefault = parcelHelpers.interopDefault(_lineBlock);
-var _scale = require("./components/scale/scale");
-var _scaleDefault = parcelHelpers.interopDefault(_scale);
-class View {
-    constructor({ options , container , scaleOptions , lineBlockOptions  }){
-        this.container = container;
-        this.options = options;
-        this.observer = new (0, _observerDefault.default)();
-        this.isVertical = options.isVertical;
-        this.init({
-            scaleOptions,
-            lineBlockOptions
-        });
-    }
-    init = ({ scaleOptions , lineBlockOptions  })=>{
-        this.slider = new (0, _lineBlockDefault.default)({
-            container: this.container,
-            model: this.options,
-            observer: this.observer,
-            options: lineBlockOptions
-        });
-        if (this.options.isScale) {
-            let scaleProps = {
-                container: this.container,
-                arrayScale: scaleOptions.scale,
-                shift: scaleOptions.shift,
-                observer: this.observer,
-                isVertical: this.isVertical
-            };
-            this.scale = new (0, _scaleDefault.default)(scaleProps);
-        }
-    };
-    updateView = ({ model , scaleProps , lineBlockOptions  })=>{
-        this.slider.update(model, lineBlockOptions);
-        if (model.isScale) this.scale.update(scaleProps);
-    };
-    subscribe = (subscriber)=>{
-        this.observer.subscribe(subscriber);
-    };
-}
-exports.default = View;
-
-},{"../observer/observer":"aiZ7y","./components/lineBlock/lineBlock":"kUmve","./components/scale/scale":"tbKgv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kUmve":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _interfaces = require("../../../interfaces/interfaces");
-var _handle = require("../handle/handle");
-var _handleDefault = parcelHelpers.interopDefault(_handle);
-var _label = require("../label/label");
-var _labelDefault = parcelHelpers.interopDefault(_label);
-var _progressBar = require("../progressBar/progressBar");
-var _progressBarDefault = parcelHelpers.interopDefault(_progressBar);
-var _lineBlockScss = require("./lineBlock.scss");
-class lineBlock {
-    constructor(lineOptions){
-        const { container , model , observer , options  } = lineOptions;
-        this.container = container;
-        this.state = model;
-        this.observer = observer;
-        this.init(options);
-    }
-    init = (options)=>{
-        const { progressBarWidth , shift , shiftFrom  } = options;
-        const lineBlock1 = document.createElement("div");
-        const activeBlock = document.createElement("div");
-        const { to , from  } = this.state;
-        lineBlock1.classList.add("lineBlock");
-        this.container.setAttribute("data-isvertical", String(this.state.isVertical));
-        activeBlock.classList.add("lineBlock__active");
-        lineBlock1.addEventListener("pointerdown", (e)=>this.observer.notify({
-                eventName: (0, _interfaces.EventName).clickedLine,
-                eventPayload: e
-            }));
-        if (this.state.isInterval) {
-            this.handleTo = new (0, _handleDefault.default)({
-                container: activeBlock,
-                shift: shift,
-                observer: this.observer,
-                handlePosition: (0, _interfaces.HandlePosition).to,
-                isVertical: this.state.isVertical
-            });
-            if (this.state.isLabel) this.labelTo = new (0, _labelDefault.default)({
-                container: activeBlock,
-                shift: shift,
-                text: to,
-                isVertical: this.state.isVertical
-            });
-            this.handleFrom = new (0, _handleDefault.default)({
-                container: activeBlock,
-                shift: shiftFrom,
-                observer: this.observer,
-                handlePosition: (0, _interfaces.HandlePosition).from,
-                isVertical: this.state.isVertical
-            });
-            if (this.state.isLabel) this.labelFrom = new (0, _labelDefault.default)({
-                container: activeBlock,
-                shift: shiftFrom,
-                text: from,
-                isVertical: this.state.isVertical
-            });
-        } else {
-            this.handleTo = new (0, _handleDefault.default)({
-                container: activeBlock,
-                shift: shift,
-                observer: this.observer,
-                isVertical: this.state.isVertical
-            });
-            if (this.state.isLabel) this.labelTo = new (0, _labelDefault.default)({
-                container: activeBlock,
-                shift: shift,
-                text: to,
-                isVertical: this.state.isVertical
-            });
-        }
-        lineBlock1.append(activeBlock);
-        const ProgressBarOptions = {
-            container: lineBlock1,
-            shiftFrom: shiftFrom,
-            width: progressBarWidth,
-            isVertical: this.state.isVertical
-        };
-        if (this.state.isProgressBar) this.progressBar = new (0, _progressBarDefault.default)(ProgressBarOptions);
-        if (this.container) this.container.append(lineBlock1);
-    };
-    update = (model, options)=>{
-        const { from , to , isInterval , isLabel , isVertical  } = model;
-        const { progressBarWidth , shift , shiftFrom  } = options;
-        if (isLabel) this.labelTo.update(to, shift);
-        if (isInterval) {
-            this.handleFrom.update(shiftFrom, isVertical);
-            if (isLabel) this.labelFrom.update(from, shiftFrom);
-        }
-        if (isVertical) this.handleTo.update(shift, isVertical);
-        else this.handleTo.update(shift);
-        if (this.state.isProgressBar) this.progressBar.update({
-            shiftFrom: shiftFrom,
-            width: progressBarWidth,
-            isVertical: this.state.isVertical
-        });
-    };
-}
-exports.default = lineBlock;
-
-},{"../../../interfaces/interfaces":"1Ox8w","../handle/handle":"hACEb","../label/label":"5w9YT","../progressBar/progressBar":"b5HBq","./lineBlock.scss":"gN0z5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hACEb":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _interfaces = require("../../../interfaces/interfaces");
-var _handleScss = require("./handle.scss");
-class Handle {
-    constructor({ container , shift , observer , handlePosition , isVertical  }){
-        this.container = container;
-        this.shift = shift;
-        this.observer = observer;
-        this.handlePosition = handlePosition;
-        this.isVertical = isVertical;
-        this.render();
-    }
-    render = ()=>{
-        const handle = document.createElement("div");
-        handle.classList.add("handler");
-        if (this.handlePosition) handle.dataset.handle = this.handlePosition;
-        this.handle = handle;
-        this.container.append(handle);
-        this.handle.addEventListener("pointerdown", (e)=>this.clickHandler(e));
-        this.update(this.shift, this.isVertical);
-    };
-    clickHandler = (event)=>{
-        this.observer.notify({
-            eventName: (0, _interfaces.EventName).clickedHandle,
-            eventPayload: event
-        });
-    };
-    update = (value, isVertical = false)=>{
-        this.shift = value;
-        this.isVertical = isVertical;
-        if (this.isVertical) this.handle.style.top = `${this.shift}%`;
-        else this.handle.style.left = `${this.shift}%`;
-    };
-}
-exports.default = Handle;
-
-},{"../../../interfaces/interfaces":"1Ox8w","./handle.scss":"cMQU5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMQU5":[function() {},{}],"5w9YT":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _labelScss = require("./label.scss");
-class Label {
-    constructor({ container , shift , text , isVertical  }){
-        this.container = container;
-        this.shift = shift;
-        this.text = text;
-        this.isVertical = isVertical;
-        const label = document.createElement("div");
-        this.label = label;
-        this.render();
-    }
-    render = ()=>{
-        this.label.classList.add("label");
-        this.container.append(this.label);
-        this.update(this.text, this.shift);
-    };
-    update = (value, shift)=>{
-        this.text = value;
-        this.label.textContent = `${this.text}`;
-        this.shift = shift;
-        if (this.isVertical) this.label.style.top = `${this.shift}%`;
-        else this.label.style.left = `${this.shift}%`;
-    };
-}
-exports.default = Label;
-
-},{"./label.scss":"8BqjD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8BqjD":[function() {},{}],"b5HBq":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _progressBarScss = require("./progressBar.scss");
-class ProgressBar {
-    constructor({ container , shiftFrom , width , isVertical  }){
-        this.container = container;
-        this.shiftFrom = shiftFrom;
-        this.isVertical = isVertical;
-        this.width = width;
-        this.render(this.container);
-    }
-    render = (container)=>{
-        const progressBar = document.createElement("div");
-        progressBar.classList.add("progressBar");
-        container.appendChild(progressBar);
-        this.update({
-            shiftFrom: this.shiftFrom,
-            width: this.width,
-            isVertical: this.isVertical
-        });
-    };
-    update = ({ shiftFrom , width , isVertical  })=>{
-        this.shiftFrom = shiftFrom;
-        this.width = width;
-        const progressBarNode = this.container.querySelector(".progressBar");
-        if (progressBarNode) {
-            if (isVertical) {
-                progressBarNode.style.top = `${this.shiftFrom}%`;
-                progressBarNode.style.height = `${this.width}%`;
-            } else {
-                progressBarNode.style.left = `${this.shiftFrom}%`;
-                progressBarNode.style.width = `${this.width}%`;
-            }
-        }
-    };
-}
-exports.default = ProgressBar;
-
-},{"./progressBar.scss":"eAsDs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eAsDs":[function() {},{}],"gN0z5":[function() {},{}],"tbKgv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _interfaces = require("../../../interfaces/interfaces");
-var _scaleScss = require("./scale.scss");
-class Scale {
-    constructor({ arrayScale , container , shift , observer , isVertical  }){
-        this.arrayScale = arrayScale;
-        this.container = container;
-        this.shift = shift;
-        this.observer = observer;
-        this.isVertical = isVertical;
-        this.render();
-    }
-    notify = (e)=>{
-        this.observer.notify({
-            eventName: (0, _interfaces.EventName).clickedScaleItem,
-            eventPayload: e
-        });
-    };
-    render = ()=>{
-        const scale = document.createElement("div");
-        scale.classList.add("scale");
-        this.arrayScale.forEach((el)=>{
-            let scaleNumber = this.createItem();
-            if (this.isVertical) scaleNumber.style.top = `${this.shift}`;
-            else scaleNumber.style.left = `${this.shift}`;
-            scaleNumber.textContent = `${el}`;
-            scaleNumber.addEventListener("pointerdown", (e)=>this.notify(e));
-            scale.appendChild(scaleNumber);
-        });
-        this.container.appendChild(scale);
-        const scaleNode = this.container.querySelector(".scale");
-        if (scaleNode) {
-            let scaleItemsNode = scaleNode.querySelectorAll(".scale__item");
-            let margin = 0;
-            for(let index = 0; index < scaleItemsNode.length; index++){
-                if (margin > 100) margin = 100;
-                if (this.isVertical) scaleItemsNode[index].style.top = `${margin}%`;
-                else scaleItemsNode[index].style.left = `${margin}%`;
-                margin += this.shift;
-            }
-            margin = 0;
-        }
-    };
-    update = ({ scale , shift  })=>{
-        this.arrayScale = scale;
-        this.shift = shift;
-        const scaleContainer = this.container.querySelector(".scale");
-        if (scaleContainer) scaleContainer.remove();
-        this.render();
-    };
-    createItem = ()=>{
-        const scale = document.createElement("div");
-        scale.classList.add("scale__item");
-        return scale;
-    };
-}
-exports.default = Scale;
-
-},{"../../../interfaces/interfaces":"1Ox8w","./scale.scss":"fZt7A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fZt7A":[function() {},{}],"jxo06":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "arrScaleCreator", ()=>arrScaleCreator);
-parcelHelpers.export(exports, "createArrScale", ()=>createArrScale);
-parcelHelpers.export(exports, "countValueRounding", ()=>countValueRounding);
-const createArrScale = (min, max, step)=>{
-    let arrayScale = [];
-    for(let index = min; index <= max; index += step){
-        const valuesFix = countValueRounding(step);
-        const fixedValue = Number(index.toFixed(valuesFix));
-        if (index === min || index === max) arrayScale.push(index);
-        else arrayScale.push(fixedValue);
-    }
-    if ((max - min) % step !== 0) arrayScale.push(max);
-    return arrayScale;
-};
-const arrScaleCreator = ({ min , max , step  })=>{
-    const scale = createArrScale(min, max, step);
-    const shift = 100 / (max - min) * step;
-    return {
-        scale,
-        shift
-    };
-};
-const countValueRounding = (step)=>{
-    const valuesEndNumber = String(step).split(".")[1];
-    let valueFix;
-    valueFix = valuesEndNumber ? valuesEndNumber.length : 0;
-    return valueFix;
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8m6Op":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getCoords", ()=>getCoords);
-function getCoords(elem) {
-    let { left , width , top , height  } = elem.getBoundingClientRect();
-    return {
-        left: left + scrollX,
-        width: width,
-        top: top + scrollY,
-        height: height
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cecMt":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "lineBlockCreator", ()=>lineBlockCreator);
-parcelHelpers.export(exports, "countStepPercent", ()=>countStepPercent);
-parcelHelpers.export(exports, "countShiftHandle", ()=>countShiftHandle);
-parcelHelpers.export(exports, "countProgressWidth", ()=>countProgressWidth);
-//рассчитываем начальный отступ
-const countShiftHandle = ({ min , current , max , step , isInterval , handle  })=>{
-    if (!isInterval && handle === "from") return 0;
-    const stepPercent = countStepPercent({
-        step,
-        max,
-        min
-    });
-    return (current - min) / step * stepPercent;
-};
-//рассчитываем шаг в процентах
-const countStepPercent = ({ step , max , min  })=>{
-    return 100 / ((max - min) / step);
-};
-//расчитываем ширину прогрессбара
-const countProgressWidth = ({ step , max , min , to , from , isInterval  })=>{
-    const stepPercent = countStepPercent({
-        max,
-        min,
-        step
-    });
-    if (!isInterval) return (to - min) / step * stepPercent;
-    return Math.abs(to - from) / step * stepPercent;
-};
-const lineBlockCreator = (model)=>{
-    const { from , max , min , step , to , isInterval  } = model;
-    const shiftFrom = countShiftHandle({
-        current: from,
-        max,
-        min,
-        step,
-        isInterval,
-        handle: "from"
-    });
-    const shiftTo = countShiftHandle({
-        current: to,
-        max,
-        min,
-        step,
-        isInterval,
-        handle: "to"
-    });
-    const progressWidth = countProgressWidth({
-        from,
-        max,
-        min,
-        step,
-        to,
-        isInterval
-    });
-    return {
-        shiftFrom,
-        shiftTo,
-        progressWidth
-    };
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eDSHo":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "validateModel", ()=>validateModel);
-const defaultOptions = {
-    min: 0,
-    max: 100,
-    from: 20,
-    to: 100,
-    step: 1,
-    stepScale: 1,
-    isVertical: false,
-    isInterval: false,
-    isLabel: true,
-    isScale: true,
-    isProgressBar: true
-};
-const validateModel = (model)=>{
-    const fullModel = {
-        ...defaultOptions,
-        ...model
-    };
-    const { max , min , step , from , to  } = fullModel;
-    const validateWidthMoreThenStep = Math.abs(max - min) >= step;
-    const validateFromLessThenMin = from >= min;
-    const validateToLessThenMax = to <= max;
-    const validateFromLessTo = from <= to;
-    if (!validateWidthMoreThenStep) {
-        console.log("The difference between the maximum and minimum value must be equal to or greater than the step");
-        return false;
-    }
-    if (!validateFromLessThenMin) {
-        console.log("The starting point of the start slider must be less than or equal to the slider's minimum value");
-        return false;
-    }
-    if (!validateToLessThenMax) {
-        console.log("The ending point of the start slider must be less than or equal to the slider's maximum value");
-        return false;
-    }
-    if (!validateFromLessTo) {
-        console.log("From point must be less or equal To point");
-        return false;
-    }
-    return true;
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"11Cfd":[function() {},{}]},["eZkeR","9Invy"], "9Invy", "parcelRequire8bd1")
+},{}]},["eZkeR","9Invy"], "9Invy", "parcelRequire8bd1")
 
 //# sourceMappingURL=index.e054ac2a.js.map
