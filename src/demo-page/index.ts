@@ -1,7 +1,7 @@
-import { Controller } from './controller';
-import { IModelOptions } from '../slider/layers/interfaces/interfaces';
-import '../slider/slider';
 import $ from 'jquery';
+import { IModelOptions } from '../slider/layers/interfaces/interfaces';
+import { Controller } from './controller';
+import '../slider/slider';
 
 const options: Partial<IModelOptions>[] = [
   {

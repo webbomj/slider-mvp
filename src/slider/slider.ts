@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
+import $ from 'jquery';
+
 import { IModelOptions } from './layers/interfaces/interfaces';
 import Presenter from './layers/presenter/presenter';
 import { validateModel } from './layers/presenter/utils/validateModelOption';
 import './slider.scss';
-import $ from 'jquery';
 
 (function sliderMVP($) {
   $.fn.slider = function JQuerySlider(options: IModelOptions) {

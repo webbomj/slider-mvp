@@ -2,9 +2,10 @@
  * @jest-environment jsdom
  */
 
+import $ from 'jquery';
+
 import Presenter from '../../slider/layers/presenter/presenter';
 import { Controller } from '../controller';
-import $ from 'jquery';
 
 describe('Controller', () => {
   document.body.innerHTML = `

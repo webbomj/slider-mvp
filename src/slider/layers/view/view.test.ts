@@ -5,6 +5,7 @@
 
 import { IModelOptions } from '../interfaces/interfaces';
 import View from './view';
+
 document.body.innerHTML = `
     <div id="app"></div>
   `;

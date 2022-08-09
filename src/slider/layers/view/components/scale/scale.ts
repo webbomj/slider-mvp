@@ -2,9 +2,9 @@ import {
   EventName,
   IScaleOptions,
   IScaleProps,
-} from "../../../interfaces/interfaces";
-import Observer from "../../../observer/observer";
-import "./scale.scss";
+} from '../../../interfaces/interfaces';
+import Observer from '../../../observer/observer';
+import './scale.scss';
 
 class Scale {
   private arrayScale: number[];
@@ -36,8 +36,8 @@ class Scale {
   };
 
   private render = () => {
-    const scale = document.createElement("div");
-    scale.classList.add("scale");
+    const scale = document.createElement('div');
+    scale.classList.add('scale');
     this.arrayScale.forEach((el) => {
       let scaleNumber = this.createItem();
       if (this.isVertical) {
@@ -46,15 +46,16 @@ class Scale {
         scaleNumber.style.left = `${this.shift}`;
       }
       scaleNumber.textContent = `${el}`;
-      scaleNumber.addEventListener("pointerdown", (e) => this.notify(e));
+      scaleNumber.addEventListener('pointerdown', (e) => this.notify(e));
       scale.appendChild(scaleNumber);
     });
 
     this.container.appendChild(scale);
-    const scaleNode = this.container.querySelector(".scale");
+    const scaleNode = this.container.querySelector('.scale');
     if (scaleNode) {
+      // eslint-disable-next-line no-undef
       let scaleItemsNode: NodeListOf<HTMLDivElement> =
-        scaleNode.querySelectorAll(".scale__item");
+        scaleNode.querySelectorAll('.scale__item');
       let margin = 0;
       for (let index = 0; index < scaleItemsNode.length; index++) {
         if (margin > 100) {
@@ -75,7 +76,7 @@ class Scale {
   public update = ({ scale, shift }: IScaleProps) => {
     this.arrayScale = scale;
     this.shift = shift;
-    const scaleContainer = this.container.querySelector(".scale");
+    const scaleContainer = this.container.querySelector('.scale');
     if (scaleContainer) {
       scaleContainer.remove();
     }
@@ -83,8 +84,8 @@ class Scale {
   };
 
   private createItem = () => {
-    const scale = document.createElement("div");
-    scale.classList.add("scale__item");
+    const scale = document.createElement('div');
+    scale.classList.add('scale__item');
     return scale;
   };
 }

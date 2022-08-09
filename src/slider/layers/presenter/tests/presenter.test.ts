@@ -3,8 +3,8 @@
  */
 
 import { IModelOptions } from '../../interfaces/interfaces';
-import Presenter from '../presenter';
 import Model from '../../model/model';
+import Presenter from '../presenter';
 
 const $ = require('jquery');
 

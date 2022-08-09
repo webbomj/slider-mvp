@@ -11,11 +11,11 @@ import {
 } from '../interfaces/interfaces';
 import Model from '../model/model';
 import View from '../view/view';
+import Observer from '../observer/observer';
 import { arrScaleCreator, countValueRounding } from './utils/scale';
 import { getCoords } from './utils/handle';
 import { lineBlockCreator } from './utils/lineBlock';
 import { validateModel } from './utils/validateModelOption';
-import Observer from '../observer/observer';
 
 class Presenter {
   private model: Model;
