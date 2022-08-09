@@ -4,6 +4,7 @@ const {
   countProgressWidth,
   lineBlockCreator,
 } = require("../lineBlock");
+
 describe("lineBlock: countStepPercent function", () => {
   const options = { step: 3, max: 10, min: 1 };
   test("should return correct value", () => {

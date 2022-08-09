@@ -6,9 +6,13 @@ import './progressBar.scss';
 
 class ProgressBar {
   private container: HTMLElement;
+
   private shiftFrom: number;
+
   private width: number;
+
   private isVertical: boolean;
+
   constructor({
     container,
     shiftFrom,
@@ -21,6 +25,7 @@ class ProgressBar {
     this.width = width;
     this.render(this.container);
   }
+
   private render = (container: HTMLElement): void => {
     const progressBar = document.createElement('div');
     progressBar.classList.add('progress-bar');

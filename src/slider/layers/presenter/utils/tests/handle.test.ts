@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 const { getCoords } = require("../handle");
+
 describe("Handle: arrScaleCreator", () => {
   document.body.innerHTML = `
     <input id="newTodoInput" />

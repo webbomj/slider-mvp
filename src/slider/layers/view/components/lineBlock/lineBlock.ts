@@ -12,14 +12,21 @@ import Label from '../label/label';
 import ProgressBar from '../progressBar/progressBar';
 import './lineBlock.scss';
 
-class lineBlock {
+class LineBlock {
   private container: HTMLElement;
+
   private state;
+
   private progressBar: ProgressBar;
+
   private labelTo: Label;
+
   private labelFrom: Label;
+
   private handleTo: Handle;
+
   private handleFrom: Handle;
+
   private observer: Observer;
 
   constructor(lineOptions: ILineBlockProps) {
@@ -38,10 +45,7 @@ class lineBlock {
     const { to, from } = this.state;
 
     lineBlock.classList.add('line-block');
-    this.container.setAttribute(
-      'data-isvertical',
-      String(this.state.isVertical),
-    );
+    this.container.setAttribute('data-isvertical', String(this.state.isVertical));
     activeBlock.classList.add('line-block__active');
     lineBlock.addEventListener('pointerdown', (e) =>
       this.observer.notify({
@@ -53,7 +57,7 @@ class lineBlock {
     if (this.state.isInterval) {
       this.handleTo = new Handle({
         container: activeBlock,
-        shift: shift,
+        shift,
         observer: this.observer,
         handlePosition: HandlePosition.to,
         isVertical: this.state.isVertical,
@@ -61,7 +65,7 @@ class lineBlock {
       if (this.state.isLabel) {
         this.labelTo = new Label({
           container: activeBlock,
-          shift: shift,
+          shift,
           text: to,
           isVertical: this.state.isVertical,
         });
@@ -86,14 +90,14 @@ class lineBlock {
     } else {
       this.handleTo = new Handle({
         container: activeBlock,
-        shift: shift,
+        shift,
         observer: this.observer,
         isVertical: this.state.isVertical,
       });
       if (this.state.isLabel) {
         this.labelTo = new Label({
           container: activeBlock,
-          shift: shift,
+          shift,
           text: to,
           isVertical: this.state.isVertical,
         });
@@ -104,7 +108,7 @@ class lineBlock {
 
     const ProgressBarOptions: IProgressBarOptions = {
       container: lineBlock,
-      shiftFrom: shiftFrom,
+      shiftFrom,
       width: progressBarWidth,
       isVertical: this.state.isVertical,
     };
@@ -137,7 +141,7 @@ class lineBlock {
     }
     if (this.state.isProgressBar) {
       this.progressBar.update({
-        shiftFrom: shiftFrom,
+        shiftFrom,
         width: progressBarWidth,
         isVertical: this.state.isVertical,
       });
@@ -145,4 +149,4 @@ class lineBlock {
   };
 }
 
-export default lineBlock;
+export default LineBlock;

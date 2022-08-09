@@ -1,24 +1,19 @@
-import {
-  EventName,
-  IScaleOptions,
-  IScaleProps,
-} from '../../../interfaces/interfaces';
+import { EventName, IScaleOptions, IScaleProps } from '../../../interfaces/interfaces';
 import Observer from '../../../observer/observer';
 import './scale.scss';
 
 class Scale {
   private arrayScale: number[];
+
   private container: HTMLElement;
+
   private shift: number;
+
   private observer: Observer;
+
   private isVertical: boolean;
-  constructor({
-    arrayScale,
-    container,
-    shift,
-    observer,
-    isVertical,
-  }: IScaleOptions) {
+
+  constructor({ arrayScale, container, shift, observer, isVertical }: IScaleOptions) {
     this.arrayScale = arrayScale;
     this.container = container;
     this.shift = shift;
@@ -39,7 +34,7 @@ class Scale {
     const scale = document.createElement('div');
     scale.classList.add('scale');
     this.arrayScale.forEach((el) => {
-      let scaleNumber = this.createItem();
+      const scaleNumber = this.createItem();
       if (this.isVertical) {
         scaleNumber.style.top = `${this.shift}`;
       } else {
@@ -54,10 +49,9 @@ class Scale {
     const scaleNode = this.container.querySelector('.scale');
     if (scaleNode) {
       // eslint-disable-next-line no-undef
-      let scaleItemsNode: NodeListOf<HTMLDivElement> =
-        scaleNode.querySelectorAll('.scale__item');
+      const scaleItemsNode: NodeListOf<HTMLDivElement> = scaleNode.querySelectorAll('.scale__item');
       let margin = 0;
-      for (let index = 0; index < scaleItemsNode.length; index++) {
+      for (let index = 0; index < scaleItemsNode.length; index += 1) {
         if (margin > 100) {
           margin = 100;
         }

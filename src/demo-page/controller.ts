@@ -1,18 +1,19 @@
 import { IModelOptions } from '../slider/layers/interfaces/interfaces';
 import Presenter from '../slider/layers/presenter/presenter';
-import {
-  IControllerProps,
-  ICreateControlPanelProps,
-  NumberInputs,
-} from './interfaces';
+import { IControllerProps, ICreateControlPanelProps, NumberInputs } from './interfaces';
 import './controller.scss';
 
 class Controller {
   container: HTMLElement;
+
   slider: Presenter;
+
   state: IModelOptions;
+
   control: HTMLElement;
+
   numberInputs: string[];
+
   constructor({ container, slider }: IControllerProps) {
     this.container = container;
     this.slider = slider;
@@ -22,11 +23,23 @@ class Controller {
     this.setListeners();
   }
 
-  private createControlItem = (
-    type: string,
-    name: string,
-    value: number | boolean,
-  ) => {
+  inputsHandler = (e: Event) => {
+    if (!(e.target instanceof HTMLInputElement)) {
+      return;
+    }
+    let value: number | boolean;
+    const name = e.target.name as keyof NumberInputs;
+
+    if (this.numberInputs.includes(name)) {
+      value = Number(e.target.value);
+    } else {
+      value = e.target.checked;
+    }
+
+    this.slider.fullUpdate({ [name]: value });
+  };
+
+  private createControlItem = (type: string, name: string, value: number | boolean) => {
     const elementWrapper = document.createElement('div');
     elementWrapper.classList.add('control__item');
 
@@ -84,9 +97,7 @@ class Controller {
   };
 
   private setListeners = () => {
-    const rightBlockInputs = this.container.querySelectorAll(
-      '.control__rightBlock .control__input',
-    );
+    const rightBlockInputs = this.container.querySelectorAll('.control__rightBlock .control__input');
     rightBlockInputs?.forEach((el) =>
       el.addEventListener('blur', (e) => {
         this.inputsHandler(e);
@@ -97,22 +108,6 @@ class Controller {
     leftBlock?.addEventListener('click', (e) => {
       this.inputsHandler(e);
     });
-  };
-
-  inputsHandler = (e: Event) => {
-    if (!(e.target instanceof HTMLInputElement)) {
-      return;
-    }
-    let value: number | boolean;
-    const name = e.target.name as keyof NumberInputs;
-
-    if (this.numberInputs.includes(name)) {
-      value = Number(e.target.value);
-    } else {
-      value = e.target.checked;
-    }
-
-    this.slider.fullUpdate({ [name]: value });
   };
 }
 

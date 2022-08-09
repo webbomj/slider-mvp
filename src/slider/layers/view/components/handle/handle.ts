@@ -8,11 +8,17 @@ import "./handle.scss";
 
 class Handle {
   private container: HTMLElement;
+
   private shift: number;
+
   private isVertical: boolean;
+
   private handle: HTMLElement;
+
   private observer: Observer;
+
   private handlePosition: HandlePosition | undefined;
+
   constructor({
     container,
     shift,
@@ -27,6 +33,7 @@ class Handle {
     this.isVertical = isVertical;
     this.render();
   }
+
   private render = () => {
     const handle = document.createElement("div");
     handle.classList.add("handler");

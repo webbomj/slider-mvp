@@ -40,7 +40,7 @@ describe('View', () => {
         progressBarWidth: 120,
       };
       view = new View({
-        container: container ? container : document.body,
+        container: container || document.body,
         options,
         lineBlockOptions,
         scaleOptions,
@@ -97,7 +97,7 @@ describe('View', () => {
         progressBarWidth: 120,
       };
       view = new View({
-        container: container ? container : document.body,
+        container: container || document.body,
         options: options1,
         lineBlockOptions: lineBlockOptions1,
         scaleOptions,

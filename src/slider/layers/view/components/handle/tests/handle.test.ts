@@ -1,11 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-import { HandlePosition } from "../../../../interfaces/interfaces";
-import Observer from "../../../../observer/observer";
-import Handle from "../handle";
+import { HandlePosition } from '../../../../interfaces/interfaces';
+import Observer from '../../../../observer/observer';
+import Handle from '../handle';
 
-describe("Handle", () => {
+describe('Handle', () => {
   document.body.innerHTML = `
     <div id="app"></div>
   `;
@@ -19,15 +19,15 @@ describe("Handle", () => {
   let handleNode: HTMLElement | null;
 
   beforeEach(() => {
-    container = document.getElementById("app");
+    container = document.getElementById('app');
     handle = new Handle({
-      container: container ? container : document.body,
+      container: container || document.body,
       shift,
       observer,
       isVertical,
       handlePosition,
     });
-    handleNode = document.querySelector(".handler");
+    handleNode = document.querySelector('.handler');
   });
 
   afterEach(() => {
@@ -35,22 +35,22 @@ describe("Handle", () => {
     <div id="app"></div>
     `;
   });
-  test("Should have handler", () => {
+  test('Should have handler', () => {
     expect(handleNode).not.toBeNull();
   });
-  test("Should have a class: handler", () => {
-    expect(handleNode?.classList["0"]).toBe("handler");
+  test('Should have a class: handler', () => {
+    expect(handleNode?.classList['0']).toBe('handler');
   });
-  test("Should have a dataset: from", () => {
-    expect(handleNode?.dataset.handle).toBe("from");
+  test('Should have a dataset: from', () => {
+    expect(handleNode?.dataset.handle).toBe('from');
   });
 
-  test("Should have shift 20 to horisontal position", () => {
+  test('Should have shift 20 to horizontal position', () => {
     handle?.update(20, false);
-    expect(handleNode?.style.left).toBe("20%");
+    expect(handleNode?.style.left).toBe('20%');
   });
-  test("Should have shift 30 to vertical position", () => {
+  test('Should have shift 30 to vertical position', () => {
     handle?.update(30, true);
-    expect(handleNode?.style.top).toBe("30%");
+    expect(handleNode?.style.top).toBe('30%');
   });
 });

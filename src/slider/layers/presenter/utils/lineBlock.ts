@@ -5,7 +5,7 @@ import {
   IModelOptions,
 } from "../../interfaces/interfaces";
 
-//рассчитываем начальный отступ
+// рассчитываем начальный отступ
 const countShiftHandle = ({
   min,
   current,
@@ -21,12 +21,10 @@ const countShiftHandle = ({
   return ((current - min) / step) * stepPercent;
 };
 
-//рассчитываем шаг в процентах
-const countStepPercent = ({ step, max, min }: ICountStepPixelProps) => {
-  return 100 / ((max - min) / step);
-};
+// рассчитываем шаг в процентах
+const countStepPercent = ({ step, max, min }: ICountStepPixelProps) => 100 / ((max - min) / step);
 
-//расчитываем ширину прогрессбара
+// расчитываем ширину прогрессбара
 const countProgressWidth = ({
   step,
   max,

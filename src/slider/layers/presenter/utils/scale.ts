@@ -1,7 +1,14 @@
-import { ICreateArrScale } from "../../interfaces/interfaces";
+import { ICreateArrScale } from '../../interfaces/interfaces';
+
+const countValueRounding = (step: number) => {
+  const valuesEndNumber = String(step).split('.')[1];
+  const valueFix = valuesEndNumber ? valuesEndNumber.length : 0;
+
+  return valueFix;
+};
 
 const createArrScale = (min: number, max: number, step: number) => {
-  let arrayScale = [];
+  const arrayScale = [];
   for (let index = min; index <= max; index += step) {
     const valuesFix = countValueRounding(step);
     const fixedValue = Number(index.toFixed(valuesFix));
@@ -21,14 +28,6 @@ const arrScaleCreator = ({ min, max, step }: ICreateArrScale) => {
   const scale = createArrScale(min, max, step);
   const shift = (100 / (max - min)) * step;
   return { scale, shift };
-};
-
-const countValueRounding = (step: number) => {
-  const valuesEndNumber = String(step).split(".")[1];
-  let valueFix;
-  valueFix = valuesEndNumber ? valuesEndNumber.length : 0;
-
-  return valueFix;
 };
 
 export { arrScaleCreator, createArrScale, countValueRounding };

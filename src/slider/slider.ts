@@ -24,5 +24,3 @@ declare global {
     slider(options: Partial<IModelOptions>): Presenter | undefined;
   }
 }
-
-// export default $.fn.slider;

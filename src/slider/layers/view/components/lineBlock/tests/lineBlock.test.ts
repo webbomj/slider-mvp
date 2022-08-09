@@ -37,7 +37,7 @@ describe('label', () => {
         isProgressBar: true,
       };
       options = {
-        container: container ? container : document.body,
+        container: container || document.body,
         observer,
         model,
         options: { shift: 0, shiftFrom: 20, progressBarWidth: 300 },
@@ -62,7 +62,7 @@ describe('label', () => {
     });
   });
 
-  describe('lineBlock: update horisontal, positive, label, progressbar', () => {
+  describe('lineBlock: update horizontal, positive, label, progress-bar', () => {
     const iLineBlockOptions: ILineBlockOptions = {
       shift: 80,
       shiftFrom: 70,
@@ -84,7 +84,7 @@ describe('label', () => {
     beforeEach(() => {
       container = document.getElementById('app');
       options = {
-        container: container ? container : document.body,
+        container: container || document.body,
         observer,
         model,
         options: { shift: 0, shiftFrom: 20, progressBarWidth: 300 },
@@ -146,7 +146,7 @@ describe('label', () => {
     beforeEach(() => {
       container = document.getElementById('app');
       options = {
-        container: container ? container : document.body,
+        container: container || document.body,
         observer,
         model,
         options: { shift: 0, shiftFrom: 20, progressBarWidth: 300 },

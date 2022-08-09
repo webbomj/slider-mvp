@@ -9,7 +9,9 @@ class Label {
   private shift: number;
 
   private isVertical: boolean;
+
   private text: number;
+
   constructor({ container, shift, text, isVertical }: ILabelProps) {
     this.container = container;
     this.shift = shift;
@@ -19,11 +21,13 @@ class Label {
     this.label = label;
     this.render();
   }
+
   private render = () => {
     this.label.classList.add('label');
     this.container.append(this.label);
     this.update(this.text, this.shift);
   };
+
   update = (value: number, shift: number) => {
     this.text = value;
     this.label.textContent = `${this.text}`;

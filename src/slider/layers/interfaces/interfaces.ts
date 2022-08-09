@@ -12,7 +12,6 @@ interface IModelOptions {
   isLabel: boolean;
   isScale: boolean;
   isProgressBar: boolean;
-  // [key: string]: number | boolean;
 }
 
 enum ModelAction {

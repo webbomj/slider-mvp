@@ -166,18 +166,18 @@ describe('Presenter', () => {
     const positionTo = 'to';
     const positionFrom = 'from';
     const positionUndefined = undefined;
-    test('Should updatestate with positon from', () => {
+    test('Should updatestate with position from', () => {
       presenter.handleMove(event2, slider, positionFrom);
 
       expect(presenter.getModel().getState().to).toBe(10);
       expect(presenter.getModel().getState().from).toBe(10);
     });
-    test('Should updatestate with positon to', () => {
+    test('Should updatestate with position to', () => {
       presenter.handleMove(event1, slider, positionTo);
       expect(presenter.getModel().getState().to).toBe(10);
       expect(presenter.getModel().getState().from).toBe(1);
     });
-    test('Should updatestate with positon undefined', () => {
+    test('Should updatestate with position undefined', () => {
       presenter.handleMove(event1, slider, positionUndefined);
       expect(presenter.getModel().getState().to).toBe(10);
       expect(presenter.getModel().getState().from).toBe(1);

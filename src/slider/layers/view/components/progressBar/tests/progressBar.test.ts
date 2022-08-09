@@ -10,13 +10,13 @@ describe('progressBar', () => {
     <div id="app"></div>
   `;
   let container: HTMLElement | null;
-  let observer = new Observer();
+  const observer = new Observer();
   let progressBar: ProgressBar;
   let progressBarNode: HTMLElement | null;
   beforeEach(() => {
     container = document.getElementById('app');
-    let options = {
-      container: container ? container : document.body,
+    const options = {
+      container: container || document.body,
       shiftFrom: 20,
       isVertical: false,
       observer,

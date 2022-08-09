@@ -14,8 +14,8 @@ describe('Scale', () => {
   let itemsNode: NodeListOf<HTMLDivElement>;
   beforeEach(() => {
     container = document.getElementById('app');
-    let options = {
-      container: container ? container : document.body,
+    const options = {
+      container: container || document.body,
       arrayScale: [1, 2, 3, 4, 5],
       isVertical: false,
       observer,
@@ -49,8 +49,8 @@ describe('Scale', () => {
   test('Should items have correct margin top in vertical position', () => {
     document.body.innerHTML = `<div id="app"></div>`;
     container = document.getElementById('app');
-    let options = {
-      container: container ? container : document.body,
+    const options = {
+      container: container || document.body,
       arrayScale: [1, 2, 3, 4, 5],
       isVertical: true,
       observer,

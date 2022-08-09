@@ -19,10 +19,15 @@ import { validateModel } from './utils/validateModelOption';
 
 class Presenter {
   private model: Model;
+
   private view: View;
+
   private state: IModelOptions;
+
   private container: HTMLElement;
+
   private observer: Observer;
+
   constructor({ options, container }: IPresenterOptions) {
     this.observer = new Observer();
 
@@ -72,9 +77,9 @@ class Presenter {
   };
 
   clickedLineHandler = (event: PointerEvent) => {
-    let slider: HTMLElement | null =
+    const slider: HTMLElement | null =
       this.container.querySelector('.line-block');
-    let progressbar = this.container.querySelector('.progress-bar');
+    const progressbar = this.container.querySelector('.progress-bar');
     if (event.target !== progressbar && event.target !== slider) {
       return;
     }
@@ -82,7 +87,7 @@ class Presenter {
       return;
     }
 
-    let value = this.countValueForModel(slider, event);
+    const value = this.countValueForModel(slider, event);
     this.updateModel(value);
   };
 
@@ -93,7 +98,7 @@ class Presenter {
 
     const { min, isVertical, to, from } = this.state;
     let sliderSpan = event.target;
-    let slider: HTMLElement | null =
+    const slider: HTMLElement | null =
       this.container.querySelector('.line-block');
 
     if (to === min && from === min) {
@@ -105,13 +110,13 @@ class Presenter {
       sliderSpan = sliderSpanNode;
     }
 
-    let position = sliderSpan?.dataset.handle;
+    const position = sliderSpan?.dataset.handle;
 
     if (!slider || !sliderSpan) {
       return;
     }
 
-    let sliderSpanCoords = getCoords(sliderSpan);
+    const sliderSpanCoords = getCoords(sliderSpan);
 
     let shift = event.pageX - sliderSpanCoords.left;
     if (isVertical) {
@@ -125,7 +130,7 @@ class Presenter {
     };
     document.addEventListener('pointermove', mouseMoveHandler);
 
-    //Начнем движение ползунка
+    // Начнем движение ползунка
     document.addEventListener('pointerup', () => {
       document.removeEventListener('pointermove', mouseMoveHandler);
     });
@@ -166,13 +171,9 @@ class Presenter {
     });
   };
 
-  getModel = () => {
-    return this.model;
-  };
+  getModel = () => this.model;
 
-  getState = () => {
-    return this.state;
-  };
+  getState = () => this.state;
 
   createView = () => {
     const scaleOptions = this.createArrScale();
@@ -280,7 +281,7 @@ class Presenter {
 
   countValueForModel = (slider: HTMLElement, event: PointerEvent): number => {
     const { isVertical, max, min, step } = this.state;
-    let sliderCoords = getCoords(slider);
+    const sliderCoords = getCoords(slider);
     let left = ((event.pageY - sliderCoords.top) / sliderCoords.height) * 100;
     if (!isVertical) {
       left = ((event.pageX - sliderCoords.left) / sliderCoords.width) * 100;
@@ -288,8 +289,8 @@ class Presenter {
     if (left < 0) left = 0;
     if (left > 100) left = 100;
 
-    let stepCount = (max - min) / step;
-    let stepPercent = 100 / stepCount;
+    const stepCount = (max - min) / step;
+    const stepPercent = 100 / stepCount;
     let stepLeft = Math.ceil(left / stepPercent) * stepPercent;
 
     if (stepLeft < 0) stepLeft = 0;
@@ -297,8 +298,8 @@ class Presenter {
 
     const valueFix = countValueRounding(step);
 
-    let result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
-    let value = Number((result + min).toFixed(valueFix));
+    const result = Number(((stepLeft / stepPercent) * step).toFixed(valueFix));
+    const value = Number((result + min).toFixed(valueFix));
     return value;
   };
 

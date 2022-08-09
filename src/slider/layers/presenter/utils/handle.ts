@@ -1,11 +1,11 @@
 function getCoords(elem: HTMLElement) {
-  let { left, width, top, height } = elem.getBoundingClientRect();
+  const { left, width, top, height } = elem.getBoundingClientRect();
 
   return {
     left: left + scrollX,
-    width: width,
+    width,
     top: top + scrollY,
-    height: height,
+    height,
   };
 }
 

@@ -66,6 +66,7 @@ dataArray.forEach((data) => {
   const slider = $(`${data[0]}`).slider(data[1]);
   const firstContainer = $(`${data[2]}`)[0];
   if (slider) {
+    // eslint-disable-next-line no-new
     new Controller({
       container: firstContainer,
       slider: slider,

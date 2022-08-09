@@ -5,8 +5,8 @@ import {
   IObserver,
   ISubscriber,
   EventName,
-} from "../interfaces/interfaces";
-import Observer from "../observer/observer";
+} from '../interfaces/interfaces';
+import Observer from '../observer/observer';
 
 export default class Model {
   private minValue: number;
@@ -62,7 +62,7 @@ export default class Model {
   }
 
   updateState = ({ type, payload }: IModelAction): void => {
-    if (typeof payload.value === "number") {
+    if (typeof payload.value === 'number') {
       switch (type) {
         case ModelAction.setMinValue:
           this.minValue = payload.value;
@@ -82,12 +82,14 @@ export default class Model {
         case ModelAction.setStepScale:
           this.stepScale = payload.value;
           break;
+        default:
+          break;
       }
       this.observer.notify({
         eventName: EventName.modelWasUpdate,
         eventPayload: this.getState(),
       });
-    } else if (typeof payload.value === "boolean") {
+    } else if (typeof payload.value === 'boolean') {
       switch (type) {
         case ModelAction.setIsVertical:
           this.isVertical = payload.value;
@@ -104,12 +106,14 @@ export default class Model {
         case ModelAction.setIsScale:
           this.isScale = payload.value;
           break;
+        default:
+          break;
       }
       this.observer.notify({
         eventName: EventName.modelWasUpdate,
         eventPayload: this.getState(),
       });
-    } else if (typeof payload.value === "object") {
+    } else if (typeof payload.value === 'object') {
       switch (type) {
         case ModelAction.setFullState:
           this.minValue = payload.value.min;
@@ -124,6 +128,8 @@ export default class Model {
           this.isScale = payload.value.isScale;
           this.isProgressBar = payload.value.isProgressBar;
           break;
+        default:
+          break;
       }
       this.observer.notify({
         eventName: EventName.modelWasUpdate,
@@ -136,19 +142,17 @@ export default class Model {
     this.observer.subscribe(subscriber);
   };
 
-  public getState = (): IModelOptions => {
-    return {
-      from: this.fromValue,
-      isInterval: this.isInterval,
-      isLabel: this.isLabel,
-      isProgressBar: this.isProgressBar,
-      isScale: this.isScale,
-      isVertical: this.isVertical,
-      max: this.maxValue,
-      min: this.minValue,
-      step: this.step,
-      stepScale: this.stepScale,
-      to: this.toValue,
-    };
-  };
+  public getState = (): IModelOptions => ({
+    from: this.fromValue,
+    isInterval: this.isInterval,
+    isLabel: this.isLabel,
+    isProgressBar: this.isProgressBar,
+    isScale: this.isScale,
+    isVertical: this.isVertical,
+    max: this.maxValue,
+    min: this.minValue,
+    step: this.step,
+    stepScale: this.stepScale,
+    to: this.toValue,
+  });
 }
