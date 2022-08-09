@@ -4,7 +4,7 @@ const defaultOptions: IModelOptions = {
   min: 0,
   max: 100,
   from: 20,
-  to: 100,
+  to: 30,
   step: 1,
   stepScale: 1,
   isVertical: false,
