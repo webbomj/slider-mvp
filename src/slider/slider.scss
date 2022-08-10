@@ -5,28 +5,35 @@
   justify-content: center;
   width: 70%;
   padding: 35px;
-  &[data-isvertical="true"] {
+
+  &[data-isvertical='true'] {
     flex-direction: row;
+
     & .line-block {
-      height: 100%;
       width: 6px;
+      height: 100%;
       margin-left: 5px;
       touch-action: none;
+
       & .handler {
         top: 0%;
         transform: translate(-30%, -5px);
       }
+
       & .progress-bar {
         width: 100%;
       }
+
       & ~ .scale {
         flex-direction: column;
         margin-top: 0;
         margin-left: -35px;
+
         & .scale__item {
           transform: translateY(-50%);
         }
       }
+
       & .label {
         margin-left: 30px;
         transform: translateY(-50%);

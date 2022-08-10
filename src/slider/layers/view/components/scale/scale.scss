@@ -1,7 +1,8 @@
 .scale {
+  position: relative;
   margin-top: 10px;
   cursor: pointer;
-  position: relative;
+
   &__item {
     position: absolute;
     transform: translateX(-50%);

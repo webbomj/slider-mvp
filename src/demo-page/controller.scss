@@ -1,15 +1,18 @@
 .control {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
+
   &__item {
     margin-right: 20px;
   }
+
   &__header {
     display: inline-block;
-    font-size: 1.17em;
     font-weight: bold;
+    font-size: 1.17em;
   }
+
   &__input {
     cursor: pointer;
   }
