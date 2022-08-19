@@ -12,7 +12,8 @@
     "build": "parcel build src/slider/slider.ts",
     "buildDemoPage": "parcel build src/demo-page/index.html --public-url ./",
     "predeployDemoPage": "npm run buildDemoPage",
-    "deployDemoPage": "gh-pages -d dist"
+    "deployDemoPage": "gh-pages -d dist",
+    "eslint": "npx eslint . --fix"
   },
   "author": "",
   "license": "ISC",

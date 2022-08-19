@@ -17,6 +17,7 @@
     "$": "readonly",
     "jQuery": "readonly"
   },
+  "ignorePatterns": ["node_modules/**", "dist/**"],
   "rules": {
     "no-new": "warn",
     "func-names": "warn",
