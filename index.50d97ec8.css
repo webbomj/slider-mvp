@@ -5,11 +5,23 @@ body {
   font-size: 14px;
 }
 
+@media (max-width: 612px) {
+  .app__slider {
+    height: 200px;
+  }
+}
+
 .app__slider-wrapper {
   border: 1px solid #000;
   margin-bottom: 10px;
   padding: 15px;
   display: flex;
+}
+
+@media (max-width: 612px) {
+  .app__slider-wrapper {
+    flex-wrap: wrap;
+  }
 }
 
 .app__control {
@@ -37,9 +49,9 @@ body {
 }
 
 .handler {
+  z-index: 3;
   width: 12px;
   height: 12px;
-  z-index: 3;
   background: linear-gradient(#6fcf97 0%, #66d2ea 100%);
   border: 2px solid #fff;
   border-radius: 10px;
@@ -63,18 +75,18 @@ body {
 }
 
 .progress-bar {
-  height: 6px;
   z-index: 2;
+  height: 6px;
   background: linear-gradient(#6fcf97 0%, #66d2ea 100%);
   position: absolute;
 }
 
 .line-block {
   box-sizing: border-box;
-  height: 6px;
   width: 100%;
-  touch-action: none;
+  height: 6px;
   cursor: pointer;
+  touch-action: none;
   background: #fff;
   border-radius: 3px;
   outline: 1px solid #1f204140;
@@ -107,8 +119,8 @@ body {
 }
 
 .js-slider[data-isvertical="true"] .line-block {
-  height: 100%;
   width: 6px;
+  height: 100%;
   touch-action: none;
   margin-left: 5px;
 }
